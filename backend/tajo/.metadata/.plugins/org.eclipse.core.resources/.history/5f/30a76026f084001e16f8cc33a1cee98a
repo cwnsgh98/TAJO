@@ -1,0 +1,5 @@
+package com.tajo.dto;
+
+public class User {
+
+}

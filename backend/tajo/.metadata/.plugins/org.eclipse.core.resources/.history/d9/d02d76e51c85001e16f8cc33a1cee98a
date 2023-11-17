@@ -1,0 +1,5 @@
+package com.tajo.service;
+
+public class GroupSerivceImpl implements GroupService {
+	
+}

@@ -1,0 +1,5 @@
+package com.tajo.config;
+
+public class WebConfig {
+
+}

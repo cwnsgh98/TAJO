@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tajo.dao.GroupDao">
+
+	<!-- 전체글 조회 -->
+	<select id="selectAll" resultType="Group"
+		parameterType="String">
+		SELECT *
+		FROM groupBoard
+	</select>
+
+	<!-- 상세글 조회 -->
+	<select id="selectOne" resultType="Group" parameterType="int">
+		SELECT *
+		FROM groupBoard
+		WHERE id = #{id};
+	</select>
+
+	<!-- 게시글 등록 -->
+	<insert id="insertGroup" parameterType="Group" useGeneratedKeys="true">
+		INSERT INTO groupBoard (title, content, courseid)
+		VALUES (#{title},#{content},#{courseid})	
+	</insert>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deleteGroup" parameterType="int">
+		DELETE FROM groupBoard
+		WHERE groupid = #{groupid}
+	</delete>
+
+	<!-- 게시글 수정 -->
+	<update id="updateGroup" parameterType="Group">
+		UPDATE groupBoard
+		SET 
+		WHERE groupid = #{groupid}
+	</update>
+
+
+
+</mapper>

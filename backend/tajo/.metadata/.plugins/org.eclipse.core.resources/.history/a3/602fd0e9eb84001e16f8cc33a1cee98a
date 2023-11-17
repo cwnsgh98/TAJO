@@ -1,0 +1,5 @@
+package com.tajo.dao;
+
+public class CourseDao {
+
+}
