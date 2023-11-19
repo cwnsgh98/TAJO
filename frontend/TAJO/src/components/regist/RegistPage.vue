@@ -7,7 +7,7 @@
             <div class="loginbox">
                 <div class="login_id">
                     <img class="icon" src="@/assets/ostrich1.png">
-                    <label for="userid"> 수준 :</label>
+                    <label for="userid"> 나는 평소에 이렇게 달려요 :</label>
                     <input id="userid" type="text" v-model="level">
                 </div>
                 <div class="login_id">
