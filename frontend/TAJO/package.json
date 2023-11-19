@@ -14,6 +14,7 @@
     "pinia": "^2.1.7",
     "vbase": "^0.0.38",
     "vue": "^3.3.4",
+    "vue-geolocation-api": "^0.1.21",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {

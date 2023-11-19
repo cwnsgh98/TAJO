@@ -5,3 +5,7 @@
 4. 모든 id 속성 userid로 변경
 5. 로그인, 회원가입 창에서 라우터 이용하는 이벤트 변경
 6. a태그로 만든 로그아웃 버튼 수정 요망
+
+- 11.19. 20.48 날씨 api, 현재 위치에 따른 api 기능 구현 by 담현 -
+1. HomeWeather.vue에서 script태그와 template 수정
+2. .env.local 파일 추가. API key 정보 여기에 포함되어있음

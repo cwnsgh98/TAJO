@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS `tajodb`.`course` (
   `courseid` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `content` VARCHAR(45) NULL,
+  `viewCnt` int default 0,
+  
   PRIMARY KEY (`courseid`))
 ENGINE = InnoDB;
 
