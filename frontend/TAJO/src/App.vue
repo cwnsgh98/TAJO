@@ -1,4 +1,3 @@
-
 <template>
   <div class="body">
   <header>
@@ -88,7 +87,7 @@ const createUser = (user) => {
         });
 };
 
-  </script>
+</script>
 <style scoped>
 @font-face {
   font-family: 'cookierun';

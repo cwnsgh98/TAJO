@@ -1,25 +1,44 @@
 <template>
     <div>
-        <div class="footernav">
-            <RouterLink to="/" class="router-link">
-                <img class="홈로고" src="@/assets/로고홈.png" />
-            </RouterLink>
-            <RouterLink to="/Together" class="router-link">
-                <img class="같이타조로고" src="@/assets/로고같이타조.png" />
-            </RouterLink>
-            <RouterLink to="/Wherego" class="router-link">
-                <img class="어디가조로고" src="@/assets/로고어디가조.png" />
-            </RouterLink>
-            <RouterLink to="/Mytajo" class="router-link">
-                <img class="마이타조로고" src="@/assets/로고마이타조.png" />
-            </RouterLink>
-        </div>
+      <div class="footernav">
+        <RouterLink to="/" class="router-link">
+          <img class="홈로고" :src="getLogoPath('logohome.png')" />
+        </RouterLink>
+        <RouterLink to="/Together" class="router-link">
+          <img class="같이타조로고" :src="getLogoPath('logotogether.png')" />
+        </RouterLink>
+        <RouterLink to="/Wherego" class="router-link">
+          <img class="어디가조로고" :src="getLogoPath('logowhere.png')" />
+        </RouterLink>
+        <RouterLink to="/Mytajo" class="router-link">
+          <img class="마이타조로고" :src="getLogoPath('logomytajo.png')" />
+        </RouterLink>
+      </div>
     </div>
-</template>
-
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
+  </template>
+  
+  <script setup>
+  import { ref, onBeforeMount } from 'vue';
+  import { useRouter, useRoute } from 'vue-router';
+  
+  const router = useRouter();
+  const route = useRoute();
+  
+  const getLogoPath = (imageName) => {
+    const currentPath = route.path;
+    const isCurrentPath = (path) => currentPath === path;
+  
+    return isCurrentPath('/') && imageName.includes('logohome')
+      ? `src/assets/${imageName.replace('.png', 'change.png')}`
+      : isCurrentPath('/Together') && imageName.includes('logotogether')
+      ? `src/assets/${imageName.replace('.png', 'change.png')}`
+      : isCurrentPath('/Wherego') && imageName.includes('logowhere')
+      ? `src/assets/${imageName.replace('.png', 'change.png')}`
+      : isCurrentPath('/Mytajo') && imageName.includes('logomytajo')
+      ? `src/assets/${imageName.replace('.png', 'change.png')}`
+      : `src/assets/${imageName}`;
+  };
+  </script>
 
 <style scoped>
 .router-link {
@@ -62,4 +81,9 @@ img {
 .어디가조로고 {
     width: 67px;
     height: 83px;
-}</style>
+}
+</style>
+
+
+
+

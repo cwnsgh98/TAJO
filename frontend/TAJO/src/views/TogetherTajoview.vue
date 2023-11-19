@@ -1,11 +1,11 @@
 <template>
     <div>
-        <h2>같이가조페이지입니다</h2>
+        <TogetherMain/>
     </div>
 </template>
 
 <script setup>
-
+import TogetherMain from '../components/같이타조/TogetherMain.vue';
 </script>
 
 <style scoped>
