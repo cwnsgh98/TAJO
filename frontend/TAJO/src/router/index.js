@@ -10,6 +10,8 @@ import RegistPage from '@/components/regist/RegistPage.vue'
 
 import WheregoZZIM from '@/views/WheregoZZIM.vue'
 
+import TogetherDetail from '@/views/TogetherDetail.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(){
@@ -61,6 +63,11 @@ const router = createRouter({
       path: '/Wheregozzim',
       name: 'Wheregozzim',
       component: WheregoZZIM
+    },
+    {
+      path: '/Togetherdetail',
+      name: 'Togetherdetail',
+      component: TogetherDetail
     },
     
   ]
