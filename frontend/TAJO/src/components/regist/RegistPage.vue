@@ -7,39 +7,35 @@
             <div class="loginbox">
                 <div class="login_id">
                     <img class="icon" src="@/assets/ostrich1.png">
-                    <label for="userid"> 지역 :</label>
-                    <input id="userid" type="text" v-model="user.city">
+                    <label for="userid"> 수준 :</label>
+                    <input id="userid" type="text" v-model="level">
                 </div>
                 <div class="login_id">
                     <img class="icon" src="@/assets/ostrich2.png">
                     <label for="userid"> 닉네임 :</label>
-                    <input id="userid" type="text" v-model="user.nicname">
+                    <input id="userid" type="text" v-model="nickname">
                 </div>
                 <div class="login_id">
                     <img class="icon" src="@/assets/ostrich3.png">
                     <label for="userid"> 아이디 :</label>
-                    <input id="userid" type="text" v-model="user.id">
+                    <input id="userid" type="text" v-model="userid">
                 </div>
                 <div class="login_id">
                     <img class="icon" src="@/assets/ostrich4.png">
                     <label for="userid"> 비밀번호 :</label>
-                    <input id="userid" type="text" v-model="user.password">
+                    <input id="userid" type="password" v-model="password">
                 </div>
                 <div class="login_id">
                     <img class="icon" src="@/assets/ostrich5.png">
                     <label for="userid"> 비밀번호확인 :</label>
-                    <input id="userid" type="text" v-model="user.passwordcheck">
+                    <input id="userid" type="password" v-model="passwordcheck">
                 </div>
-                <div class="password_id">
-                    <img class="icon" src="@/assets/ostrich6.png">
-                    <label for="password"> 이메일 : </label>
-                    <input id="password" type="password" v-model="user.email">
-                </div>
+                
                 <div class="btn_box">
-                    <button @click="LoginUser">
+                    <button @click="regist">
                     <img class="btn" src="@/assets/가입버튼.png">
                     </button>
-                    <button @click="LoginUser">
+                    <button @click="cancelRegist">
                         <img class="btn" src="@/assets/취소버튼.png">
                     </button>
                 </div>
@@ -52,22 +48,50 @@
 
 import { useRouter } from 'vue-router'
 import { ref } from 'vue';
-const user = ref({
-    city:'',
-    nicname:'',
-    id: '',
-    password:'',
-    passwordcheck:'',
-    email: ''
-})
+
+
 
 const router = useRouter();
 
-const LoginUser = function () {
-    router.push({ name: 'home' })
+const emit = defineEmits(["create-user"]);
+
+const userid = ref("");
+const password = ref("");
+const passwordcheck = ref("");
+const nickname = ref("");
+const level = ref("");
+
+const cancelRegist = () => {
+    router.push("/");
 }
 
+const regist = () => {
+    if (
+        password.value!==passwordcheck.value
+    ) {
+        alert("입력한 비밀번호가 다릅니다. 비밀번호를 확인해주세요.");
+        return;
+    }
+    if (
+        userid.value === "" ||
+        password.value === "" ||
+        nickname.value === "" ||
+        level.value === "" 
 
+    ) {
+        alert("모든 내용을 입력해주세요");
+        return;
+    }
+
+    const user = {
+        userid: userid.value,
+        password: password.value,
+        nickname: nickname.value,
+        level : level.value,
+    };
+
+    emit("create-user", user);
+};
 </script>
 
 <style scoped>

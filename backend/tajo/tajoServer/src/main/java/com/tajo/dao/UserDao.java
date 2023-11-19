@@ -17,5 +17,8 @@ public interface UserDao {
 		
 		int saveRecord(Record record);
 
-		double loadAverage();
+		int selectLower(int userDist);
+
+		int selectSame(int userDist);
+
 }

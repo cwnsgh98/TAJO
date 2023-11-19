@@ -35,7 +35,7 @@ public class UserRestController {
 	        return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 	    }
 		
-		@GetMapping({"id"})
+		@GetMapping("{id}")
 	    @ApiOperation(value="유저 정보 반환")
 	    public ResponseEntity<User> getUserList(String id) {
 	        User user = userService.getUser(id);
@@ -55,26 +55,26 @@ public class UserRestController {
 		}
 		
 		
-		@PostMapping("login")
-		@ApiOperation(value="로그인")
-		public ResponseEntity<?> login(User user, HttpSession session) {
-			User tmp = userService.login(user);
-			//로그인 실패 (잘못했어)
-			if(tmp == null)
-				return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
-			
-			session.setAttribute("loginUser", tmp.getName());
-			return new ResponseEntity<String>(tmp.getName(), HttpStatus.OK);
-		}
-		
-		@GetMapping("logout")
-		@ApiOperation(value="로그아웃")
-		public ResponseEntity<Void> logout(HttpSession session) {
-//			session.removeAttribute("loginUser");
-			session.invalidate();
-			
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
+//		@PostMapping("login")
+//		@ApiOperation(value="로그인")
+//		public ResponseEntity<?> login(User user, HttpSession session) {
+//			User tmp = userService.login(user);
+//			//로그인 실패 (잘못했어)
+//			if(tmp == null)
+//				return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+//			
+//			session.setAttribute("loginUser", tmp.getName());
+//			return new ResponseEntity<String>(tmp.getName(), HttpStatus.OK);
+//		}
+//		
+//		@GetMapping("logout")
+//		@ApiOperation(value="로그아웃")
+//		public ResponseEntity<Void> logout(HttpSession session) {
+////			session.removeAttribute("loginUser");
+//			session.invalidate();
+//			
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		}
 		
 
 		@GetMapping("record")
@@ -96,11 +96,41 @@ public class UserRestController {
 		public ResponseEntity<Integer> loadAverage(User user) {
 			Record record = userService.getUserRecord(user);
 			int userDist = record.getDistance();
-			int average = userService.getAverage();
+			int same = userService.getSame(userDist);
+			int lower = userService.getLower(userDist);
 			
-			int result = userDist/average*100;
+			int result = (lower+(same/2))/(userService.getUserList().size())*100;
 			
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		}
+		
+		@GetMapping("grade")
+		@ApiOperation(value="등급 불러오기")
+		public ResponseEntity<String> getGrade(User user) {
+			Record record = userService.getUserRecord(user);
+			int dist = record.getDistance();
+			String grade = "";
+			if(dist<100) {
+				grade="egg";
+			} else if (dist<500) {
+				grade="bronze";
+			} else if (dist<1000) {
+				grade="silver";
+			} else if (dist<2000) {
+				grade="gold";
+			} else if (dist<3000) {
+				grade="platinum";
+			} else if (dist<5000) {
+				grade="emerald";
+			} else if (dist<10000) {
+				grade="diamond";
+			} else if (dist<20000) {
+				grade="master";
+			} else {
+				grade="challenger";
+			}
+			
+			return new ResponseEntity<String>(grade, HttpStatus.OK);
 		}
 		
 

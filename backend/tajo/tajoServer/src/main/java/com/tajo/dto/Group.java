@@ -4,7 +4,7 @@ public class Group {
 	int groupid;
 	String title;
 	String content;
-	String location;
+	String date;
 
 	public int getGroupid() {
 		return groupid;
@@ -30,12 +30,13 @@ public class Group {
 		this.content = content;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getDate() {
+		return date;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
+	
 }

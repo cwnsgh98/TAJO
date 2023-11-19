@@ -3,11 +3,13 @@ package com.tajo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tajo.dao.UserDao;
 import com.tajo.dto.Record;
 import com.tajo.dto.User;
 
+@Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDao userDao;
@@ -49,9 +51,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int getAverage() {
-		return (int)userDao.loadAverage();
+	public int getLower(int userDist) {
+		
+		return userDao.selectLower(userDist);
 	}
+
+	@Override
+	public int getSame(int userDist) {
+		return userDao.selectSame(userDist);
+	}
+
+	
 
 
 }

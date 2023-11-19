@@ -8,18 +8,18 @@
                 <div class="login_id">
                     <img class="icon" src="@/assets/usericon.png">
                     <label for="userid"> 아이디 :</label>
-                    <input id="userid" type="text" v-model="user.id">
+                    <input id="userid" type="text" v-model="userid">
                 </div>
                 <div class="password_id">
                     <img class="icon" src="@/assets/passwordicon.png">
                     <label for="password"> 비밀번호 : </label>
-                    <input id="password" type="password" v-model="user.pw">
+                    <input id="password" type="password" v-model="password">
                 </div>
                 <div class="btn_box">
                     <button @click="LoginUser">
                     <img class="btn" src="@/assets/로그인버튼.png">
                     </button>
-                    <button @click="LoginUser">
+                    <button @click="CancelLogin">
                         <img class="btn" src="@/assets/취소버튼.png">
                     </button>
                 </div>
@@ -35,21 +35,25 @@
 
 <script setup>
 
-import { useRouter } from 'vue-router'
 import { ref } from 'vue';
-const user = ref({
-    id: '',
-    // name:'',
-    // email:'',
-    pw: ''
-})
+import {useRouter} from 'vue-router'
+
 
 const router = useRouter();
+const userid = ref("");
+const password= ref("");
 
-const LoginUser = function () {
-    router.push({ name: 'home' })
+const emit = defineEmits(["login-user"]);
+const CancelLogin = () => {
+    router.push("/");
 }
-
+const LoginUser = () => {
+    const user = {
+        userid: userid.value,
+        password: password.value,
+    };
+    emit("login-user", user);
+};
 
 </script>
 

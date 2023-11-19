@@ -5,18 +5,18 @@
   <mapper namespace="com.tajo.dao.UserDao">
 
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO user (userid, password, name)
-		VALUES (#{userid}, #{password}, #{name})
+		INSERT INTO user (userid, password, nickname, level)
+		VALUES (#{userid}, #{password}, #{nickname}, #{level})
 	</insert>
 	
 	<select id="selectOne" parameterType="String" resultType="User">
-		SELECT userid, password, name
+		SELECT userid, password, nickname
 		FROM user
 		WHERE userid = #{userid}
 	</select>
 	
 	<select id="selectAll" resultType="User">
-        SELECT userid, password, name
+        SELECT userid, password, nickname
         FROM user
     </select>
 	
@@ -32,9 +32,17 @@
 		WHERE userid = #{userid}
 	</insert>
 	
-	<select id="loadAverage" resultType = "double">
-		SELECT avg(distance)
+	<select id="selectLower" parameterType="int" resultType="int">
+		SELECT count(*)
 		FROM record
+		WHERE distance  <![CDATA[ < ]]> #{userDist}
 	</select>
+	
+	<select id="selectSame" parameterType="int" resultType="int">
+		SELECT count(*)
+		FROM record
+		WHERE distance = #{userDist}
+	</select>
+	
 	
 </mapper>

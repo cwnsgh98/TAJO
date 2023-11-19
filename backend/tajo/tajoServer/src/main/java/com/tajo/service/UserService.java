@@ -18,5 +18,8 @@ public interface UserService {
 
 	int setUserRecord(Record record);
 
-	int getAverage();
+	int getLower(int userDist);
+
+	int getSame(int userDist);
+
 }

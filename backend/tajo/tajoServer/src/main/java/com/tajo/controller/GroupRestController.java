@@ -1,5 +1,6 @@
 package com.tajo.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tajo.dto.Group;
+import com.tajo.dto.User;
 import com.tajo.service.GroupService;
 
 import io.swagger.annotations.Api;
@@ -31,9 +33,9 @@ public class GroupRestController {
 		private GroupService GroupService;
 
 
-		//1. 목록(검색조건 있을 수도 있고 없을 수도 있다.)
-		@GetMapping("/Group/list/{videoUrl}")
-		@ApiOperation(value="그룹 조회", notes="영상에 맞는 그룹 리스트를 가져온다.")
+		//1. 그룹 목록
+		@GetMapping("/Group")
+		@ApiOperation(value="그룹 조회", notes="전체 그룹 리스트를 가져온다.")
 		public ResponseEntity<?> list(){
 			List<Group> list = GroupService.getGroupList(); //전체 조회
 			if(list == null || list.size() == 0)
@@ -82,6 +84,35 @@ public class GroupRestController {
 		    GroupService.modifyGroup(group);
 		    //위와같은 상황 대비
 		    return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		
+		@PostMapping("/Group/{id}/join") 	
+		@ApiOperation(value="그룹 참가")
+		public ResponseEntity<Void> join(@PathVariable int id, String userid){
+			HashMap<String, String> map = new HashMap<>();
+			map.put("groupid", String.valueOf(id));
+			map.put("userid", userid);
+			GroupService.joinGroup(map);
+		    return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		
+		@PostMapping("/Group/{id}/exit") 
+		@ApiOperation(value="그룹 탈퇴")
+		public ResponseEntity<Void> exit(@PathVariable int id, String userid){
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("groupid", id);
+			map.put("userid", userid);
+			
+			GroupService.exitGroup(map);
+		    return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		
+		@PostMapping("/Group/{id}/users") 
+		@ApiOperation(value="그룹 참가 유저 조회")
+		public ResponseEntity<?> getAttendants(@PathVariable int id){
+			List<User> list = GroupService.getAttendants(id); 
+			//위와같은 상황 대비
+		    return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 		}
 	
 

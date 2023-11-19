@@ -3,7 +3,8 @@ package com.tajo.dto;
 public class User {
 	String userid;
 	String password;
-	String name;
+	String nickname;
+	String level;
 
 	public String getUserid() {
 		return userid;
@@ -21,17 +22,23 @@ public class User {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
+
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
-	@Override
-	public String toString() {
-		return "User [userid=" + userid + ", password=" + password + ", name=" + name + "]";
+	public String getLevel() {
+		return level;
 	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	
 
 }

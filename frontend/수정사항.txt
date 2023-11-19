@@ -1,0 +1,7 @@
+- 11.19 16:38 로그인 - 로그아웃 - 회원가입 기능 구현 by 담현 -
+1. App.vue script와 template 수정
+2. LoginPage.vue script와 template 수정
+3. theheader.vue .vue script와 template 수정
+4. 모든 id 속성 userid로 변경
+5. 로그인, 회원가입 창에서 라우터 이용하는 이벤트 변경
+6. a태그로 만든 로그아웃 버튼 수정 요망

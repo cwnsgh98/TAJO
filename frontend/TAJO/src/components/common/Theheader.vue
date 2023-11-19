@@ -7,10 +7,11 @@
                     <img class="tajo" src="@/assets/누끼딴로고.png"></RouterLink>
                 </div>
                 <div class="fifty-second">
-                    <RouterLink class="router-link" :to="{ name: 'login' }">
+                    <a href="#" class="router-link" v-if="getUser" @click="logout">로그아웃</a>
+                    <RouterLink class="router-link" v-else :to="{ name: 'login' }">
                     <img class="login" src="@/assets/로그인찐.png">
                     </RouterLink>
-                    <RouterLink class="router-link" :to="{ name: 'regist' }">
+                    <RouterLink class="router-link" v-if="!getUser" :to="{ name: 'regist' }">
                         <img class="regist" src="@/assets/회원가입찐.png">
                     </RouterLink>
                 </div>
@@ -20,7 +21,16 @@
 </template>
 
 <script setup>
+import { computed, ref } from "vue";
 
+const props = defineProps(["user"]);
+const emits = defineEmits(["logout"]);
+
+const getUser = computed(() => !!props.user);
+
+const logout = () => {
+    emits("logout");
+};
 </script>
 
 <style scoped>
