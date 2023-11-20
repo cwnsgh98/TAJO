@@ -4,12 +4,17 @@
             <div  v-if="user">
             <div class="pro">
             </div>
-            <span class="gradepyo">{{nickname}} <a class="check">프로필편집</a></span>
+            <div class="프로필">
+                <span class="gradepyo">{{nickname}}</span> 
+                <a class="check">프로필편집</a>
+            </div>
             </div>
             <div v-if="!user">
             <div class="anonymous" >
             </div>
-            <RouterLink :to="{name : 'login'}" >로그인 하러가기</RouterLink>
+            <RouterLink  :to="{ name: 'login' }">
+                로그인 하러가기
+            </RouterLink>
             <span class="gradepyo" >회원 정보가 없습니다.</span>
         </div>
         </div>
@@ -87,7 +92,12 @@ onMounted(() => {
 *{
     box-sizing: border-box;
 }
-
+.프로필{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .profile,.tajo-excel,.tajo-grade{
     padding-top: 30px;
     padding-bottom: 20px;

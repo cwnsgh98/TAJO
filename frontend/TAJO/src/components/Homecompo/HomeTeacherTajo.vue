@@ -15,10 +15,12 @@
 
 <style  scoped>
 .teachermain{
+    min-height: 250px;
     display: flex;
     flex-direction: column;
     justify-content:center;
     align-items: center;
+    margin-bottom: 30px;
 }
 img{
     width: 83px;
@@ -28,7 +30,5 @@ span{
     font-weight: 700;
     font-size: 26px;
 }
-.tajoteacher{
-    padding: 30px;
-}
+
 </style>
