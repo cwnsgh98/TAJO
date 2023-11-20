@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Record getUserRecord(String userid) {
+	public List<Record> getUserRecord(String userid) {
 		return userDao.loadRecord(userid);
 	}
 

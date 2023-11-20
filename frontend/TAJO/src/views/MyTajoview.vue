@@ -21,11 +21,10 @@
   import MytajoMiddle from '../components/마이타조/MytajoMiddle.vue';
   import MytajoResult from '../components/마이타조/MytajoResult.vue';
   import Mytajowriteform from '../components/마이타조/Mytajowriteform.vue';
-
-
-  import { provide, ref } from 'vue';
+  import { provide, ref, onMounted } from 'vue';
 
   
+
 const showResult = ref(true);
 const showWriteForm = ref(false);
 

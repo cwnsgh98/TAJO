@@ -4,7 +4,7 @@
             <div  v-if="user">
             <div class="pro">
             </div>
-            <span class="gradepyo">{{user.nickname}} <a class="check">프로필편집</a></span>
+            <span class="gradepyo">{{nickname}} <a class="check">프로필편집</a></span>
             </div>
             <div v-if="!user">
             <div class="anonymous" >
@@ -14,7 +14,7 @@
         </div>
         </div>
         <div class="tajo-grade">
-            <span class="gradepyo">내 타조 등급 : {{ user.grade }}</span>
+            <span class="gradepyo">내 타조 등급 : {{grade}}</span>
             <div class="boxbox">
                     <img src="@/assets/ostrich2.png">
                     <span class="mykm">828km</span>
@@ -68,12 +68,17 @@
 
 <script setup>
 import {ref, onMounted} from 'vue'
-
 const user = ref(null);
+const grade = ref("등급이 없습니다");
+const nickname = ref("로그인 해 주세요");
 onMounted(() => {
+    
     const savedUser = localStorage.getItem("loginUser");
+    
     if (savedUser) {
         user.value = JSON.parse(savedUser);
+        grade.value = user.value.grade;
+        nickname.value = user.value.nickname;
     }
 });
 </script>

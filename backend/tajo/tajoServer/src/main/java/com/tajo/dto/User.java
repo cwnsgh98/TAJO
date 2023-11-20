@@ -4,8 +4,6 @@ public class User {
 	String userid;
 	String password;
 	String nickname;
-	String level;
-	String grade;
 	public String getUserid() {
 		return userid;
 	}
@@ -29,14 +27,6 @@ public class User {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}
-
-	public String getLevel() {
-		return level;
-	}
-
-	public void setLevel(String level) {
-		this.level = level;
 	}
 
 	

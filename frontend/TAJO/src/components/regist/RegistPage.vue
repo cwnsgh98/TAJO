@@ -5,11 +5,7 @@
                 <span class="tj"> 타조 회원가입</span>
             </div>
             <div class="loginbox">
-                <div class="login_id">
-                    <img class="icon" src="@/assets/ostrich1.png">
-                    <label for="userid"> 나는 평소에 이렇게 달려요 :</label>
-                    <input id="userid" type="text" v-model="level">
-                </div>
+                
                 <div class="login_id">
                     <img class="icon" src="@/assets/ostrich2.png">
                     <label for="userid"> 닉네임 :</label>
@@ -59,7 +55,7 @@ const userid = ref("");
 const password = ref("");
 const passwordcheck = ref("");
 const nickname = ref("");
-const level = ref("");
+
 
 const cancelRegist = () => {
     router.push("/");
@@ -75,8 +71,7 @@ const regist = () => {
     if (
         userid.value === "" ||
         password.value === "" ||
-        nickname.value === "" ||
-        level.value === "" 
+        nickname.value === ""
 
     ) {
         alert("모든 내용을 입력해주세요");
@@ -87,7 +82,6 @@ const regist = () => {
         userid: userid.value,
         password: password.value,
         nickname: nickname.value,
-        level : level.value,
     };
 
     emit("create-user", user);

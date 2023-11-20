@@ -78,9 +78,9 @@ public class UserRestController {
 
 		@GetMapping("record")
 		@ApiOperation(value="라이딩 기록 불러오기")
-		public ResponseEntity<Record> loadRecord(User user) {
-			Record record = userService.getUserRecord(user.getUserid());
-			return new ResponseEntity<Record>(record, HttpStatus.OK);
+		public ResponseEntity<List<Record>> loadRecord(String userid) {
+			List<Record> record = userService.getUserRecord(userid);
+			return new ResponseEntity<List<Record>>(record, HttpStatus.OK);
 		}
 		
 		@PostMapping("record")
@@ -93,8 +93,11 @@ public class UserRestController {
 		@GetMapping("average")
 		@ApiOperation(value="유저 평균 기록과 비교한 주행 거리 불러오기")
 		public ResponseEntity<Integer> loadAverage(User user) {
-			Record record = userService.getUserRecord(user.getUserid());
-			int userDist = record.getDistance();
+			List<Record> recordList = userService.getUserRecord(user.getUserid());
+			int userDist = 0;
+			for(Record record : recordList) {
+				userDist += record.getDistance();
+			}
 			int same = userService.getSame(userDist);
 			int lower = userService.getLower(userDist);
 			
@@ -106,9 +109,11 @@ public class UserRestController {
 		@GetMapping("grade")
 		@ApiOperation(value="등급 불러오기")
 		public ResponseEntity<String> getGrade(String userid) {
-			Record record = userService.getUserRecord(userid);
-			
-			int dist = record.getDistance();
+			List<Record> recordList = userService.getUserRecord(userid);
+			int dist = 0;
+			for(Record record : recordList) {
+			dist += record.getDistance();
+			}
 			String grade = "";
 			if(dist<100) {
 				grade="egg";

@@ -9,3 +9,10 @@
 - 11.19. 20.48 날씨 api, 현재 위치에 따른 api 기능 구현 by 담현 -
 1. HomeWeather.vue에서 script태그와 template 수정
 2. .env.local 파일 추가. API key 정보 여기에 포함되어있음
+
+
+- 11.20 16:26 localStorage에 로그인한 유저의 정보에 따라 유저 등급을 요청하여 저장, 거리를 pinia store에 저장, MyTajoView 부분 수정 -
+1. App.Vue 수정(loginUser함수, import,..)
+2. MytajoMiddle, MytajoProfile 수정
+3. registPage와 app.vue의 createUser이벤트에서 level 전부 삭제
+4. store 파일 추가

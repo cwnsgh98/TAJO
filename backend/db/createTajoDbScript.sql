@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS `tajodb`.`user` (
   `userid` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NULL,
   `nickname` VARCHAR(45) NULL,
-   `level` VARCHAR(45) NULL,
   PRIMARY KEY (`userid`))
 ENGINE = InnoDB;
 
@@ -75,9 +74,7 @@ DROP TABLE IF EXISTS `tajodb`.`record` ;
 CREATE TABLE IF NOT EXISTS `tajodb`.`record` (
   `userid` VARCHAR(45) NOT NULL,
   `distance` INT default 0,
-  `time` INT default 0,
-  `cal` INT default 0,
-  `lastride` DATETIME NULL,
+  `ridedate` DATETIME NULL,
   PRIMARY KEY (`userid`),
   CONSTRAINT `fk_record_user1`
     FOREIGN KEY (`userid`)

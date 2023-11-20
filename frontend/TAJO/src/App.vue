@@ -21,11 +21,12 @@ import Footernav from "./components/common/Footernav.vue"
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
-
+import { useDistanceStore } from '@/stores/distance'
 const router = useRouter();
 const user = ref(null);
-
+const store = useDistanceStore();
 onMounted(() => {
+  
   const savedUser = localStorage.getItem("loginUser");
   if (savedUser) {
     user.value = JSON.parse(savedUser);
@@ -36,14 +37,57 @@ const logout = () => {
   user.value = null;
   localStorage.removeItem("loginUser");
   alert("로그아웃 했습니다.");
+  store.totalDist.value = 0;
 };
-
-const loginUser = (loginUser) => {
+const loginUser = async (loginUser) => {
   // user 정보 요청 api 주소
   const API_URL = `http://localhost:8080/api-user`;
-  const grade = ref(null);
+
+  try {
+    // 첫 번째 axios 요청
+    const res = await axios.get(API_URL);
+
+    // 응답 처리
+    let matchedUser = res.data.find(
+      (u) => u.userid === loginUser.userid && u.password === loginUser.password
+    );
+
+    if (matchedUser) {
+      // 두 번째 axios 요청
+      const gradeResponse = await axios.get(`${API_URL}/grade`, {
+        params: { userid: matchedUser.userid },
+      });
+
+      // 세 번째 axios 요청
+      const recordResponse = await axios.get(`${API_URL}/record`, {
+        params: { userid: matchedUser.userid },
+      });
+      const totalDistance = 0;
+      for(const record of recordResponse.data) {
+        totalDistance+=record.distance;
+      }
+      // 응답 처리
+      matchedUser.grade = gradeResponse.data;
+      store.setTotalDist(totalDistance);
+      // 성공적으로 요청이 완료된 후에 user.value 설정
+      user.value = matchedUser;
+      // 로그인 성공 후 로직 수행
+      localStorage.setItem("loginUser", JSON.stringify(user.value));
+      alert("로그인 성공");
+      router.push('/');
+    } else {
+      alert("로그인 실패");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("로그인 실패: 서버 에러");
+  }
+};
+/*const loginUser = async (loginUser) => {
+  // user 정보 요청 api 주소
+  const API_URL = `http://localhost:8080/api-user`;
   // axios 요청
-  axios
+  await axios
     .get(API_URL)
     .then((res) => {
       let matchedUser = res.data.find(
@@ -51,7 +95,12 @@ const loginUser = (loginUser) => {
       );
 
       if (matchedUser) {
+        await axios.get(`${API_URL}/grade`, { userid : matchedUser.userid})
+        .then((res) => {
+          matchedUser.grade = res.data;
+        });
         user.value = matchedUser;
+        console.log(user.value.grade);
         localStorage.setItem("loginUser", JSON.stringify(user.value));
         alert("로그인 성공");
         router.push('/');
@@ -63,7 +112,8 @@ const loginUser = (loginUser) => {
       console.log(err);
       alert("로그인 실패: 서버 에러");
     });
-};
+};*/
+
 
 const createUser = (user) => {
 
@@ -75,7 +125,6 @@ const createUser = (user) => {
       userid: user.userid,
       password: user.password,
       nickname: user.nickname,
-      level: user.level,
     },
   })
     .then(() => {
