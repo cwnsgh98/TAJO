@@ -1,16 +1,27 @@
 package com.tajo.dto;
 
 public class Record {
+	String userid;
 	int distance;
 	int cal;
 	int time;
-	String date;
-	public String getDate() {
-		return date;
+	String lastride;
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	
+
+	public String getLastride() {
+		return lastride;
+	}
+
+	public void setLastride(String lastride) {
+		this.lastride = lastride;
 	}
 
 	public int getDistance() {

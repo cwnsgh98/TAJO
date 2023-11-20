@@ -13,7 +13,7 @@ public interface UserDao {
 		
 		User selectOne(String id);
 
-		Record loadRecord(User user);
+		Record loadRecord(String userid);
 		
 		int saveRecord(Record record);
 

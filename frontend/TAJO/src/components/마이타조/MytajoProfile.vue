@@ -1,13 +1,20 @@
 <template>
     <div class="Profilemain">
         <div class="profile">
+            <div  v-if="user">
             <div class="pro">
             </div>
-            <span class="gradepyo">쮸롱이</span>
-            <a class="check">프로필편집</a>
+            <span class="gradepyo">{{user.nickname}} <a class="check">프로필편집</a></span>
+            </div>
+            <div v-if="!user">
+            <div class="anonymous" >
+            </div>
+            <RouterLink :to="{name : 'login'}" >로그인 하러가기</RouterLink>
+            <span class="gradepyo" >회원 정보가 없습니다.</span>
+        </div>
         </div>
         <div class="tajo-grade">
-            <span class="gradepyo">내 타조 등급 :</span>
+            <span class="gradepyo">내 타조 등급 : {{ user.grade }}</span>
             <div class="boxbox">
                     <img src="@/assets/ostrich2.png">
                     <span class="mykm">828km</span>
@@ -60,7 +67,15 @@
 </template>
 
 <script setup>
+import {ref, onMounted} from 'vue'
 
+const user = ref(null);
+onMounted(() => {
+    const savedUser = localStorage.getItem("loginUser");
+    if (savedUser) {
+        user.value = JSON.parse(savedUser);
+    }
+});
 </script>
 
 <style scoped>
@@ -143,4 +158,15 @@ img {
     border: 2px solid #000;
     background: url('@/assets/누오.webp') rgb(255, 255, 243, 1) 50% / 100% 100% no-repeat;
 
-}</style>
+}
+
+.anonymous {
+    width: 205px;
+    height: 205px;
+    border-radius: 102.5px;
+    border: 2px solid #000;
+    background: url('@/assets/anonymity.png') rgb(255, 255, 243, 1) 50% / 100% 100% no-repeat;
+
+}
+
+</style>

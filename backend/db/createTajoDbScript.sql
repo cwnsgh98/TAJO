@@ -74,9 +74,9 @@ DROP TABLE IF EXISTS `tajodb`.`record` ;
 
 CREATE TABLE IF NOT EXISTS `tajodb`.`record` (
   `userid` VARCHAR(45) NOT NULL,
-  `distance` INT NULL,
-  `time` INT NULL,
-  `cal` INT NULL,
+  `distance` INT default 0,
+  `time` INT default 0,
+  `cal` INT default 0,
   `lastride` DATETIME NULL,
   PRIMARY KEY (`userid`),
   CONSTRAINT `fk_record_user1`

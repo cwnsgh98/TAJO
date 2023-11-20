@@ -5,7 +5,7 @@ public class User {
 	String password;
 	String nickname;
 	String level;
-
+	String grade;
 	public String getUserid() {
 		return userid;
 	}

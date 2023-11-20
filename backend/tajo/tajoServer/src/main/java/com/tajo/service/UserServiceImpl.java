@@ -16,7 +16,11 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public int signup(User user) {
-		return userDao.insertUser(user);
+		Record record = new Record();
+		record.setUserid(user.getUserid());
+		userDao.insertUser(user);
+		userDao.saveRecord(record);
+		return 1;
 	}
 
 	@Override
@@ -41,8 +45,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Record getUserRecord(User user) {
-		return userDao.loadRecord(user);
+	public Record getUserRecord(String userid) {
+		return userDao.loadRecord(userid);
 	}
 
 	@Override

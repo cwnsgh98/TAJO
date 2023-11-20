@@ -2,13 +2,12 @@ package com.tajo.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -80,7 +79,7 @@ public class UserRestController {
 		@GetMapping("record")
 		@ApiOperation(value="라이딩 기록 불러오기")
 		public ResponseEntity<Record> loadRecord(User user) {
-			Record record = userService.getUserRecord(user);
+			Record record = userService.getUserRecord(user.getUserid());
 			return new ResponseEntity<Record>(record, HttpStatus.OK);
 		}
 		
@@ -94,7 +93,7 @@ public class UserRestController {
 		@GetMapping("average")
 		@ApiOperation(value="유저 평균 기록과 비교한 주행 거리 불러오기")
 		public ResponseEntity<Integer> loadAverage(User user) {
-			Record record = userService.getUserRecord(user);
+			Record record = userService.getUserRecord(user.getUserid());
 			int userDist = record.getDistance();
 			int same = userService.getSame(userDist);
 			int lower = userService.getLower(userDist);
@@ -106,8 +105,9 @@ public class UserRestController {
 		
 		@GetMapping("grade")
 		@ApiOperation(value="등급 불러오기")
-		public ResponseEntity<String> getGrade(User user) {
-			Record record = userService.getUserRecord(user);
+		public ResponseEntity<String> getGrade(String userid) {
+			Record record = userService.getUserRecord(userid);
+			
 			int dist = record.getDistance();
 			String grade = "";
 			if(dist<100) {

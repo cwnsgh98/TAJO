@@ -14,7 +14,7 @@ public interface UserService {
 
 	User getUser(String id);
 
-	Record getUserRecord(User user);
+	Record getUserRecord(String userid);
 
 	int setUserRecord(Record record);
 

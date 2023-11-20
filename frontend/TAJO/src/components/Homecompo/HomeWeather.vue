@@ -95,7 +95,20 @@ export default {
         });
 
         const data = response.data.response.body.items.item;
-
+        //TMP : 1시간 기온 ℃
+      //UUU : 풍속(동서) m/s
+      //VVV : 풍속(남북) m/s
+      //VEC : 풍향 deg
+      //WSD : 풍속 m/s
+      //SKY : 하늘상태 --> 코드 : 맑음(1), 구름많음(3), 흐림(4)
+      //PTY : 강수형태 --> 코드 : 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
+      //POP : 강수확률 %
+      //WAV : 파고 M
+      //PCP : 1시간 강수량 범주(1mm)
+      //REH : 습도 %
+      //SNO : 1시간 적설량
+      //TMN : 일 최저기온 ℃ x
+      //TMX : 일 최고기온 ℃ x
         data.forEach((item) => {
           if (item.category === 'TMP') {
             weatherData.value.tmp = item.fcstValue;

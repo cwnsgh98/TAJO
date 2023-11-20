@@ -20,16 +20,15 @@
         FROM user
     </select>
 	
-	<select id="loadRecord" parameterType="User" resultType="Record">
-		SELECT distance, cal, time, lastride
+	<select id="loadRecord" parameterType="String" resultType="Record">
+		SELECT *
 		FROM record
 		WHERE userid = #{userid}
 	</select>
 	
 	<insert id="saveRecord" parameterType="Record">
-		INSERT INTO record (distance, cal, time, lastride)
-		VALUES (#{distance},#{cal} #{time}, NOW())
-		WHERE userid = #{userid}
+		INSERT INTO record (userid, distance, cal, time, lastride)
+		VALUES (#{userid}, #{distance},#{cal}, #{time}, now())
 	</insert>
 	
 	<select id="selectLower" parameterType="int" resultType="int">
