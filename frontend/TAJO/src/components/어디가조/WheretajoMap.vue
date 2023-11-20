@@ -2,6 +2,7 @@
     <div class="TajoMap">
         <div class="map">
             지도가 들어갈 자리입니다.
+            <MapBank/>
         </div>
         <button @click="toggleResult" class="help-button">
             <img class="도와줘" src="@/assets/도와줘타조.png">
@@ -21,10 +22,11 @@
 
 <script setup>
 import { ref,computed, inject } from 'vue';
+import MapBank from './MapBank.vue'
 
 const fruits = [
   { id: 1, name: '화장실' },
-  { id: 2, name: '자전거보관소' },
+  { id: 2, name: '약국' },
   { id: 3, name: '편의점' },
   // 다른 과일들...
 ];

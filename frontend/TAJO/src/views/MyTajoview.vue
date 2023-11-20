@@ -1,62 +1,70 @@
 <template>
-    <div>
-      <div class="MTmain">
-        <div class="MT1">
-          <MytajoProfile />
-        </div>
-        <div class="MT2">
-        <MytajoMiddle @toggleResult="toggleResult" @toggleWriteForm="toggleWriteForm" />
+  <div>
+    <div class="MTmain">
+      <div class="MT1">
+        <MytajoProfile />
+      </div>
+      <div class="MT2">
+        <MytajoMiddle />
       </div>
       <div class="MT3">
         <!-- MT3 영역의 컴포넌트 조건부 렌더링 -->
+        <MytajoWriteform :showResult="showResult" @save-result="saveResult" />
         <MytajoResult v-if="showResult" />
-        <Mytajowriteform v-if="showWriteForm" />
       </div>
-      </div>
+
     </div>
-  </template>
-  
-  <script setup>
-  import MytajoProfile from '../components/마이타조/MytajoProfile.vue';
-  import MytajoMiddle from '../components/마이타조/MytajoMiddle.vue';
-  import MytajoResult from '../components/마이타조/MytajoResult.vue';
-  import Mytajowriteform from '../components/마이타조/Mytajowriteform.vue';
-  import { provide, ref, onMounted } from 'vue';
+  </div>
+</template>
 
-  
+<script setup>
+import MytajoProfile from '../components/마이타조/MytajoProfile.vue';
+import MytajoMiddle from '../components/마이타조/MytajoMiddle.vue';
+import MytajoWriteform from '../components/마이타조/MytajoWriteform.vue';
+import MytajoResult from '../components/마이타조/MytajoResult.vue';
 
-const showResult = ref(true);
-const showWriteForm = ref(false);
+import { ref } from 'vue';
 
-provide('showResult', showResult);
-provide('showWriteForm', showWriteForm);
-  </script>
-  
-  <style scoped>
-  .MTmain {
-    display: flex;
-    overflow: hidden;
-  }
+const showResult = ref(false);
 
-  .MT1 {
-    flex-grow: 0;
-    border: solid 1px #a7a7a7;
-    max-height: 760px;
-    overflow: hidden; /* 스크롤 막기 */
-  }
+const saveResult = () => {
+  // 주행 저장 로직 등을 수행한 후
+  showResult.value = true; // 결과 표시를 활성화
+};
+</script>
   
-  .MT2 {
-    flex-grow: 6;
-    border: solid 1px #a7a7a7;
-    max-height: 760px;
-    overflow: hidden; /* 스크롤 막기 */
-  }
-  
-  .MT3 {
-    flex-grow: 1;
-    border: solid 1px #a7a7a7;
-    overflow-y: auto; /* 세로 스크롤 가능하도록 설정 */
-    max-height: 760px; /* 스크롤 영역의 최대 높이를 지정, 필요에 따라 조절 가능 */
-  }
-  </style>
+<style scoped>
+.MTmain {
+  display: flex;
+  overflow: hidden;
+}
+
+.MT1 {
+  flex-grow: 0;
+  border: solid 1px #a7a7a7;
+  max-height: 760px;
+  overflow: hidden;
+  /* 스크롤 막기 */
+}
+
+.MT2 {
+  flex-grow: 6;
+  border: solid 1px #a7a7a7;
+  max-height: 760px;
+  overflow: hidden;
+  /* 스크롤 막기 */
+}
+
+.MT3 {
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  flex-grow: 1;
+  border: solid 1px #a7a7a7;
+  overflow-y: auto;
+  /* 세로 스크롤 가능하도록 설정 */
+  max-height: 760px;
+  /* 스크롤 영역의 최대 높이를 지정, 필요에 따라 조절 가능 */
+}</style>
   

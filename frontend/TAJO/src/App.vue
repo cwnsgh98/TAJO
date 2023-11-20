@@ -62,7 +62,7 @@ const loginUser = async (loginUser) => {
       const recordResponse = await axios.get(`${API_URL}/record`, {
         params: { userid: matchedUser.userid },
       });
-      const totalDistance = 0;
+      let totalDistance = 0;
       for(const record of recordResponse.data) {
         totalDistance+=record.distance;
       }

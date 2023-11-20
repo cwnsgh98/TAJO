@@ -5,7 +5,9 @@
     </div>
     <div class= homeMiddle>
       <HomeCarousel/>
-      <HomeReco/>
+      <div class="right">
+        <HomeReco/>
+      </div>
     </div>
     <div class="homeMiddle-right">
       <HomeTeacherTajo/>
@@ -24,11 +26,18 @@ import HomeTeacherTajo from '../components/Homecompo/HomeTeacherTajo.vue';
 </script>
 
 <style scoped>
-
+h2{
+  font-size: 30px;
+}
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.right{
+  display: flex;
+  align-items: center;
+  margin: 20px;
 }
 .main{
   width: 100%;
@@ -44,11 +53,12 @@ import HomeTeacherTajo from '../components/Homecompo/HomeTeacherTajo.vue';
   width: 100%;
   display: flex;
   justify-content: space-around;
-
+ margin-bottom: 40px;
 }
 .homeMiddle-right{
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 140px;
 }
 </style>

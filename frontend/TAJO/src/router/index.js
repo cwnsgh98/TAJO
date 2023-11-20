@@ -11,6 +11,7 @@ import RegistPage from '@/components/regist/RegistPage.vue'
 import WheregoZZIM from '@/views/WheregoZZIM.vue'
 
 import TogetherDetail from '@/views/TogetherDetail.vue'
+import Game from '@/views/Game.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,12 +24,6 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    
-    //   component: () => import('../views/AboutView.vue')
-    // },
     {
       path: '/login',
       name: 'login',
@@ -69,6 +64,11 @@ const router = createRouter({
       name: 'Togetherdetail',
       component: TogetherDetail
     },
+    {
+        path: '/Game',
+        name: 'Game',
+        component: Game
+      },
     
   ]
 })

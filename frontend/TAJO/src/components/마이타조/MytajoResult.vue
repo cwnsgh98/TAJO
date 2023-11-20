@@ -27,7 +27,7 @@
         <div class="riding-distance">
             <span>현재까지 라이딩한 거리는</span>
             <div class="distance-bottom">
-                <span>20대 10명중 </span>
+                <span>전체사용자 중 </span>
                 <span class="pink">상위 10%</span>
                 <span>예요.</span>
             </div>
@@ -177,6 +177,7 @@ img {
 .result {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
 }
 </style>

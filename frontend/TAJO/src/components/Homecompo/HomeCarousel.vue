@@ -19,6 +19,8 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+// import ostrich1 from '@/assets/스님을사랑한타조.png';
+
 import ostrich1 from '@/assets/분홍타조.jpeg';
 import ostrich2 from '@/assets/호수타조.jpeg';
 import ostrich3 from '@/assets/타이거.jpeg';
@@ -67,9 +69,14 @@ onMounted(() => {
 
 <style scoped>
 .carousel-container {
+  border-radius: 100px;
   width: 100%;
-  height: 500px;
+  border: solid 2px #363636;
+  min-height: 400px;
+  max-height: 450px;
+  margin: 20px;
   overflow: hidden;
+
 }
 
 .picture {
