@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref ,inject, onMounted } from 'vue';
+import { ref ,inject, onMounted,onUpdated } from 'vue';
 import { useDistanceStore } from '@/stores/distance'
 const store = useDistanceStore();
 const remainDist = ref(0);
@@ -53,6 +53,27 @@ const toggleMovement = () => {
 
 // 다음 등급까지 남은 거리 계산 
 onMounted(() => {
+    const user = JSON.parse(localStorage.getItem("loginUser"));
+    if(user.grade==="egg") {
+        remainDist.value = 100 - store.totalDist;
+    } else if(user.grade==="bronze") {
+        remainDist.value = 500 - store.totalDist;
+    } else if(user.grade==="silver") {
+        remainDist.value = 1000 - store.totalDist;
+    } else if(user.grade==="gold") {
+        remainDist.value = 2000 - store.totalDist;
+    } else if(user.grade==="platinum") {
+        remainDist.value = 3000 - store.totalDist;
+    } else if(user.grade==="emerald") {
+        remainDist.value = 5000 - store.totalDist;
+    } else if(user.grade==="diamond") {
+        remainDist.value = 10000 - store.totalDist;
+    } else if(user.grade==="master") {
+        remainDist.value = 20000 - store.totalDist;
+    } 
+
+});
+onUpdated(() => {
     const user = JSON.parse(localStorage.getItem("loginUser"));
     if(user.grade==="egg") {
         remainDist.value = 100 - store.totalDist;
