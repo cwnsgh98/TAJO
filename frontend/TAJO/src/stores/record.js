@@ -39,4 +39,4 @@ export const useRecordStore = defineStore('record', () => {
   
   
   return { recordList, getRecord,dayCount}
-})
+}, {persist : true})

@@ -119,7 +119,7 @@ const pauseResumeTimer = () => {
   }
 };
 
-const saveAndShowResult = () => {
+const saveAndShowResult = async () => {
   let speed = 0;
   let calorie = 0;
   if(selectedSpeed.value == "slow") {
@@ -146,16 +146,17 @@ const saveAndShowResult = () => {
     distance : distance,
   }
   //입력한 데이터 저장
-  const res = axios.post(`http://localhost:8080/api-user/record`,
+  const res = await axios.post(`http://localhost:8080/api-user/record`,
     record);
   
-  const gradeResponse = axios.get(`http://localhost:8080/api-user/grade`, {
+  const gradeResponse = await axios.get(`http://localhost:8080/api-user/grade`, {
       params: { userid: user.value.userid },
     });
 
 
     // 응답 처리
     user.value.grade = gradeResponse.data;
+    console.log(user.value)
     // 로그인 성공 후 등급 업데이트
     localStorage.setItem("loginUser", JSON.stringify(user.value));
     

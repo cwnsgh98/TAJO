@@ -21,7 +21,7 @@
         <div class="tajo-grade">
             <span class="gradepyo">내 타조 등급 :</span>
             <div class="boxbox">
-                <img :src="getOstrichImage(grade)" alt="Ostrich Image">
+                <img :src="src" alt="Ostrich Image">
                     <span class="mykm">{{store.totalDist}}km</span>
                 </div>
         </div>
@@ -88,6 +88,7 @@ const store = useDistanceStore();
 const user = ref(null);
 const grade = ref("등급이 없습니다");
 const nickname = ref("로그인 해 주세요");
+const src = ref("");
 onMounted(() => {
     
     const savedUser = localStorage.getItem("loginUser");
@@ -96,6 +97,7 @@ onMounted(() => {
         user.value = JSON.parse(savedUser);
         grade.value = user.value.grade;
         nickname.value = user.value.nickname;
+        src.value = getOstrichImage(grade.value);
     }
 });
 onUpdated(() => {
@@ -106,6 +108,7 @@ onUpdated(() => {
         user.value = JSON.parse(savedUser);
         grade.value = user.value.grade;
         nickname.value = user.value.nickname;
+        src.value = getOstrichImage(grade.value);
     }
 });
 

@@ -39,10 +39,11 @@ onMounted(() => {
 
 const logout = () => {
   user.value = null;
-  localStorage.removeItem("loginUser");
+  localStorage.clear();
   alert("로그아웃 했습니다.");
   store.totalDist.value = 0;
   todayStore.setDefault();
+  router.push("/");
 };
 const loginUser = async (loginUser) => {
   // user 정보 요청 api 주소

@@ -22,14 +22,15 @@
         </div>
         <div class="box box2">
             <img src="@/assets/이미지커피.png">
+            
             <span>카푸치노 한잔 만큼 불태웠어요</span>
-            <span>{{store.todayCal}}</span>
+            <span>{{store.todayCal}} kcal</span>
         </div>
         <div class="riding-distance">
             <span>현재까지 라이딩한 거리는</span>
             <div class="distance-bottom">
                 <span>전체사용자 중 </span>
-                <span class="pink">상위 {{distStore.distRank}}%</span>
+                <span class="pink">상위 {{distStore.distRank == 0 ? 1 : distStore.distRank}}%</span>
                 <span>예요.</span>
             </div>
         </div>

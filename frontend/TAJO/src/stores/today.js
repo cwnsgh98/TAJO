@@ -24,4 +24,4 @@ export const useTodayStore = defineStore('today', () => {
   }
   
   return { setDefault, todayDist, plusTodayDist, todayCal, plusTodayCal, todayTime, plusTodayTime}
-})
+}, {persist : true})

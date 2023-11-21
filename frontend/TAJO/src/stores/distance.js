@@ -20,4 +20,4 @@ export const useDistanceStore = defineStore('distance', () => {
   
 
   return { totalDist, setTotalDist, distRank, getDistRank };
-})
+}, {persist : true})

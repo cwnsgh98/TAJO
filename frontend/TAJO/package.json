@@ -12,6 +12,7 @@
     "bootstrap": "^5.3.2",
     "bootstrap-vue": "^2.23.1",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.0",
     "vbase": "^0.0.38",
     "vue": "^3.3.4",
     "vue-geolocation-api": "^0.1.21",

@@ -18,20 +18,19 @@
 4. store 파일 추가
 
 
-
+- 11.21 15:00 mytajo 기능 수정 -
 store today.js 추가
-
 mytajo writeform.vue 수정
 mytajo result.vue 수정
-
-
 distance.js 수정
-
-
 app.vue login logout 수정
-
 record.js 생성
-
 database record테이블 pk 제거,
-
 spring 전체 수정
+
+- 11. 21 20:36 mytajo 기능 수정, game 레이아웃 및 장애물 세부기능 완성 -
+mytajo middle profile writeform result
+appvue 로그아웃
+main.js
+
+
