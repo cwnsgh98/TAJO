@@ -16,3 +16,14 @@
 2. MytajoMiddle, MytajoProfile 수정
 3. registPage와 app.vue의 createUser이벤트에서 level 전부 삭제
 4. store 파일 추가
+
+
+
+store today.js 추가
+mytajo writeform.vue 수정
+mytajo result.vue 수정
+distance.js 수정
+app.vue login logout 수정
+record.js 생성
+database record테이블 pk 제거,
+spring 전체 수정

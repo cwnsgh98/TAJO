@@ -1,10 +1,13 @@
 <template>
   <div>
-    <div id="map"></div>
-    <div>
-      <input v-model="searchKeyword" placeholder="장소 검색어를 입력하세요">
-      <button @click="searchPlaces">검색</button>
+    <div class="맵밑에">
+      <span>장소 검색기</span>
+      <div>
+        <input v-model="searchKeyword" placeholder="장소 검색어를 입력하세요">
+        <button @click="searchPlaces">검색</button>
+      </div>
     </div>
+    <div id="map"></div>
   </div>
 </template>
 
@@ -106,18 +109,26 @@ onMounted(async () => {
 
 
 <style scoped>
-#map {
-  width: 600px;
-  height: 600px;
+.맵밑에 {
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 7px;
+  
 }
 
-input {
-  margin-top: 10px;
+#map {
+  margin: 10px 20px 20px 20px;
+  width: 1130px;
+  height: 550px;
+}
+
+/* input {
   padding: 5px;
 }
 
 button {
-  margin-top: 10px;
   padding: 5px;
-}
+} */
 </style>

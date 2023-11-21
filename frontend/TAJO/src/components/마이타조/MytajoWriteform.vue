@@ -49,32 +49,34 @@
   </template>
   
   <script setup>
-  import { ref} from 'vue';
-  
-  const props = defineProps(['showResult']); // 부모로부터 전달받은 showResult prop
-  
-  // 상태 변수 정의
+  import { ref } from 'vue';
+  import { useTodayStore } from '@/stores/today';
+  import { useDistanceStore } from '@/stores/distance';
+  import { useRecordStore } from '@/stores/record';
+  import axios from 'axios';
+  const store = useTodayStore();
+  const distStore = useDistanceStore();
+  const recordStore = useRecordStore();
+  const props = defineProps(['showResult']);
   const isDriving = ref(false);
-  const isPaused = ref(false); // 일시정지 상태
-  const timer = ref(0); // 초기값을 0으로 설정
-  const selectedSpeed = ref(''); // 새로운 상태 변수 (속도 선택)
+  const isPaused = ref(false);
+  const timer = ref(0);
+  const selectedSpeed = ref('');
   let intervalId;
   const animatedText = ref("주행 시작 !");
-  
-  // emit 함수 정의
+  const savedUser = localStorage.getItem("loginUser");
+    
+  const user = ref(null);
+  user.value = JSON.parse(savedUser);
   const emit = defineEmits();
   
-  // 주행 시작 함수
   const startDriving = () => {
     isDriving.value = true;
-    // 선택한 속도 표시
     console.log("Selected Speed:", selectedSpeed.value);
   
-    // 1초마다 타이머 갱신
     intervalId = setInterval(() => {
       timer.value += 1;
   
-      // 텍스트 변경 애니메이션
       if (timer.value % 4 === 1) {
         animatedText.value = "즐거운 주행중 . ";
       } else if (timer.value % 4 === 2) {
@@ -87,41 +89,78 @@
     }, 1000);
   };
   
-  // 주행 종료 함수
   const endDriving = () => {
     isDriving.value = false;
     isPaused.value = false;
-    clearInterval(intervalId); // 타이머 중지
-    animatedText.value = "주행시작 ! "; // 초기 텍스트로 리셋
+    clearInterval(intervalId);
+    animatedText.value = "주행시작 ! ";
   };
   
-  // 타이머 초기화 함수
   const resetTimer = () => {
     timer.value = 0;
-    animatedText.value = "주행시작 ! "; // 초기 텍스트로 리셋
+    animatedText.value = "주행시작 ! ";
   };
   
-  // 타이머 일시정지 및 재개 함수
   const pauseResumeTimer = () => {
     if (isDriving.value) {
       if (isPaused.value) {
-        // 주행 중이면서 일시정지 중인 경우
         intervalId = setInterval(() => {
           timer.value += 1;
         }, 1000);
       } else {
-        // 주행 중이면서 일시정지 중이 아닌 경우
-        clearInterval(intervalId); // 타이머 중지
+        clearInterval(intervalId);
       }
   
-      isPaused.value = !isPaused.value; // 일시정지 상태 반전
+      isPaused.value = !isPaused.value;
     }
   };
   
   const saveAndShowResult = () => {
-    emit('save-result'); // 이벤트 발생
+    let speed = 0;
+    let calorie = 0;
+    if(selectedSpeed.value == "slow") {
+      speed = 15;
+      calorie = 6;
+    } else if (selectedSpeed.value == "normal") {
+      speed = 20;
+      calorie = 7;
+    } else if (selectedSpeed.value == "fast") {
+      speed = 30;
+      calorie = 10;
+    }
+    let distance = timer.value * speed;
+    calorie = calorie * timer.value;
+
+    store.plusTodayDist(distance);
+    store.plusTodayCal(calorie);
+    store.plusTodayTime(timer.value);
+    distStore.getDistRank(user.value.userid);
+    distStore.setTotalDist(distStore.totalDist+distance);
+    recordStore.getRecord(user.value.userid);
+    const record = {
+      userid : user.value.userid,
+      distance : distance,
+    }
+    //입력한 데이터 저장
+    const res = axios.post(`http://localhost:8080/api-user/record`,
+      record);
+    
+    const gradeResponse = axios.get(`http://localhost:8080/api-user/grade`, {
+        params: { userid: user.value.userid },
+      });
+
+  
+      // 응답 처리
+      user.value.grade = gradeResponse.data;
+      // 로그인 성공 후 등급 업데이트
+      localStorage.setItem("loginUser", JSON.stringify(user.value));
+      
+    resetTimer(); // 타이머 초기화
+    emit('save-result');
   };
+  
   </script>
+  
   
   <style scoped>
   .주행중 {

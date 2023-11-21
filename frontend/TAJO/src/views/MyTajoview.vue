@@ -10,9 +10,8 @@
       <div class="MT3">
         <!-- MT3 영역의 컴포넌트 조건부 렌더링 -->
         <MytajoWriteform :showResult="showResult" @save-result="saveResult" />
-        <MytajoResult v-if="showResult" />
+        <MytajoResult v-if="showResult" @show-writeform="showWriteform" />
       </div>
-
     </div>
   </div>
 </template>
@@ -30,6 +29,11 @@ const showResult = ref(false);
 const saveResult = () => {
   // 주행 저장 로직 등을 수행한 후
   showResult.value = true; // 결과 표시를 활성화
+};
+
+const showWriteform = () => {
+  // MytajoResult에서 MytajoWriteform을 보여주기 위한 이벤트 핸들러
+  showResult.value = false; // 결과를 감추고
 };
 </script>
   

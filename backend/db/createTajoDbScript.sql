@@ -75,7 +75,6 @@ CREATE TABLE IF NOT EXISTS `tajodb`.`record` (
   `userid` VARCHAR(45) NOT NULL,
   `distance` INT default 0,
   `ridedate` DATETIME NULL,
-  PRIMARY KEY (`userid`),
   CONSTRAINT `fk_record_user1`
     FOREIGN KEY (`userid`)
     REFERENCES `tajodb`.`user` (`userid`)

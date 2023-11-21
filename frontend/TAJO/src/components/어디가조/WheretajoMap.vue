@@ -1,12 +1,15 @@
 <template>
     <div class="TajoMap">
         <div class="map">
-            지도가 들어갈 자리입니다.
-            <MapBank/>
+            <div class="지도배경">
+                <div class="인덱스">
+                <MapBank/>
+                </div>
+                <button @click="toggleResult" class="help-button">
+                    <img class="도와줘" src="@/assets/도와줘타조.png">
+                </button>
+            </div>
         </div>
-        <button @click="toggleResult" class="help-button">
-            <img class="도와줘" src="@/assets/도와줘타조.png">
-        </button>
         <div class="편의시설선택">
             <button class="편의시설버튼" @click="toggleSelect">편의시설 선택하기</button>
 
@@ -55,6 +58,12 @@ const toggleResult = () => {
 </script>
 
 <style scoped>
+.인덱스{
+    z-index: -1;
+}
+.지도배경{
+    position: relative;
+}
 #fruitSelect{
     max-width: 120px;
 }
@@ -67,11 +76,15 @@ const toggleResult = () => {
     min-width: 210px;
 }
 .help-button {
+    position: absolute;
+    top :45px;
+    right: 90px;
     border: none;
     background: none;
     padding: 0;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
+    z-index: 2;
 }
 
 .help-button:hover {

@@ -1,40 +1,41 @@
 <template>
     <div class="result">
+        <button class="돌아가기" @click="showWriteform">다시 뜨겁게 달리기</button>
         <div class="result-top">
             <div class="box">
                 <img src="@/assets/이미지시간.png">
                 <span>라이딩 시간</span>
-                <span>15 : 00</span>
+                <span>{{ store.todayTime }}분</span>
             </div>
 
             <div class="box">
                 <img src="@/assets/이미지자전거.png">
                 <span>라이딩 거리</span>
-                <span>15 km</span>
+                <span>{{ store.todayDist }}km</span>
             </div>
 
             <div class="box">
                 <img src="@/assets/이미지불꽃.png">
                 <span>태운 칼로리</span>
-                <span>55 kcal</span>
+                <span>{{ store.todayCal }}kcal</span>
             </div>
         </div>
         <div class="box box2">
             <img src="@/assets/이미지커피.png">
             <span>카푸치노 한잔 만큼 불태웠어요</span>
-            <span>55 kcal</span>
+            <span>{{store.todayCal}}</span>
         </div>
         <div class="riding-distance">
             <span>현재까지 라이딩한 거리는</span>
             <div class="distance-bottom">
                 <span>전체사용자 중 </span>
-                <span class="pink">상위 10%</span>
+                <span class="pink">상위 {{distStore.distRank}}%</span>
                 <span>예요.</span>
             </div>
         </div>
         <div class="meettajo">
-            <span class="stroked-text"> 11월에는 타조를</span>
-            <span class="stroked-text"> 6번 만났어요</span>
+            <span class="stroked-text"> {{currentMonth}}월에는 타조를</span>
+            <span class="stroked-text"> {{recordStore.dayCount}}번 만났어요</span>
         </div>
         <div class="calendar">
             <div class="header">Sun</div>
@@ -85,11 +86,40 @@
     </div>
 </template>
 
-<script setup>
+<script>
+import { ref, onMounted } from 'vue';
+import { useTodayStore } from '@/stores/today'
+import { useDistanceStore } from '@/stores/distance'
+import { useRecordStore } from '@/stores/record'
 
+export default {
+
+  setup(props, { emit }) {
+    const showWriteform = () => {
+      emit('show-writeform');
+    };
+    const store = useTodayStore();
+    const distStore = useDistanceStore();
+    const recordStore = useRecordStore();
+    const currentMonth = ref(0)
+    currentMonth.value = new Date().getMonth()+1;
+    return { showWriteform, store , distStore, recordStore, currentMonth};
+  },
+};
 </script>
 
 <style scoped>
+.돌아가기{
+    border: solid 1px #000000;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #F7CAC9;
+    color: #000000;
+    transition: background-color 0.3s;
+    margin: 20px;
+    font-family: 'cookierun';
+}
 .riding-distance,
 .meettajo {
     display: flex;

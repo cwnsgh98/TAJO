@@ -4,7 +4,9 @@
             <WheretajoTrans/>
         </div>
         <div class="wheremain">
-            <WheretajoMap @toggleResult="toggleResult"/>
+            <div class="right">
+                <WheretajoMap @toggleResult="toggleResult"/>
+            </div>
             <div class="choose">
                 <WheretajoInfo v-if="showResult"/>
                 <WheretajoHelp v-if="!showResult"/>
@@ -28,10 +30,14 @@ provide('showResult', showResult);
 </script>
 
 <style scoped>
+.right{
+    min-width: 1200px;
+}
 .choose{
     min-width: 420px;
 }
 .wheremain{
+    width: 100%;
     display: flex;
     justify-content: center;
 }

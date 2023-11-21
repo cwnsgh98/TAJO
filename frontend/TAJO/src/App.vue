@@ -22,9 +22,13 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { useDistanceStore } from '@/stores/distance'
+import { useTodayStore } from '@/stores/today'
+import { useRecordStore } from '@/stores/record'
 const router = useRouter();
 const user = ref(null);
 const store = useDistanceStore();
+const todayStore = useTodayStore();
+const recordStore = useRecordStore();
 onMounted(() => {
   
   const savedUser = localStorage.getItem("loginUser");
@@ -38,6 +42,7 @@ const logout = () => {
   localStorage.removeItem("loginUser");
   alert("로그아웃 했습니다.");
   store.totalDist.value = 0;
+  todayStore.setDefault();
 };
 const loginUser = async (loginUser) => {
   // user 정보 요청 api 주소
@@ -66,6 +71,11 @@ const loginUser = async (loginUser) => {
       for(const record of recordResponse.data) {
         totalDistance+=record.distance;
       }
+
+      // store 업데이트
+      store.getDistRank(matchedUser.userid);
+      recordStore.getRecord(matchedUser.userid);
+
       // 응답 처리
       matchedUser.grade = gradeResponse.data;
       store.setTotalDist(totalDistance);

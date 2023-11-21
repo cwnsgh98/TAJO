@@ -29,7 +29,7 @@
             <span class="gradepyo">타조등급표</span>
             <div class="타조등급1">
                 <div class="boxbox">
-                    <img src="@/assets/_egg.png">
+                    <img src="@/assets/egg.png">
                     <span>0</span>
                 </div>
                 <div class="boxbox">
