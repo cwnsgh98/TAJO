@@ -19,10 +19,10 @@
         </div>
         </div>
         <div class="tajo-grade">
-            <span class="gradepyo">내 타조 등급 : {{grade}}</span>
+            <span class="gradepyo">내 타조 등급 :</span>
             <div class="boxbox">
-                    <img src="@/assets/ostrich2.png">
-                    <span class="mykm">828km</span>
+                <img :src="getOstrichImage(grade)" alt="Ostrich Image">
+                    <span class="mykm">{{store.totalDist}}km</span>
                 </div>
         </div>
         <div class="tajo-excel">
@@ -72,7 +72,19 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue'
+import {ref, onMounted,onUpdated} from 'vue'
+import eggImage from '@/assets/egg.png';
+import ostrich1Image from '@/assets/ostrich1.png';
+import ostrich2Image from '@/assets/ostrich2.png';
+import ostrich3Image from '@/assets/ostrich3.png';
+import ostrich4Image from '@/assets/ostrich4.png';
+import ostrich5Image from '@/assets/ostrich5.png';
+import ostrich6Image from '@/assets/ostrich6.png';
+import ostrich7Image from '@/assets/ostrich7.png';
+import ostrich8Image from '@/assets/ostrich8.png';
+import { useDistanceStore } from '@/stores/distance'
+const store = useDistanceStore();
+
 const user = ref(null);
 const grade = ref("등급이 없습니다");
 const nickname = ref("로그인 해 주세요");
@@ -86,6 +98,41 @@ onMounted(() => {
         nickname.value = user.value.nickname;
     }
 });
+onUpdated(() => {
+    
+    const savedUser = localStorage.getItem("loginUser");
+    
+    if (savedUser) {
+        user.value = JSON.parse(savedUser);
+        grade.value = user.value.grade;
+        nickname.value = user.value.nickname;
+    }
+});
+
+const getOstrichImage = (grade) => {
+  switch (grade) {
+    case 'egg':
+      return eggImage;
+    case 'bronze':
+      return ostrich1Image;
+    case 'silver':
+      return ostrich2Image;
+    case 'gold':
+      return ostrich3Image;
+    case 'platinum':
+      return ostrich4Image;
+    case 'emerald':
+      return ostrich5Image;
+    case 'diamond':
+      return ostrich6Image;
+    case 'master':
+      return ostrich7Image;
+    case 'challenger':
+      return ostrich8Image;
+    default:
+      return ostrich1Image; // 기본 값
+  }
+};
 </script>
 
 <style scoped>

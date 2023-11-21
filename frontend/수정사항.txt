@@ -20,10 +20,18 @@
 
 
 store today.js 추가
+
 mytajo writeform.vue 수정
 mytajo result.vue 수정
+
+
 distance.js 수정
+
+
 app.vue login logout 수정
+
 record.js 생성
+
 database record테이블 pk 제거,
+
 spring 전체 수정

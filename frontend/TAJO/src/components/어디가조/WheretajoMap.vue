@@ -10,7 +10,7 @@
                 </button>
             </div>
         </div>
-        <div class="편의시설선택">
+        <!-- <div class="편의시설선택">
             <button class="편의시설버튼" @click="toggleSelect">편의시설 선택하기</button>
 
             <label for="fruitSelect" v-show="isSelectVisible">편의시설 선택:</label>
@@ -19,7 +19,7 @@
             </select>
 
             <p>선택한 편의시설: {{ selectedFruitName }}</p>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -77,8 +77,8 @@ const toggleResult = () => {
 }
 .help-button {
     position: absolute;
-    top :45px;
-    right: 90px;
+    top :80px;
+    right: 100px;
     border: none;
     background: none;
     padding: 0;
