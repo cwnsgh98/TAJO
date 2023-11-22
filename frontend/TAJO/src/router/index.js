@@ -13,6 +13,12 @@ import WheregoZZIM from '@/views/WheregoZZIM.vue'
 import TogetherDetail from '@/views/TogetherDetail.vue'
 import Game from '@/views/Game.vue'
 
+import WheretajoInfo from '@/components/어디가조/WheretajoInfo.vue'
+import WhereInfodetail from '@/components/어디가조/WhereInfodetail.vue'
+import WhereReview from '@/components/어디가조/WhereReview.vue'
+import WheretajoHelp from '@/components/어디가조/WheretajoHelp.vue'
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(){
@@ -52,7 +58,29 @@ const router = createRouter({
     {
       path: '/Wherego',
       name: 'Wherego',
-      component: Wheregoview
+      component: Wheregoview,
+      children:[
+        {
+          path: '',
+          name: 'WheretajoInfo',
+          component: WheretajoInfo
+        },
+        {
+          path: ':courseid/Review',
+          name: 'WhereReview',
+          component: WhereReview
+        },
+        {
+          path: ':courseid/Detail',
+          name: 'WhereInfodetail',
+          component: WhereInfodetail
+        },
+        {
+          path: 'Help',
+          name: 'WheretajoHelp',
+          component: WheretajoHelp
+        },
+      ]
     },
     {
       path: '/Wheregozzim',

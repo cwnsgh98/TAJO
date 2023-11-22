@@ -37,10 +37,16 @@ const store = useYoutubeStore()
 </script>
 
 <style scoped>
+.result-head{
+    margin-bottom: 6px;
+}
 .HelpMain{
-    height: 712px;
+    min-height: 660px;
+    max-height: 660px;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     padding-top: 20px;
+    margin-bottom: 170px;
 }
 </style>

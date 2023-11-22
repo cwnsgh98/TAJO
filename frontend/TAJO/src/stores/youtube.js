@@ -18,7 +18,7 @@ export const useYoutubeStore = defineStore('youtube', () => {
         part: "snippet",
         q: keyword,
         type: 'video',
-        maxResults: 6,
+        maxResults: 20,
       }
     })
     .then((response)=>{

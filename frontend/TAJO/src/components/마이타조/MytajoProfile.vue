@@ -201,7 +201,7 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 800px;
+    height: 750px;
     width: 380px;
     background-color: #F5F5E9;
 }

@@ -1,6 +1,7 @@
 <template>
     <div class="result">
         <button class="돌아가기" @click="showWriteform">다시 뜨겁게 달리기</button>
+        <h2>today's total</h2>
         <div class="result-top">
             <div class="box">
                 <img src="@/assets/이미지시간.png">
@@ -21,9 +22,8 @@
             </div>
         </div>
         <div class="box box2">
-            <img src="@/assets/이미지커피.png">
-
-            <span>카푸치노 한잔 만큼 불태웠어요</span>
+            <img :src="coffeeImage" alt="Coffee Image">
+            <span class="텍스트">{{ coffeeText }}</span>
             <span>{{ store.todayCal }} kcal</span>
         </div>
         <div class="riding-distance">
@@ -53,68 +53,151 @@
             <div class="day empty"></div>
 
             <!-- Days of November -->
-            <div
-    v-for="day in 30"
-    :key="day"
-    :class="{ 'day': true, 'highlight': currentDay === day }"
-    @mouseover="showInfoWindow(day)"
-    @mouseout="hideInfoWindow"
->
-      <span>{{ day }}</span>
-    </div>
-
-    <!-- 수정된 부분: day-info 컴포넌트에 선택된 날짜 전달 -->
-    <day-info :day="selectedDay" :showInfo="showInfo" v-if="selectedDay !== null" />
-  </div>
+            <div v-for="day in 30" :key="day" :class="{ 'day': true, 'highlight': recordStore.day.has(day) }"
+                @mouseover="showInfoWindow(day)" @mouseout="hideInfoWindow(day)">
+                <span>{{ day }}</span>
+            </div>
+            <!-- 수정된 부분: day-info 컴포넌트에 선택된 날짜 전달 -->
+            <DayInfo :day="selectedDay" :showInfo="showInfo" :infoWindowStyle="infoWindowStyle" />
+        </div>
     </div>
 </template>
-
+  
 <script>
-import { ref } from 'vue';
-import DayInfo from '@/components/마이타조/DayInfo.vue'; // Add this import statement
+import { ref, watch, onMounted } from 'vue';
+import DayInfo from '@/components/마이타조/DayInfo.vue';
 import { useTodayStore } from '@/stores/today';
 import { useDistanceStore } from '@/stores/distance';
 import { useRecordStore } from '@/stores/record';
 
 export default {
-  components: {
-    DayInfo,
-  },
+    components: {
+        DayInfo,
+    },
 
-  setup(props, { emit }) {
-    const showWriteform = () => {
-      emit('show-writeform');
-    };
-    const store = useTodayStore();
-    const distStore = useDistanceStore();
-    const recordStore = useRecordStore();
-    const currentMonth = ref(0);
-    const currentDay = ref(0);
-    const selectedDay = ref(null);
-    const showInfo = ref(false);
+    setup(props, { emit }) {
+        const showWriteform = () => {
+            emit('show-writeform');
+        };
+        const store = useTodayStore();
+        const distStore = useDistanceStore();
+        const recordStore = useRecordStore();
+        const currentMonth = ref(0);
+        const currentDay = ref(0);
+        const selectedDay = ref(null);
+        const showInfo = ref(false);
 
-    currentMonth.value = new Date().getMonth() + 1;
-    currentDay.value = new Date().getDate();
+        currentMonth.value = new Date().getMonth() + 1;
+        currentDay.value = new Date().getDate();
 
-    function showInfoWindow(day) {
-    console.log('Mouse over:', day);
-    selectedDay.value = day;
-    showInfo.value = true;
-}
+        const infoWindowStyle = ref({});
+        watch(selectedDay, (newDay) => {
+            const index = newDay - 1;
+            const top = Math.floor((index + 3) / 7) * 50 + 450;
+            const left = ((index + 3) % 7) * 47 + 1270;
 
-function hideInfoWindow() {
-    console.log('Mouse out');
-    selectedDay.value = null;
-    showInfo.value = false;
-}
+            infoWindowStyle.value = {
+                top: `${top}px`,
+                left: `${left}px`,
+            };
+        });
+
+        const coffeeImage = ref('');
+        const coffeeText = ref('');
+
+        const setCoffeeImage = (todayCal) => {
+            if (store.todayCal <= 30) {
+                return "src/assets/ostrich1.png";
+            } else if (todayCal <= 50) {
+                return "src/assets/orange.png";
+            } else if (todayCal <= 100) {
+                return "src/assets/이미지커피.png";
+            } else if (todayCal <= 150) {
+                return "src/assets/cake-slice.png";
+            } else if (todayCal <= 200) {
+                return "src/assets/food.png";
+            } else if (todayCal <= 250) {
+                return "src/assets/fried-potatoes.png";
+            } else if (todayCal <= 300) {
+                return "src/assets/chicken-leg.png";
+            } else if (todayCal <= 350) {
+                return "src/assets/pizza.png";
+            } else {
+                return "src/assets/ostrich8.png";
+            }
+
+        }
+        const setCoffeeText= (todayCal)=> {
+            if (store.todayCal <= 30) {
+                return "이정도는 운동이 아닙니다";
+            }
+            else if (todayCal <= 50) {
+                return "오렌지 하나 만큼 불태웠어요";
+            } else if (todayCal <= 100) {
+                return "카푸치노 한잔만큼 달렸어요";
+            } else if (todayCal <= 150) {
+                return "케이트 한조각의 반만큼 달렸어요!";
+            } else if (todayCal <= 200) {
+                return "와!!! 붕어빵!!!";
+            } else if (todayCal <= 250) {
+                return "감자튀김만큼 달렸어요 대 감 자";
+            } else if (todayCal <= 300) {
+                return "치킨닭다리 하나만큼 달리셨어용";
+            } else if (todayCal <= 350) {
+                return "피자 세조각만큼 달렸어요";
+            } else {
+                return "너무달리셨어요";
+            }
+
+        }
+
+        // watch 함수의 사용 방법 변경
+        onMounted(() => {
+            coffeeText.value = setCoffeeText(store.todayCal);
+                coffeeImage.value = setCoffeeImage(store.todayCal);
+            watch(() => [store.todayCal], ([todayCal]) => {
+                coffeeText.value = setCoffeeText(todayCal);
+                coffeeImage.value = setCoffeeImage(todayCal);
+            });
+
+        });
 
 
-    return { showWriteform, store, distStore, recordStore, currentMonth, currentDay, selectedDay, showInfo, showInfoWindow, hideInfoWindow };
-  },
+        function showInfoWindow(day) {
+            selectedDay.value = day;
+            showInfo.value = true;
+            recordStore.plusThisDayDist(day);
+        }
+
+        function hideInfoWindow(day) {
+            selectedDay.value = null;
+            showInfo.value = false;
+            recordStore.thisDayDist = 0;
+        }
+
+        return {
+            showWriteform,
+            coffeeImage,
+            coffeeText,
+            store,
+            distStore,
+            recordStore,
+            currentMonth,
+            currentDay,
+            selectedDay,
+            showInfo,
+            showInfoWindow,
+            hideInfoWindow,
+            infoWindowStyle,
+        };
+    },
 };
 </script>
 
 <style scoped>
+.텍스트{
+    margin-top: 6px;
+}
 .돌아가기 {
     border: solid 1px #000000;
     border-radius: 20px;
@@ -230,4 +313,5 @@ img {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-}</style>
+}
+</style>

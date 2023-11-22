@@ -15,8 +15,10 @@
             </div>
 
             <!-- 주행 시작 버튼이 보일 때 -->
+            <div class="버튼두개">
             <button v-if="!isDriving && timer === 0" @click="startDriving">주행 시작</button>
-
+            <button class="달력" v-if="!isDriving && timer === 0" @click="saveAndShowResult">결과창보기</button>
+          </div>
             <!-- 주행 중일 때 -->
             <div class="저장" v-if="isDriving">
                 <p class="주행중">{{ animatedText }}</p>
@@ -42,12 +44,15 @@
                     </button>
                 </div>
             </div>
-            <div class="조타">
+            <div v-if="!isDriving" class="조타">
                 <div class="말풍선디브">
                     <span class="말풍선">타조하니깐 기분이 조타</span>
                 </div>
-                <img src="@/assets/말풍선타조.png">
-            </div>
+                <img v-if="!isDriving" src="@/assets/말풍선타조.png">
+              </div>
+              <div v-if="isDriving" class="타조">
+                <img class="달타" v-if="isDriving" src="@/assets/달리는타조.gif">
+              </div>
         </div>
     </div>
 </template>
@@ -167,6 +172,13 @@ const saveAndShowResult = async () => {
 </script>
   
 <style scoped>
+.달력{
+  background-color: aliceblue;
+  
+}
+.버튼두개{
+  display: flex;
+}
 .주행중 {
     font-size: 25px;
     padding-bottom: 25px;
@@ -239,7 +251,20 @@ button:hover {
     border-radius: 40px;
     border: 2px solid #000000;
 }
-
+.달타{
+  border-radius: 70px;
+  border: 8px solid #000000;
+  width: 380px;
+    height: 400px;
+}
+.타조{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 420px;
+    height: 500px;
+}
 .조타 {
     display: flex;
     flex-direction: column;

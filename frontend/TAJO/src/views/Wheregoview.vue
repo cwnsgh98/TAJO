@@ -1,48 +1,56 @@
 <template>
     <div class="Where">
         <div class="wherehead">
-            <WheretajoTrans/>
+            <WheretajoTrans />
         </div>
         <div class="wheremain">
             <div class="right">
-                <WheretajoMap @toggleResult="toggleResult"/>
+                <WheretajoMap @help="goHelp" />
             </div>
             <div class="choose">
-                <WheretajoInfo v-if="showResult"/>
-                <WheretajoHelp v-if="!showResult"/>
+                <RouterView />
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import { ref, watch } from 'vue';
+import { RouterLink, RouterView } from 'vue-router'
 import WheretajoTrans from '../components/어디가조/WheretajoTrans.vue';
-    import WheretajoHelp from '../components/어디가조/WheretajoHelp.vue';
-    import WheretajoInfo from '../components/어디가조/WheretajoInfo.vue';
-    import WheretajoMap from '../components/어디가조/WheretajoMap.vue';
-    import { provide, ref } from 'vue';
-
-  
-const showResult = ref(true);
-
-provide('showResult', showResult);
-
+import WheretajoMap from '../components/어디가조/WheretajoMap.vue';
+import router from '../router';
+const isHelp = ref(false);
+const goHelp = (() => {
+    isHelp.value = !(isHelp.value);
+})
+watch(() => [isHelp.value], ([isHelp]) => {
+    if (isHelp) {
+        router.push('/Wherego/Help');
+    } else {
+        router.push('/Wherego');
+    }
+});
 </script>
 
 <style scoped>
-.right{
+.right {
     min-width: 1200px;
 }
-.choose{
+
+.choose {
     margin-top: 10px;
     margin-left: 40px;
     min-width: 420px;
     height: 712px;
 }
-.wheremain{
+
+.wheremain {
     display: flex;
+    max-height: 680px;
 }
-.Where{
+
+.Where {
     display: flex;
     flex-direction: column;
 }

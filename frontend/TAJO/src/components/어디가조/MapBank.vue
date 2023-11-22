@@ -25,10 +25,10 @@
 import { ref, onMounted, computed } from 'vue';
 import { useCourseStore } from '../../stores/course';
 const courseStore = useCourseStore();
+
 const fruits = [
 
   { id: '편의시설을 선택해주세요', name: '편의시설을 선택해주세요' },
-  { id: '자전거 코스', name: '자전거 코스' },
   { id: 'CE7', name: '화장실' },
   { id: 'PM9', name: '약국' },
   { id: 'CS2', name: '편의점' },
@@ -36,7 +36,6 @@ const fruits = [
 ];
 const selectedFruit = ref('편의시설을 선택해주세요');
 const isSelectVisible = ref(false);
-
 
 const selectedFruitName = computed(() => {
   const selected = fruits.find(fruit => fruit.id === selectedFruit.value);
@@ -79,7 +78,6 @@ const initMap = () => {
   ps = new kakao.maps.services.Places(map);
 
 
-
   var mapTypeControl = new kakao.maps.MapTypeControl();
 
   // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
@@ -91,10 +89,10 @@ const initMap = () => {
 
 
   map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-  kakao.maps.event.addListener(map, 'dragend', function () {
-    // do something
-    searchPlaces();
+  
+  kakao.maps.event.addListener(map, 'idle', function () {
     printMarkerNames();
+    searchNearbyPlaces();
     clearMarkerInfo();
   });
 
@@ -102,6 +100,7 @@ const initMap = () => {
   // 사용자의 현재 위치를 얻어오는 함수 호출
   getCurrentLocation();
   console.log('kakao object:', window.kakao);
+  
 
 
 };
@@ -217,6 +216,7 @@ function displayMarker(place) {
   });
 
   markers.push(marker);
+
   // 마커 정보를 markerInfo 배열에 추가
   markerInfo.value.push({
     name: place.place_name,
@@ -224,11 +224,13 @@ function displayMarker(place) {
     category: place.category_name,
     courseid : place.id,
   });
+
   // 마커를 클릭할 때 실행되는 함수
   kakao.maps.event.addListener(marker, 'click', function () {
     console.log('장소 상세 정보:', place.place_name);
     infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
     infowindow.open(map, marker);
+    console.log(place)
   });
 }
 
@@ -256,11 +258,13 @@ const searchNearbyPlaces = () => {
   const selectedFruitInfo = fruits.find(fruit => fruit.id === selectedFruit.value);
 
   if (selectedFruitInfo) {
-    searchKeyword.value = selectedFruitInfo.name;
-    // 편의시설 주변 장소 검색
-    // ps.categorySearch(selectedFruitInfo.id, placesSearchCB, { useMapBounds: true });
-    searchPlaces();
-  }
+    const searchKeywords = ['자전거 코스', selectedFruitInfo.name];
+    searchKeywords.forEach(keyword => {
+      searchKeyword.value = keyword;
+      searchPlaces();
+
+  });
+}
 };
 
 

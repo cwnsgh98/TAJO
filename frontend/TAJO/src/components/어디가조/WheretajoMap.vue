@@ -10,30 +10,17 @@
                 </button>
             </div>
         </div>
-        <!-- <div class="편의시설선택">
-            <button class="편의시설버튼" @click="toggleSelect">편의시설 선택하기</button>
-
-            <label for="fruitSelect" v-show="isSelectVisible">편의시설 선택:</label>
-            <select id="fruitSelect" v-show="isSelectVisible" v-model="selectedFruit">
-                <option v-for="fruit in fruits" :key="fruit.id" :value="fruit.id">{{ fruit.name }}</option>
-            </select>
-
-            <p>선택한 편의시설: {{ selectedFruitName }}</p>
-        </div> -->
     </div>
 </template>
 
 <script setup>
-import { ref,computed, inject } from 'vue';
+import { ref,computed, inject} from 'vue';
 import MapBank from './MapBank.vue'
 
-
-
-
-const showResult = inject('showResult');
+const emit = defineEmits(['help']);
 
 const toggleResult = () => {
-    showResult.value = !showResult.value;
+    emit('help')
 };
 
 </script>

@@ -20,7 +20,8 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-right: 170px;
 }
 img{
     width: 83px;
