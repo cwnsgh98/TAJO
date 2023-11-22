@@ -72,7 +72,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted,onUpdated} from 'vue'
+import {ref, onMounted,onUpdated, watch} from 'vue'
 import eggImage from '@/assets/egg.png';
 import ostrich1Image from '@/assets/ostrich1.png';
 import ostrich2Image from '@/assets/ostrich2.png';
@@ -83,8 +83,9 @@ import ostrich6Image from '@/assets/ostrich6.png';
 import ostrich7Image from '@/assets/ostrich7.png';
 import ostrich8Image from '@/assets/ostrich8.png';
 import { useDistanceStore } from '@/stores/distance'
+import { useRecordStore } from '@/stores/record'
 const store = useDistanceStore();
-
+const recordStore = useRecordStore();
 const user = ref(null);
 const grade = ref("등급이 없습니다");
 const nickname = ref("로그인 해 주세요");
@@ -99,18 +100,22 @@ onMounted(() => {
         nickname.value = user.value.nickname;
         src.value = getOstrichImage(grade.value);
     }
+
+    watch(() => [recordStore.grade], ([grade]) => {
+  src.value = getOstrichImage(grade);
 });
-onUpdated(() => {
-    
-    const savedUser = localStorage.getItem("loginUser");
-    
-    if (savedUser) {
-        user.value = JSON.parse(savedUser);
-        grade.value = user.value.grade;
-        nickname.value = user.value.nickname;
-        src.value = getOstrichImage(grade.value);
-    }
 });
+// onUpdated(() => {
+    
+//     const savedUser = localStorage.getItem("loginUser");
+    
+//     if (savedUser) {
+//         user.value = JSON.parse(savedUser);
+//         grade.value = user.value.grade;
+//         nickname.value = user.value.nickname;
+//         src.value = getOstrichImage(grade.value);
+//     }
+// });
 
 const getOstrichImage = (grade) => {
   switch (grade) {

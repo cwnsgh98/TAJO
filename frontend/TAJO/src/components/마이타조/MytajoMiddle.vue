@@ -23,7 +23,9 @@
 <script setup>
 import { ref, watch, onMounted, onUpdated, inject } from 'vue';
 import { useDistanceStore } from '@/stores/distance'
+import { useRecordStore } from '@/stores/record'
 const store = useDistanceStore();
+const recordStore = useRecordStore();
 const remainDist = ref(0);
 const showResult = inject('showResult');
 const showWriteForm = inject('showWriteForm');
@@ -50,31 +52,31 @@ const toggleMovement = () => {
     }, 600);
   }
 };
-const getRemainDist = function(user) {
-    if(user.grade==="egg") {
+const getRemainDist = function(grade) {
+    if(grade==="egg") {
         remainDist.value = 100 - store.totalDist;
-    } else if(user.grade==="bronze") {
+    } else if(grade==="bronze") {
         remainDist.value = 500 - store.totalDist;
-    } else if(user.grade==="silver") {
+    } else if(grade==="silver") {
         remainDist.value = 1000 - store.totalDist;
-    } else if(user.grade==="gold") {
+    } else if(grade==="gold") {
         remainDist.value = 2000 - store.totalDist;
-    } else if(user.grade==="platinum") {
+    } else if(grade==="platinum") {
         remainDist.value = 3000 - store.totalDist;
-    } else if(user.grade==="emerald") {
+    } else if(grade==="emerald") {
         remainDist.value = 5000 - store.totalDist;
-    } else if(user.grade==="diamond") {
+    } else if(grade==="diamond") {
         remainDist.value = 10000 - store.totalDist;
-    } else if(user.grade==="master") {
+    } else if(grade==="master") {
         remainDist.value = 20000 - store.totalDist;
     } 
 }
 // 다음 등급까지 남은 거리 계산 
 onMounted(() => {
-    const user = JSON.parse(localStorage.getItem("loginUser"));
-    getRemainDist(user);
-    watch(() => [store.totalDist, JSON.parse(localStorage.getItem("loginUser"))], ([totalDist, user]) => {
-  getRemainDist(user);
+    const grade = recordStore.grade;
+    getRemainDist(grade);
+    watch(() => [store.totalDist, recordStore.grade], ([totalDist, grade]) => {
+  getRemainDist(grade);
 });
 
 });

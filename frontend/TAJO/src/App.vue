@@ -41,9 +41,9 @@ const logout = () => {
   user.value = null;
   localStorage.clear();
   alert("로그아웃 했습니다.");
-  store.totalDist.value = 0;
+  // store.setTotalDist(0);
   todayStore.setDefault();
-  router.push("/");
+  router.push({name : 'home'});
 };
 const loginUser = async (loginUser) => {
   // user 정보 요청 api 주소
@@ -79,6 +79,7 @@ const loginUser = async (loginUser) => {
 
       // 응답 처리
       matchedUser.grade = gradeResponse.data;
+      recordStore.setGrade(gradeResponse.data);
       store.setTotalDist(totalDistance);
       // 성공적으로 요청이 완료된 후에 user.value 설정
       user.value = matchedUser;

@@ -4,6 +4,7 @@ import axios from 'axios';
 export const useRecordStore = defineStore('record', () => {
   const recordList= ref(null);
   const dayCount = ref(0);
+  const grade = ref("");
   function getRecord(userid) {
     axios.get(`http://localhost:8080/api-user/record`, {params:{
       userid:userid
@@ -36,7 +37,11 @@ export const useRecordStore = defineStore('record', () => {
   
     return uniqueDates.size;
   }
+
+  function setGrade(newGrade) {
+    grade.value = newGrade;
+  }
   
   
-  return { recordList, getRecord,dayCount}
+  return { recordList, getRecord,dayCount, grade, setGrade }
 }, {persist : true})

@@ -159,7 +159,7 @@ const saveAndShowResult = async () => {
     console.log(user.value)
     // 로그인 성공 후 등급 업데이트
     localStorage.setItem("loginUser", JSON.stringify(user.value));
-    
+    recordStore.setGrade(gradeResponse.data);
   resetTimer(); // 타이머 초기화
   emit('save-result');
 };

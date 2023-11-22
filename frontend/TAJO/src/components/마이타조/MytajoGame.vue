@@ -21,7 +21,7 @@ const jumpTimer = ref(0);
 const cactusArr = ref([]);
 let timer = 0;
 let animation;
-let baseSpeed = 3; // 기본 속도
+let baseSpeed = 2.5; // 기본 속도
 let speedIncreaseInterval = 1000; // 속도를 증가시킬 간격
 let speedIncreaseFactor = 0.15; // 속도를 증가시키는 비율
 let minSpeedIncreaseInterval = 800; // 최소 간격
@@ -73,7 +73,7 @@ function frameAction() {
     baseSpeed += baseSpeed * speedIncreaseFactor;
   }
 
-  if (timer % 120 === 0) {
+  if (timer % getRandomInt(118.5, 120) === 0) {
     const cactus = new Cactus(baseSpeed);
     cactusArr.value.push(cactus);
   }
