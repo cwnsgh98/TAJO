@@ -1,45 +1,41 @@
 <template>
   <div>
-    <div class="맵밑에">
-      <span>장소 검색기</span>
-      <div>
-        <input v-model="searchKeyword" placeholder="장소 검색어를 입력하세요">
-        <button @click="searchPlaces">검색</button>
+    <div id="map">
+      <div class="맵밑에">
+        <!-- <span>장소 검색기</span>
+        <div class="장소검색기">
+          <input v-model="searchKeyword" placeholder="장소 검색어를 입력하세요">
+          <button @click="searchPlaces">검색</button>
+        </div> -->
+        <div class="체크박스">
+          <input type="checkbox" id="chkBicycle" @click="setOverlayMapTypeId" /> <span>자전거도로 정보 보기</span>
+        </div>
+      </div>
+      <div class="편의시설선택" >
+        <select id="fruitSelect" v-model="selectedFruit" @change="searchNearbyPlaces">
+          <option v-for="fruit in fruits" :key="fruit.id" :value="fruit.id">{{ fruit.name }}</option>
+        </select>
       </div>
     </div>
-    <div id="map"></div>
-
-    <div class="편의시설선택">
-      <button class="편의시설버튼" @click="toggleSelect">편의시설 선택하기</button>
-
-      <label for="fruitSelect" v-show="isSelectVisible">편의시설 선택:</label>
-      <select id="fruitSelect" v-show="isSelectVisible" v-model="selectedFruit" @change="searchNearbyPlaces">
-        <option v-for="fruit in fruits" :key="fruit.id" :value="fruit.id">{{ fruit.name }}</option>
-      </select>
-
-      <p>선택한 편의시설: {{ selectedFruitName }}</p>
-    </div>
-    <p>
-      <input type="checkbox" id="chkUseDistrict" @click="setOverlayMapTypeId" /> 지적편집도 정보 보기
-      <input type="checkbox" id="chkTerrain" @click="setOverlayMapTypeId" /> 지형정보 보기
-      <input type="checkbox" id="chkTraffic" @click="setOverlayMapTypeId" /> 교통정보 보기
-      <input type="checkbox" id="chkBicycle" @click="setOverlayMapTypeId" /> 자전거도로 정보 보기
-    </p>
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 
 const fruits = [
-  { id: '', name: '자전거 코스' },
+
+  { id: '편의시설을 선택해주세요', name: '편의시설을 선택해주세요' },
+  { id: '자전거 코스', name: '자전거 코스' },
   { id: 'CE7', name: '화장실' },
   { id: 'PM9', name: '약국' },
   { id: 'CS2', name: '편의점' },
   // 다른 편의시설들...
 ];
-const selectedFruit = ref(null);
+const selectedFruit = ref('편의시설을 선택해주세요');
 const isSelectVisible = ref(false);
+
 
 const selectedFruitName = computed(() => {
   const selected = fruits.find(fruit => fruit.id === selectedFruit.value);
@@ -123,10 +119,10 @@ function setOverlayMapTypeId() {
     bicycle: kakao.maps.MapTypeId.BICYCLE,
     useDistrict: kakao.maps.MapTypeId.USE_DISTRICT
   };
-  var chkTerrain = document.getElementById('chkTerrain'),
-    chkTraffic = document.getElementById('chkTraffic'),
-    chkBicycle = document.getElementById('chkBicycle'),
-    chkUseDistrict = document.getElementById('chkUseDistrict');
+  var chkBicycle = document.getElementById('chkBicycle');
+  // chkTerrain = document.getElementById('chkTerrain'),
+    // chkTraffic = document.getElementById('chkTraffic'),
+    // chkUseDistrict = document.getElementById('chkUseDistrict');
 
   // 지도 타입을 제거합니다
   for (var type in mapTypes) {
@@ -134,19 +130,19 @@ function setOverlayMapTypeId() {
   }
 
   // 지적편집도정보 체크박스가 체크되어있으면 지도에 지적편집도정보 지도타입을 추가합니다
-  if (chkUseDistrict.checked) {
-    map.addOverlayMapTypeId(mapTypes.useDistrict);
-  }
+  // if (chkUseDistrict.checked) {
+  //   map.addOverlayMapTypeId(mapTypes.useDistrict);
+  // }
 
-  // 지형정보 체크박스가 체크되어있으면 지도에 지형정보 지도타입을 추가합니다
-  if (chkTerrain.checked) {
-    map.addOverlayMapTypeId(mapTypes.terrain);
-  }
+  // // 지형정보 체크박스가 체크되어있으면 지도에 지형정보 지도타입을 추가합니다
+  // if (chkTerrain.checked) {
+  //   map.addOverlayMapTypeId(mapTypes.terrain);
+  // }
 
-  // 교통정보 체크박스가 체크되어있으면 지도에 교통정보 지도타입을 추가합니다
-  if (chkTraffic.checked) {
-    map.addOverlayMapTypeId(mapTypes.traffic);
-  }
+  // // 교통정보 체크박스가 체크되어있으면 지도에 교통정보 지도타입을 추가합니다
+  // if (chkTraffic.checked) {
+  //   map.addOverlayMapTypeId(mapTypes.traffic);
+  // }
 
   // 자전거도로정보 체크박스가 체크되어있으면 지도에 자전거도로정보 지도타입을 추가합니다
   if (chkBicycle.checked) {
@@ -190,6 +186,7 @@ function placesSearchCB(data, status, pagination) {
   }
 }
 
+
 // function displayMarker(place) {
 //   const marker = new kakao.maps.Marker({
 //     map: map,
@@ -225,6 +222,7 @@ function displayMarker(place) {
     console.log('장소 상세 정보:', place.place_name);
     infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
     infowindow.open(map, marker);
+    console.log(place)
   });
 }
 
@@ -262,18 +260,80 @@ const searchNearbyPlaces = () => {
 
 </script>
 
+
 <style scoped>
-.맵밑에 {
-  width: 350px;
+#map {
+  position: relative;
+  width: 1200px;
+  height: 712px;
+  z-index: 2;
+}
+.체크박스{
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-around;
-  margin-top: 7px;
+  height: 24px;
+  width: 160px;
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+}
+.체크박스 span{
+  margin-left: 5px;
 }
 
-#map {
-  margin: 10px 20px 20px 20px;
-  width: 1130px;
-  height: 550px;
+.맵밑에 {
+  position: absolute;
+  top: 0px;
+  right: 90px;
+  width: 200px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 7px; /* 여백 조절 */
+  z-index: 4;
 }
+
+.편의시설선택 {
+  position: absolute;
+  bottom: 20px;
+  left: 600px;
+  display: flex;
+  align-items: center;
+  z-index: 4;
+  background-color: #FFFFFF;
+}
+.fruitSelect{
+  width: 130px;
+  height: 30px;
+}
+#fruitSelect {
+    font-size: 16px;
+    padding: 10px;
+    border: 2px solid #3d3d3d; /* 연핑크 색상으로 설정 */
+    border-radius: 5px;
+    background-color: #fff; /* 배경색을 흰색으로 설정 */
+    color: #1d1d1d; /* 글자색을 연핑크로 설정 */
+    outline: none; /* 포커스시 테두리 제거 */
+    cursor: pointer;
+    transition: border-color 0.3s ease; /* 변화 시 부드럽게 전환되도록 설정 */
+    font-family: 'cookierun';
+  }
+
+  #fruitSelect:hover,
+  #fruitSelect:focus {
+    border-color: #2e2e2e; /* 호버 및 포커스시 테두리 색상 변경 */
+  }
+
+  /* 드롭다운 메뉴 스타일링 */
+  #fruitSelect option {
+    background-color: #fff;
+    color: #ff69b4;
+  }
+
+  /* 선택된 항목 스타일링 */
+  #fruitSelect option:checked {
+    background-color: #b25aff;
+    color: #fff;
+  }
+/* 나머지 스타일링을 원하는 대로 추가하세요 */
 </style>

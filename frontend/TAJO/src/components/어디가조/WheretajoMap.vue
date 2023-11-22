@@ -27,25 +27,6 @@
 import { ref,computed, inject } from 'vue';
 import MapBank from './MapBank.vue'
 
-const fruits = [
-  { id: 1, name: '화장실' },
-  { id: 2, name: '약국' },
-  { id: 3, name: '편의점' },
-  // 다른 과일들...
-];
-
-const selectedFruit = ref(null);
-const isSelectVisible = ref(false);
-
-const selectedFruitName = computed(() => {
-  const selected = fruits.find(fruit => fruit.id === selectedFruit.value);
-  return selected ? selected.name : '';
-});
-
-const toggleSelect = () => {
-  isSelectVisible.value = !isSelectVisible.value;
-};
-
 
 
 
@@ -64,9 +45,7 @@ const toggleResult = () => {
 .지도배경{
     position: relative;
 }
-#fruitSelect{
-    max-width: 120px;
-}
+
 .편의시설버튼{
     width: 120px;
 }
@@ -77,8 +56,8 @@ const toggleResult = () => {
 }
 .help-button {
     position: absolute;
-    top :80px;
-    right: 100px;
+    top :60px;
+    right: 50px;
     border: none;
     background: none;
     padding: 0;

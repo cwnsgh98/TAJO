@@ -38,6 +38,21 @@ mytajo writeform 수정
 appvue의 login 메서드 수정
 appvue의 logout 메서드 수정
 store의 distance.js 수정
+store의 record.js 수정
 mytajo middle.vue 수정 
 mytajo profile.vue 수정
 mytajo game.vue 수정
+
+
+
+
+
+
+
+
+
+
+
+
+
+

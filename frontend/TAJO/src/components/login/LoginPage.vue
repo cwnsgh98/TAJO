@@ -17,10 +17,12 @@
                 </div>
                 <div class="btn_box">
                     <button @click="LoginUser">
-                    <img class="btn" src="@/assets/로그인버튼.png">
+                    <!-- <img class="btn" src="@/assets/로그인버튼.png"> -->
+                    로그인
                     </button>
                     <button @click="CancelLogin">
-                        <img class="btn" src="@/assets/취소버튼.png">
+                        <!-- <img class="btn" src="@/assets/취소버튼.png"> -->
+                        취소
                     </button>
                 </div>
             </div>
@@ -59,12 +61,25 @@ const LoginUser = () => {
 </script>
 
 <style scoped>
+button{
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: 2px solid #000000;
+  font-family: 'cookierun';
+}
 .footergo{
     padding: 20px;
 }
 .tj{
     font-size: 30px;
     font-weight: 700;
+}
+input{
+    padding-left: 14px;
+    font-family: 'cookierun';
+}
+input:focus{
+    background-color: rgb(255, 162, 162);
 }
 .logintajo{
     width: 90%;
@@ -83,15 +98,18 @@ label{
     height: 27px;
 }
 .login_id, .password_id{
-    margin-left: 60px;
+    margin-left: 80px;
     display: flex;
     align-items: center;
     padding: 15px;
 }
 button{
     border-radius: 20px;
-    border: solid 2px #FFFFFF;
+    border: solid 2px #363636;
     background: #F7CAC9;
+}
+button:hover{
+    background-color: rgb(255, 162, 162);
 }
 input{
     border-radius: 20px;

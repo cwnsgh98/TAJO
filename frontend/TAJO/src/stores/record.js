@@ -43,5 +43,5 @@ export const useRecordStore = defineStore('record', () => {
   }
   
   
-  return { recordList, getRecord,dayCount, grade, setGrade }
+  return { recordList, getRecord,dayCount, grade, setGrade  }
 }, {persist : true})
