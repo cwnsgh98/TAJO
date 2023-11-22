@@ -34,12 +34,13 @@ provide('showResult', showResult);
     min-width: 1200px;
 }
 .choose{
+    margin-top: 10px;
+    margin-left: 40px;
     min-width: 420px;
+    height: 712px;
 }
 .wheremain{
-    width: 100%;
     display: flex;
-    justify-content: center;
 }
 .Where{
     display: flex;

@@ -38,11 +38,13 @@
   
           <!-- 가입 버튼과 취소 버튼 -->
           <div class="btn_box">
-            <button @click="regist">
-              <img class="btn" src="@/assets/가입버튼.png">
+            <button class="가입" @click="regist">
+              가입
+              <!-- <img class="btn" src="@/assets/가입버튼.png"> -->
             </button>
-            <button @click="cancelRegist">
-              <img class="btn" src="@/assets/취소버튼.png">
+            <button class="취소" @click="cancelRegist">
+              취소
+              <!-- <img class="btn" src="@/assets/취소버튼.png"> -->
             </button>
           </div>
         </div>
@@ -91,12 +93,31 @@
   </script>
 
 <style scoped>
+.가입{
+  margin-right: 100px;
+}
+input{
+    padding-left: 10px;
+    font-family: 'cookierun';
+}
+button:hover{
+    background-color: rgb(255, 162, 162);
+}
 .footergo{
     padding: 20px;
 }
 .tj{
     font-size: 30px;
     font-weight: 700;
+}
+input:focus{
+    background-color: rgb(255, 162, 162);
+}
+button{
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: 2px solid #000000;
+  font-family: 'cookierun';
 }
 .logintajo{
     width: 90%;
@@ -115,14 +136,15 @@ label{
     height: 27px;
 }
 .login_id, .password_id{
-    margin-left: 60px;
+    margin-left: 80px;
     display: flex;
     align-items: center;
     padding: 15px;
+    margin-bottom: 17px;
 }
 button{
     border-radius: 20px;
-    border: solid 2px #FFFFFF;
+    border: solid 2px #000000;
     background: #F7CAC9;
 }
 input{
@@ -134,7 +156,7 @@ input{
     margin-top: 20px;
     width: 100%;
     display: flex;
-    justify-content:space-evenly;
+    justify-content:center;
     align-items: center;
 
 }
@@ -143,7 +165,7 @@ input{
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    border: 3px solid #A4A4A4;
+    border: 3px solid #000000;
     border-radius: 40px;
     width: 520px;
     height: 600px;

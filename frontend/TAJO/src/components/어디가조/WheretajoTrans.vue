@@ -25,5 +25,15 @@
 }
 button{
     margin-left: 15px;
+    background-color: aliceblue;
+    border: 2px solid rgb(93, 93, 93);
+    font-family: 'cookierun';
+    padding: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 20px;
+}
+button:hover{
+    background-color: rgb(255, 187, 179);
 }
 </style>

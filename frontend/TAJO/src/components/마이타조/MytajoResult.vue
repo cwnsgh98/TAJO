@@ -22,21 +22,21 @@
         </div>
         <div class="box box2">
             <img src="@/assets/이미지커피.png">
-            
+
             <span>카푸치노 한잔 만큼 불태웠어요</span>
-            <span>{{store.todayCal}} kcal</span>
+            <span>{{ store.todayCal }} kcal</span>
         </div>
         <div class="riding-distance">
             <span>현재까지 라이딩한 거리는</span>
             <div class="distance-bottom">
                 <span>전체사용자 중 </span>
-                <span class="pink">상위 {{distStore.distRank == 0 ? 1 : distStore.distRank}}%</span>
+                <span class="pink">상위 {{ distStore.distRank == 0 ? 1 : distStore.distRank }}%</span>
                 <span>예요.</span>
             </div>
         </div>
         <div class="meettajo">
-            <span class="stroked-text"> {{currentMonth}}월에는 타조를</span>
-            <span class="stroked-text"> {{recordStore.dayCount}}번 만났어요</span>
+            <span class="stroked-text"> {{ currentMonth }}월에는 타조를</span>
+            <span class="stroked-text"> {{ recordStore.dayCount }}번 만났어요</span>
         </div>
         <div class="calendar">
             <div class="header">Sun</div>
@@ -53,47 +53,33 @@
             <div class="day empty"></div>
 
             <!-- Days of November -->
-            <div class="day">1</div>
-            <div class="day">2</div>
-            <div class="day">3</div>
-            <div class="day">4</div>
-            <div class="day">5</div>
-            <div class="day">6</div>
-            <div class="day">7</div>
-            <div class="day">8</div>
-            <div class="day">9</div>
-            <div class="day">10</div>
-            <div class="day">11</div>
-            <div class="day">12</div>
-            <div class="day">13</div>
-            <div class="day">14</div>
-            <div class="day">15</div>
-            <div class="day">16</div>
-            <div class="day">17</div>
-            <div class="day">18</div>
-            <div class="day">19</div>
-            <div class="day">20</div>
-            <div class="day">21</div>
-            <div class="day">22</div>
-            <div class="day">23</div>
-            <div class="day">24</div>
-            <div class="day">25</div>
-            <div class="day">26</div>
-            <div class="day">27</div>
-            <div class="day">28</div>
-            <div class="day">29</div>
-            <div class="day">30</div>
-        </div>
+            <div
+    v-for="day in 30"
+    :key="day"
+    :class="{ 'day': true, 'highlight': currentDay === day }"
+    @mouseover="showInfoWindow(day)"
+    @mouseout="hideInfoWindow"
+>
+      <span>{{ day }}</span>
+    </div>
+
+    <!-- 수정된 부분: day-info 컴포넌트에 선택된 날짜 전달 -->
+    <day-info :day="selectedDay" :showInfo="showInfo" v-if="selectedDay !== null" />
+  </div>
     </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import { useTodayStore } from '@/stores/today'
-import { useDistanceStore } from '@/stores/distance'
-import { useRecordStore } from '@/stores/record'
+import { ref } from 'vue';
+import DayInfo from '@/components/마이타조/DayInfo.vue'; // Add this import statement
+import { useTodayStore } from '@/stores/today';
+import { useDistanceStore } from '@/stores/distance';
+import { useRecordStore } from '@/stores/record';
 
 export default {
+  components: {
+    DayInfo,
+  },
 
   setup(props, { emit }) {
     const showWriteform = () => {
@@ -102,15 +88,34 @@ export default {
     const store = useTodayStore();
     const distStore = useDistanceStore();
     const recordStore = useRecordStore();
-    const currentMonth = ref(0)
-    currentMonth.value = new Date().getMonth()+1;
-    return { showWriteform, store , distStore, recordStore, currentMonth};
+    const currentMonth = ref(0);
+    const currentDay = ref(0);
+    const selectedDay = ref(null);
+    const showInfo = ref(false);
+
+    currentMonth.value = new Date().getMonth() + 1;
+    currentDay.value = new Date().getDate();
+
+    function showInfoWindow(day) {
+    console.log('Mouse over:', day);
+    selectedDay.value = day;
+    showInfo.value = true;
+}
+
+function hideInfoWindow() {
+    console.log('Mouse out');
+    selectedDay.value = null;
+    showInfo.value = false;
+}
+
+
+    return { showWriteform, store, distStore, recordStore, currentMonth, currentDay, selectedDay, showInfo, showInfoWindow, hideInfoWindow };
   },
 };
 </script>
 
 <style scoped>
-.돌아가기{
+.돌아가기 {
     border: solid 1px #000000;
     border-radius: 20px;
     padding: 10px 20px;
@@ -121,6 +126,7 @@ export default {
     margin: 20px;
     font-family: 'cookierun';
 }
+
 .riding-distance,
 .meettajo {
     display: flex;
@@ -131,10 +137,21 @@ export default {
     padding-top: 40px;
 }
 
+.day.highlight {
+    background-color: #FC9797;
+    /* 형광 분홍색 또는 다른 원하는 색상으로 설정 */
+    color: #000000;
+    /* 글자 색상을 흰색으로 설정 */
+}
+
 .result-top,
 .box2 {
     padding-top: 30px;
 
+}
+
+.날짜 {
+    font-size: 10px;
 }
 
 span {
@@ -160,35 +177,38 @@ img {
     font-size: 32px;
     font-family: 'cookierun';
 }
+
 .calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
-  background-color: #eee;
-  border: 1px solid #ccc;
-  width: 300px;
-  height: 300px;
-  overflow: hidden;
-  margin-bottom: 80px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    margin-bottom: 80px;
 }
 
 .day {
-  padding: 6px;
-  text-align: center;
-  border: 1px solid #ccc;
-  background-color: #fff;
+    padding: 6px;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: #fff;
 }
 
 .header {
-  text-align: center;
-  padding: 6px;
-  background-color: #ddd;
+    text-align: center;
+    padding: 6px;
+    background-color: #ddd;
 }
 
 .empty {
-  background-color: #eee;
-  visibility: hidden; /* 빈 칸을 보이지 않도록 설정 */
+    background-color: #eee;
+    visibility: hidden;
+    /* 빈 칸을 보이지 않도록 설정 */
 }
+
 .box {
     display: flex;
     flex-direction: column;
@@ -210,5 +230,4 @@ img {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-}
-</style>
+}</style>
