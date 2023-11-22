@@ -51,7 +51,13 @@ mytajo game.vue 수정
 
 
 
-
+public폴더에 파비콘 추가
+index.html의 head 수정(title)
+myTajoView 변경
+mapbank 변경
+assets에 파일 추가
+db create문 변경 insert문 추가
+course.js store에 추가
 
 
 

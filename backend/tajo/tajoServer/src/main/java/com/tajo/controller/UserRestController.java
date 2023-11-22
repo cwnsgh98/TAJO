@@ -80,7 +80,6 @@ public class UserRestController {
 		@ApiOperation(value="라이딩 기록 불러오기")
 		public ResponseEntity<List<Record>> loadRecord(String userid) {
 			List<Record> record = userService.getUserRecord(userid);
-			System.out.println("유저의 기록 : "+record.size());
 			return new ResponseEntity<List<Record>>(record, HttpStatus.OK);
 		}
 		

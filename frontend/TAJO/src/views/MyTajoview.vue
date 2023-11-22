@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="MTmain">
+    <div class="MTmain" v-if="user">
       <div class="MT1">
         <MytajoProfile />
       </div>
@@ -13,6 +13,9 @@
         <MytajoResult v-if="showResult" @show-writeform="showWriteform" />
       </div>
     </div>
+    <div class ="main" v-else>
+      <MytajoGameVue/>
+    </div>
   </div>
 </template>
 
@@ -21,11 +24,11 @@ import MytajoProfile from '../components/마이타조/MytajoProfile.vue';
 import MytajoMiddle from '../components/마이타조/MytajoMiddle.vue';
 import MytajoWriteform from '../components/마이타조/MytajoWriteform.vue';
 import MytajoResult from '../components/마이타조/MytajoResult.vue';
-
+import MytajoGameVue from '../components/마이타조/MytajoGame.vue';
 import { ref } from 'vue';
 
 const showResult = ref(false);
-
+const user = ref(localStorage.getItem("loginUser"))
 const saveResult = () => {
   // 주행 저장 로직 등을 수행한 후
   showResult.value = true; // 결과 표시를 활성화
@@ -70,5 +73,10 @@ const showWriteform = () => {
   /* 세로 스크롤 가능하도록 설정 */
   max-height: 760px;
   /* 스크롤 영역의 최대 높이를 지정, 필요에 따라 조절 가능 */
-}</style>
+}
+.main{
+    width: 700px;
+    height: 700px;
+}
+</style>
   

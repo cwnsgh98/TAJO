@@ -23,7 +23,8 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-
+import { useCourseStore } from '../../stores/course';
+const courseStore = useCourseStore();
 const fruits = [
 
   { id: '편의시설을 선택해주세요', name: '편의시설을 선택해주세요' },
@@ -107,7 +108,9 @@ const initMap = () => {
 function printMarkerNames() {
   console.log('현재 지도에 표시된 마커들의 이름:');
   console.log('markerInfo 배열의 크기:', markerInfo.value.length);
+  courseStore.clearCourseList();
   markerInfo.value.forEach(marker => {
+    courseStore.getCourse(marker.courseid);
     console.log(marker.name);
   });
 };
@@ -181,7 +184,10 @@ const getCurrentLocation = () => {
 function placesSearchCB(data, status, pagination) {
   if (status === kakao.maps.services.Status.OK) {
     for (let i = 0; i < data.length; i++) {
-      displayMarker(data[i]);
+      // Check if the place category is "자전거 코스"
+      if (data[i].category_name === '교통,수송 > 도로시설 > 자전거도로') {
+        displayMarker(data[i]);
+      }
     }
   }
 }
@@ -210,19 +216,18 @@ function displayMarker(place) {
   });
 
   markers.push(marker);
-
   // 마커 정보를 markerInfo 배열에 추가
   markerInfo.value.push({
     name: place.place_name,
     position: { latitude: place.y, longitude: place.x },
+    category: place.category_name,
+    courseid : place.id,
   });
-
   // 마커를 클릭할 때 실행되는 함수
   kakao.maps.event.addListener(marker, 'click', function () {
     console.log('장소 상세 정보:', place.place_name);
     infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
     infowindow.open(map, marker);
-    console.log(place)
   });
 }
 

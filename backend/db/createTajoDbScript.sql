@@ -36,9 +36,14 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tajodb`.`course` ;
 
 CREATE TABLE IF NOT EXISTS `tajodb`.`course` (
-  `courseid` INT NOT NULL AUTO_INCREMENT,
+  `courseid` INT NOT NULL,
   `name` VARCHAR(45) NULL,
-  `content` VARCHAR(45) NULL,
+  `from` VARCHAR(45) NULL,
+  `to` VARCHAR(45) NULL,
+  `location` VARCHAR(45) NULL,
+  `img` VARCHAR(45) NULL,
+  `time` VARCHAR(45),
+  `distance` INT,
   `viewCnt` int default 0,
   
   PRIMARY KEY (`courseid`))
@@ -94,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `tajodb`.`courseReview` (
   `content` VARCHAR(45) NULL,
   `writer` VARCHAR(45) NULL,
   `write_date` DATETIME NULL DEFAULT now(),
-  `start` INT NULL,
+  `star` INT NULL,
   INDEX `fk_courseReview_course1_idx` (`course_courseid` ASC) VISIBLE,
   PRIMARY KEY (`reviewid`),
   CONSTRAINT `fk_courseReview_course1`
