@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tajo.dto.Course;
 import com.tajo.dto.CourseReview;
-import com.tajo.dto.SearchCondition;
 import com.tajo.service.CourseService;
 
 import io.swagger.annotations.Api;
@@ -30,30 +28,34 @@ public class CourseRestController {
 	@Autowired
 	private CourseService CourseService;
 
-	// 1. 전체 코스(검색조건 있을 수도 있고 없을 수도 있다.)
+	// 1. 전체 코스
 	@GetMapping("/Course")
 	@ApiOperation(value = "코스 조회", notes = "전체 코스 리스트를 가져온다.")
-	public ResponseEntity<?> list(SearchCondition condition) {
-		List<Course> list = CourseService.getCourseList(condition); // 전체 조회
+	public ResponseEntity<?> list() {
+		List<Course> list = CourseService.getCourseList(); // 전체 조회
 		if (list == null || list.size() == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		for(Course course : list) {
+			int courseid = course.getCourseid();
+			course.setStarAvg(CourseService.getStarAvg(courseid));
+			course.setReviewCnt(CourseService.getCourseReviewList(courseid).size());
+		}
 		return new ResponseEntity<List<Course>>(list, HttpStatus.OK);
 	}
 
 	// 2. 상세보기
 	@GetMapping("/Course/{id}")
 	@ApiOperation(value = "코스 상세", response = Course.class)
-	public ResponseEntity<Course> detail(@PathVariable int courseid) {
-		Course course = CourseService.getCourse(courseid);
+	public ResponseEntity<Course> detail(@PathVariable int id) {
+		Course course = CourseService.getCourse(id);
 		// 조회수 증가
-		CourseService.updateViewCnt(courseid);
+		CourseService.updateViewCnt(id);
 		
 		// 별점 평균 가져오기
-//		course.setStarAvg(CourseService.getStarAvg());
+		course.setStarAvg(CourseService.getStarAvg(id));
 		// 리뷰 개수 가져오기
-		course.setReviewCnt(CourseService.getCourseReviewList(courseid).size());
-		// 정석이라면 게시글 제목을 클릭해서 상세보기로 들어갈 거니까 여기서 매무리 해도 된다.
-		// 꼬옥 주소창을 통해 접근하려고 하는 악의무리가 있기 때문에 만약 없는 값을 보냈을때... 처리를 해주어라. (해볼것)
+		course.setReviewCnt(CourseService.getCourseReviewList(id).size());
+		System.out.println("코스 : " + course);
 		return new ResponseEntity<Course>(course, HttpStatus.OK);
 	}
 
@@ -119,8 +121,8 @@ public class CourseRestController {
 	}
 	// 9. 찜한 코스 목록 불러오기
 	@GetMapping("/Course/like")
-	@ApiOperation(value = "코스 찜삭제")
-	public ResponseEntity<?> getFavorite(int userid) {
+	@ApiOperation(value = "코스 찜목록")
+	public ResponseEntity<?> getFavorite(String userid) {
 		List<Course> list = CourseService.getFavorite(userid);
 		return new ResponseEntity<List<Course>>(list, HttpStatus.OK);
 	}

@@ -5,15 +5,14 @@ import java.util.List;
 
 import com.tajo.dto.Course;
 import com.tajo.dto.CourseReview;
-import com.tajo.dto.SearchCondition;
 
 public interface CourseService {
 
-	List<Course> getCourseList(SearchCondition condition);
+	List<Course> getCourseList();
 
-	Course getCourse(int id);
+	Course getCourse(int courseid);
 
-	void updateViewCnt(int id);
+	void updateViewCnt(int courseid);
 
 	List<CourseReview> getCourseReviewList(int courseid);
 
@@ -27,6 +26,8 @@ public interface CourseService {
 
 	void unFavoriteCourse(HashMap<String, Object> map);
 
-	List<Course> getFavorite(int userid);
+	List<Course> getFavorite(String userid);
+
+	double getStarAvg(int courseid);
 
 }

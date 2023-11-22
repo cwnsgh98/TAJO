@@ -1,10 +1,11 @@
 package com.tajo.dto;
 
 public class CourseReview {
+	int courseid;
 	String content;
 	String writer;
-	int start;
-	int courseid;
+	int star;
+	
 
 	public String getContent() {
 		return content;
@@ -22,12 +23,12 @@ public class CourseReview {
 		this.writer = writer;
 	}
 
-	public int getStart() {
-		return start;
+	public int getStar() {
+		return star;
 	}
 
-	public void setStart(int start) {
-		this.start = start;
+	public void setStar(int star) {
+		this.star = star;
 	}
 
 	public int getCourseid() {

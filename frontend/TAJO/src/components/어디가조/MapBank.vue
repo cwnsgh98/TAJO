@@ -91,7 +91,7 @@ const initMap = () => {
 
 
   map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-  kakao.maps.event.addListener(map, 'idle', function () {
+  kakao.maps.event.addListener(map, 'dragend', function () {
     // do something
     searchPlaces();
     printMarkerNames();
@@ -109,10 +109,11 @@ function printMarkerNames() {
   console.log('현재 지도에 표시된 마커들의 이름:');
   console.log('markerInfo 배열의 크기:', markerInfo.value.length);
   courseStore.clearCourseList();
-  markerInfo.value.forEach(marker => {
-    courseStore.getCourse(marker.courseid);
-    console.log(marker.name);
+  markerInfo.value.forEach(async marker => {
+    await courseStore.getCourse(marker.courseid);
+
   });
+  console.log(courseStore.courseList)
 };
 
 function setOverlayMapTypeId() {
@@ -185,7 +186,7 @@ function placesSearchCB(data, status, pagination) {
   if (status === kakao.maps.services.Status.OK) {
     for (let i = 0; i < data.length; i++) {
       // Check if the place category is "자전거 코스"
-      if (data[i].category_name === '교통,수송 > 도로시설 > 자전거도로') {
+      if (data[i].category_name !== "서비스,산업 > 건설,건축 > 건설자재") {
         displayMarker(data[i]);
       }
     }

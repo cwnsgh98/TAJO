@@ -3,7 +3,6 @@ package com.tajo.dto;
 public class Course {
 	int courseid;
 	String name;
-	String content;
 	String location;
 	String from;
 	String to;
@@ -102,17 +101,13 @@ public class Course {
 		this.name = name;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "Course [name=" + name + ", content=" + content + "]";
+		return "Course [courseid=" + courseid + ", name=" + name + ", location=" + location + ", from=" + from + ", to="
+				+ to + ", img=" + img + ", time=" + time + ", distance=" + distance + ", starAvg=" + starAvg
+				+ ", reviewCnt=" + reviewCnt + ", viewCnt=" + viewCnt + "]";
 	}
 
 }

@@ -94,16 +94,15 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tajodb`.`courseReview` ;
 
 CREATE TABLE IF NOT EXISTS `tajodb`.`courseReview` (
-  `course_courseid` INT NOT NULL,
+  `courseid` INT NOT NULL,
   `reviewid` INT NOT NULL AUTO_INCREMENT,
   `content` VARCHAR(45) NULL,
   `writer` VARCHAR(45) NULL,
-  `write_date` DATETIME NULL DEFAULT now(),
   `star` INT NULL,
-  INDEX `fk_courseReview_course1_idx` (`course_courseid` ASC) VISIBLE,
+  INDEX `fk_courseReview_course1_idx` (`courseid` ASC) VISIBLE,
   PRIMARY KEY (`reviewid`),
   CONSTRAINT `fk_courseReview_course1`
-    FOREIGN KEY (`course_courseid`)
+    FOREIGN KEY (`courseid`)
     REFERENCES `tajodb`.`course` (`courseid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

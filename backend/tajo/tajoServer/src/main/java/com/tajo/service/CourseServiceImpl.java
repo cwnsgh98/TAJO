@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.tajo.dao.CourseDao;
 import com.tajo.dto.Course;
 import com.tajo.dto.CourseReview;
-import com.tajo.dto.SearchCondition;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -18,8 +17,8 @@ public class CourseServiceImpl implements CourseService {
 	CourseDao courseDao;
 
 	@Override
-	public List<Course> getCourseList(SearchCondition condition) {
-		return courseDao.selectAll(condition);
+	public List<Course> getCourseList() {
+		return courseDao.selectAll();
 	}
 
 	@Override
@@ -65,8 +64,13 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getFavorite(int userid) {
+	public List<Course> getFavorite(String userid) {
 		return courseDao.selectAllFavorite(userid);
+	}
+
+	@Override
+	public double getStarAvg(int courseid) {
+		return courseDao.selectStarAvg(courseid);
 	}
 
 	

@@ -5,11 +5,10 @@ import java.util.List;
 
 import com.tajo.dto.Course;
 import com.tajo.dto.CourseReview;
-import com.tajo.dto.SearchCondition;
 
 public interface CourseDao {
 
-	List<Course> selectAll(SearchCondition condition);
+	List<Course> selectAll();
 
 	Course selectOne(int courseid);
 
@@ -27,6 +26,8 @@ public interface CourseDao {
 
 	void deleteFavorite(HashMap<String, Object> map);
 
-	List<Course> selectAllFavorite(int userid);
+	List<Course> selectAllFavorite(String userid);
+
+	double selectStarAvg(int courseid);
 
 }

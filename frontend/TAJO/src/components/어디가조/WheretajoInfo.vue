@@ -2,14 +2,14 @@
     <div class="InfoMain">
         <div class="한마디">현재페이지 자전거길 목록</div>
         <div class="course-list">
-            <div class="listbox" v-for="(course, index) in paginatedCourses" :key="index">
+            <div class="listbox" v-for="course in courseStore.courseList" :key="course.courseid">
                 <div class="오른쪽">
-                    <img class="코스이미지" src="@/assets/ostrich2.png">
+                    <!--<img class="코스이미지" :src="`@/assets/${course.img}`">-->
                 </div>
                 <div class="왼쪽">
                     <span class="코스이름">{{ course.name }}</span>
-                    <span class="별점">별점 : {{ course.rating }}</span>
-                    <span class="리뷰">라이더리뷰 개수 : {{ course.reviewCount }}</span>
+                    <span class="별점">별점 : {{ course.starCnt }}</span>
+                    <span class="리뷰">라이더리뷰 개수 : {{ course.reviewCnt }}</span>
                 </div>
             </div>
         </div>
@@ -24,7 +24,8 @@
   
 <script setup>
 import { ref, computed } from 'vue';
-
+import { useCourseStore } from '../../stores/course';
+const courseStore = useCourseStore();
 // 가상의 데이터 배열 (실제 데이터로 교체해야 함)
 const courses = [
     { name: '코스1', rating: 4.5, reviewCount: 10 },
@@ -59,7 +60,7 @@ const paginatedCourses = computed(() => {
 });
 
 // 전체 페이지 수 계산
-const totalPages = computed(() => Math.ceil(courses.length / itemsPerPage));
+const totalPages = computed(() => Math.ceil(courseStore.courseList.length / itemsPerPage));
 
 // 다음 페이지로 이동하는 함수
 const nextPage = () => {

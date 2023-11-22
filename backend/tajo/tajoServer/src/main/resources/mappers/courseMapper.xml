@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tajo.dao.CourseDao">
+
+	<!-- 전체 코스 조회 -->
+	<select id="selectAll" resultType="Course">
+		SELECT *
+		FROM course
+	</select>
+
+	<!-- 상세 코스 조회 -->
+	<select id="selectOne" resultType="Course" parameterType="int">
+		SELECT *
+		FROM course
+		WHERE courseid = #{courseid};
+	</select>
+
+	<!-- 코스의 리뷰 전체 조회 -->
+	<select id="selectAllCourseReview" resultType="CourseReview" parameterType="int">
+		SELECT *
+		FROM courseReview
+		WHERE courseid = #{courseid};
+	</select>
+	
+	<!-- 코스 리뷰 등록 -->
+	<insert id="insertReview" parameterType="CourseReview">
+		INSERT INTO courseReview (courseid, content, writer, star)
+		VALUES (#{courseid}, #{content}, #{writer}, #{star})
+	</insert>
+
+	<!-- 코스리뷰 삭제 -->
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM courseReview
+		WHERE reviewid = #{reviewid}
+	</delete>
+
+	<!-- 코스의 리뷰 상세 조회 -->
+	<select id="selectCourseReview" resultType="CourseReview" parameterType="int">
+		SELECT *
+		FROM courseReview
+		WHERE reviewid = #{reviewid};
+	</select>
+	
+	<!-- 코스 찜 등록 -->
+	<insert id="insertFavorite" parameterType="hashmap">
+		INSERT INTO group (courseid, userid)
+		VALUES (#{map.courseid}, #{map.userid})
+	</insert>
+
+	<!-- 코스 찜 삭제 -->
+	<delete id="deleteFavorite" parameterType="hashmap">
+		DELETE FROM favorite
+		WHERE courseid = #{map.courseid} AND userid LIKE #{map.userid}
+	</delete>
+	
+	<!-- 사용자 찜 코스 목록 -->
+	<select id="selectAllFavorite" parameterType="int" resultType="Course">
+        SELECT *
+        FROM course
+        WHERE courseid in (SELECT courseid
+        					FROM favorite
+        					WHERE userid LIKE #{userid}) 
+    </select>
+    
+    <!-- 코스 조회수 증가 -->
+    <update id="updateViewCnt" parameterType="int">
+  	UPDATE course
+  	SET viewCnt = viewCnt+1
+  	WHERE courseid = #{courseid}
+ 	</update>
+ 	
+ 	<select id="selectStarAvg" parameterType="int" resultType="DOUBLE">
+ 		SELECT IFNULL(AVG(star),0)
+ 		FROM courseReview
+ 		WHERE courseid = #{courseid}
+ 	</select>
+	
+</mapper>

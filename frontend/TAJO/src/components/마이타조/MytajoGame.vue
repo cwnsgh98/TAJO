@@ -1,9 +1,11 @@
 <template>
   <div class="game-container">
+    
     <span>목숨: <i>{{ life }}</i></span>
     <span style="margin-left: 10px;">점수: <i>{{ score }}</i></span>
-    <h2 v-show="gameState === 0">스페이스를 눌러 게임을 시작</h2>
+    <h2 v-show="gameState === 0" style="margin-left: 120px; margin-top:30px;">스페이스를 눌러 게임을 시작</h2>
     <canvas ref="canvas"></canvas>
+    
   </div>
 </template>
 
@@ -101,7 +103,7 @@ function frameAction() {
   }
 
   if (jumpState.value === 1) {
-    jumpTimer.value+=1.7;
+    jumpTimer.value+=1.5;
     dino.y -= 3;
 
     if (jumpTimer.value > 50) {
