@@ -1,6 +1,6 @@
 <template>
     <div>
-    <div class="mid">
+        <div class="mid">
         <div class="nextlevel">
             <span>다음 등급까지</span>
             <div>
@@ -8,11 +8,11 @@
                 <span> 남았어요.</span>
             </div>
         </div>
-        <img :class="{ movingImage: isMoving }" src="@/assets/ostrich8.png">
-        <img :class="{ '작은타조': true, movingImage: isMoving }" src="@/assets/ostrich7.png">
-        <RouterLink  :to="{ name: 'Game' }">
-            <img :class="{ '자전거탄타조': true, movingImage: isMoving }" src="@/assets/자전거리버스타조.png">
-        </RouterLink>
+        <img :class="{ movingImage: isMoving }" :style="imageStyle1" src="@/assets/ostrich8.png">
+    <img :class="{ '작은타조': true, movingImage: isMoving }" :style="imageStyle2" src="@/assets/ostrich7.png">
+    <RouterLink :to="{ name: 'Game' }">
+      <img :class="{ '자전거탄타조': true, movingImage: isMoving }" :style="imageStyle3" src="@/assets/자전거리버스타조.png">
+    </RouterLink>
     </div>
     <div class="game">
 
@@ -177,8 +177,9 @@ img {
 
 .mid {
     background: url('@/assets/나무길배경.png') rgb(255, 255, 236) 50% / 100% 100% no-repeat;
-
-    height: 760px;
+    /* background: url('@/assets/달리는타조.gif') rgb(255, 255, 236) 50% / 100% 100% no-repeat; */
+    /* background: url('@/assets/backrun.gif') rgb(255, 255, 236) 50% / 100% 100% no-repeat; */
+    height: 755px;
     position: relative;
     top: 0px;
 }</style>

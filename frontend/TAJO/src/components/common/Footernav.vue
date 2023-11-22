@@ -26,9 +26,9 @@
   
   const getLogoPath = (imageName) => {
     const currentPath = route.path;
-    const isCurrentPath = (path) => currentPath === path;
+    const isCurrentPath = (path) => currentPath.startsWith(path);
   
-    return isCurrentPath('/') && imageName.includes('logohome')
+    return route.path==='/'&& imageName.includes('logohome')
       ? `src/assets/${imageName.replace('.png', 'change.png')}`
       : isCurrentPath('/Together') && imageName.includes('logotogether')
       ? `src/assets/${imageName.replace('.png', 'change.png')}`

@@ -1,11 +1,16 @@
 <template>
   <div class="game-container">
-    
     <span>목숨: <i>{{ life }}</i></span>
     <span style="margin-left: 10px;">점수: <i>{{ score }}</i></span>
     <h2 v-show="gameState === 0" style="margin-left: 120px; margin-top:30px;">스페이스를 눌러 게임을 시작</h2>
     <canvas ref="canvas"></canvas>
-    
+    <div v-show="gameOver" class="modal">
+      <div class="modal-content">
+        <h3>게임 오버!</h3>
+        <p>당신의 점수: {{ score }}</p>
+        <button @click="restartGame">게임 재시작</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -23,7 +28,7 @@ const jumpTimer = ref(0);
 const cactusArr = ref([]);
 let timer = 0;
 let animation;
-let baseSpeed = 2.5; // 기본 속도
+let baseSpeed = 3 ; // 기본 속도
 let speedIncreaseInterval = 1000; // 속도를 증가시킬 간격
 let speedIncreaseFactor = 0.15; // 속도를 증가시키는 비율
 let minSpeedIncreaseInterval = 800; // 최소 간격
@@ -75,7 +80,7 @@ function frameAction() {
     baseSpeed += baseSpeed * speedIncreaseFactor;
   }
 
-  if (timer % getRandomInt(118.5, 120) === 0) {
+  if (timer % getRandomInt(118.3, 120) === 0) {
     const cactus = new Cactus(baseSpeed);
     cactusArr.value.push(cactus);
   }
@@ -141,10 +146,10 @@ function collisionDetection(dino, cactus) {
     life.value--;
 
     if (life.value === 0) {
-      alert('게임오버');
+      showGameOverModal();
       gameState.value = 0;
       cancelAnimationFrame(animation);
-      location.reload();
+      // location.reload();
     }
     return -1;
   } else {
@@ -195,6 +200,17 @@ onUnmounted(() => {
   document.body.style.overflow = ''; 
 });
 
+const gameOver = ref(false);
+
+function showGameOverModal() {
+  gameOver.value = true;
+}
+
+function restartGame() {
+  gameOver.value = false;
+  // 게임 재시작 로직 추가
+  location.reload(); // 예제로서 간단하게 페이지 새로고침을 사용
+}
 
 </script>
 
@@ -216,5 +232,38 @@ html {
 canvas {
   width: 150%; /* 부모 요소에 꽉 차도록 설정 */
   height: 150%;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 56%;
+  height: 40%;
+  background: rgba(0, 0, 0, 0.5); /* 반투명한 배경 */
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.modal-content h3 {
+  color: red;
+}
+
+.modal-content button {
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
 }
 </style>

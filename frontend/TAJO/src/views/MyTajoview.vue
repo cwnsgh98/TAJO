@@ -49,7 +49,8 @@ const showWriteform = () => {
 .MT1 {
   flex-grow: 0;
   border: solid 1px #a7a7a7;
-  max-height: 760px;
+  max-height: 755px;
+  min-height: 755px;
   overflow: hidden;
   /* 스크롤 막기 */
 }
@@ -57,7 +58,8 @@ const showWriteform = () => {
 .MT2 {
   flex-grow: 6;
   border: solid 1px #a7a7a7;
-  max-height: 760px;
+  max-height: 755px;
+  min-height: 755px;
   overflow: hidden;
   /* 스크롤 막기 */
 }
@@ -71,7 +73,7 @@ const showWriteform = () => {
   border: solid 1px #a7a7a7;
   overflow-y: auto;
   /* 세로 스크롤 가능하도록 설정 */
-  max-height: 760px;
+  max-height: 755px;
   /* 스크롤 영역의 최대 높이를 지정, 필요에 따라 조절 가능 */
 }
 .main{

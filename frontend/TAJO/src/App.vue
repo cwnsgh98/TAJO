@@ -156,7 +156,9 @@ const createUser = (user) => {
   font-weight: normal;
   font-style: normal;
 }
-
+template{
+  overflow: hidden;
+}
 body,
 html {
   overflow: hidden;
@@ -182,7 +184,6 @@ html {
 .body {
   display: flex;
   flex-direction: column;
-  min-height: 75vh;
 }
 
 main {

@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" :class="timeOfDayClass">
     <div class="main-header">
       <h2 >즐거운 라이딩을 위한 플랫폼,TAJO</h2>
     </div>
@@ -18,11 +18,26 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import HomeCarousel from '../components/Homecompo/HomeCarousel.vue';
 import HomeReco from '../components/Homecompo/HomeReco.vue';
 import HomeWeather from '../components/Homecompo/HomeWeather.vue';
 import HomeTeacherTajo from '../components/Homecompo/HomeTeacherTajo.vue';
 
+const getCurrentTime = () => {
+  const currentHour = new Date().getHours();
+  return currentHour;
+};
+
+const isDaytime = () => {
+  const currentHour = getCurrentTime();
+  return currentHour >= 6 && currentHour < 18;
+};
+
+const timeOfDayClass = computed(() => ({
+  'daytime': isDaytime(),
+  'nighttime': !isDaytime(),
+}));
 </script>
 
 <style scoped>
@@ -57,8 +72,8 @@ h2{
 }
 .homeMiddle-right{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 140px;
+  margin-bottom: 110px;
 }
 </style>
