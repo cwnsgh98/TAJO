@@ -102,7 +102,7 @@ export default {
         // 예제에서는 단순히 위도와 경도를 더해서 nx, ny 계산
         const nx = Math.floor(lat + 0.5); // 간단한 예시
         const ny = Math.floor(lon + 0.5); // 간단한 예시
-        
+
         const response = await axios.get(API_URL, {
           params: {
             ServiceKey: import.meta.env.VITE_WEATHER_API_KEY,
@@ -114,6 +114,7 @@ export default {
             ny,
           },
         });
+
         const data = response.data.response.body.items.item;
 
       //TMP : 1시간 기온 ℃

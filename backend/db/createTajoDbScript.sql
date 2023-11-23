@@ -96,8 +96,8 @@ DROP TABLE IF EXISTS `tajodb`.`courseReview` ;
 CREATE TABLE IF NOT EXISTS `tajodb`.`courseReview` (
   `courseid` INT NOT NULL,
   `reviewid` INT NOT NULL AUTO_INCREMENT,
-  `content` VARCHAR(45) NULL,
-  `writer` VARCHAR(45) NULL,
+  `content` VARCHAR(100) NULL,
+  `writer` VARCHAR(100) NULL,
   `star` INT NULL,
   INDEX `fk_courseReview_course1_idx` (`courseid` ASC) VISIBLE,
   PRIMARY KEY (`reviewid`),

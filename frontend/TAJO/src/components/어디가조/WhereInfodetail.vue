@@ -67,7 +67,7 @@ onMounted(async() => {
 
         course.value = await courseStore.getCourse(Route.params.courseid);
         reviewList.value = await reviewStore.getReviewList(Route.params.courseid);
-        userNickname.value = localStorage.getItem("loginUser") ? localStorage.getItem("loginUser").nickname : '익명';
+        userNickname.value = localStorage.getItem("loginUser") ? JSON.parse(localStorage.getItem("loginUser")).nickname : '익명';
 
     } catch (error){
         console.log(error);
@@ -79,22 +79,6 @@ onMounted(async() => {
     });
 
 });
-
-// onBeforeUpdate(async() => {
-
-//     try {
-//         course.value = await courseStore.getCourse(Route.params.courseid);
-//         reviewList.value = await reviewStore.getReviewList(Route.params.courseid);
-//         userNickname.value = localStorage.getItem("loginUser") ? localStorage.getItem("loginUser").nickname : '익명';
-
-//     } catch (error){
-//         console.log(error);
-//     }
-
-
-// });
-
-
 const removeReview = async function(reviewid) {
     try {
         await reviewStore.deleteReview(reviewid);

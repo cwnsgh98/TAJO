@@ -128,7 +128,7 @@ img {
 
 .pagination-container {
     padding: 12px;
-    border: 2px solid #a7a7a7;
+    border: 4px solid #a0a0a0;
 }
 
 /* 그 외 스타일링 내용 추가 */</style>
