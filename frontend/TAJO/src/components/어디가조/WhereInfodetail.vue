@@ -35,6 +35,9 @@
 
 
         <div class="review-container course-review">
+                <div v-if="reviewList.length==0">
+                    등록된 리뷰가 없습니다.
+                </div>
             <div class="review" v-for="review in reviewList" :key="review.reviewid">
               
                 <div class="userbox">
