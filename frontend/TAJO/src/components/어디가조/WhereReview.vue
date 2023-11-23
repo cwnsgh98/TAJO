@@ -57,6 +57,7 @@ const writeReview = async () => {
         for (const course of courseStore.courseList) {
             if (course.courseid == Route.params.courseid) {
                 course.reviewCnt++;
+                course.starAvg= (((course.starAvg*course.reviewCnt-1) +selectedStars.value)/course.reviewCnt) +1
             }
         }
     } catch (error) {

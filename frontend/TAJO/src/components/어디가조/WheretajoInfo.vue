@@ -11,11 +11,14 @@
                     </div>
                     <div class="왼쪽">
                         <span class="코스이름 stroked-text">{{ course.name }}</span>
-                        <span class="별점 ">별점 : {{ course.starCnt }}</span>
+                        <span class="별점 ">별점 : {{ course.starAvg }}</span>
                         <span class="리뷰 ">라이더리뷰 개수 : {{ course.reviewCnt }}</span>
                     </div>
                 </div>
-                </RouterLink>
+            </RouterLink>
+            <!-- <div v-if="reviewList.length==0">
+            등록된 리뷰가 없습니다.
+        </div> -->
             </div>
         </div>
         <div class="버튼들">
