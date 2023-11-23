@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tajo.dao.CourseDao;
 import com.tajo.dto.Course;
 import com.tajo.dto.CourseReview;
+import com.tajo.dto.Favorite;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -54,13 +55,13 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public int favoriteCourse(HashMap<String, Object> map) {
-		return courseDao.insertFavorite(map);
+	public int favoriteCourse(Favorite favorite) {
+		return courseDao.insertFavorite(favorite);
 	}
 
 	@Override
-	public void unFavoriteCourse(HashMap<String, Object> map) {
-		courseDao.deleteFavorite(map);
+	public void unFavoriteCourse(Favorite favorite) {
+		courseDao.deleteFavorite(favorite);
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import RegistPage from '@/components/regist/RegistPage.vue'
 
 import WheregoZZIM from '@/views/WheregoZZIM.vue'
 
-import TogetherDetail from '@/views/TogetherDetail.vue'
+import TogetherDetail from '@/components/같이타조/TogetherDetail.vue'
 import Game from '@/views/Game.vue'
 
 import WheretajoInfo from '@/components/어디가조/WheretajoInfo.vue'
@@ -48,7 +48,14 @@ const router = createRouter({
     {
       path: '/Together',
       name: 'Together',
-      component: TogetherTajoview
+      component: TogetherTajoview,
+      children:[
+        {
+          path: ':courseid/Detail',
+          name: 'Togetherdetail',
+          component: TogetherDetail,
+        },
+      ]
     },
     {
       path: '/Mytajo',
@@ -87,11 +94,7 @@ const router = createRouter({
       name: 'Wheregozzim',
       component: WheregoZZIM
     },
-    {
-      path: '/Togetherdetail',
-      name: 'Togetherdetail',
-      component: TogetherDetail
-    },
+    
     {
         path: '/Game',
         name: 'Game',

@@ -8,9 +8,9 @@
               <img class="tajo" :src="getLogoPath('누끼딴로고.png')" />
             </RouterLink>
           </div>
-          <div class="fifty-second">
-            <div class="header-fifty2 "> 
-            <span class="이름 stroked-text" v-if="getUser">{{ nickname }} </span>
+          <div class="fifty-second" >
+            <div class="header-fifty2 " v-if="getUser"> 
+            <span class="이름 stroked-text" >{{ nickname }} </span>
             <span class="반갑소"> 님 반갑습니다!</span>
           </div>
             <a href="#" class="router-link" v-if="getUser" @click="logout">

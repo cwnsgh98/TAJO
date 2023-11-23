@@ -8,7 +8,8 @@
             <div class="map-name">
                 <span>코스 이름 : {{course.name}}</span>
                 <span>코스 별점 : {{course.starAvg}}</span>
-                <button>찜</button>
+                <button v-if="!alreadyZZIM&&userNickname !='익명'" @click="addZzim">찜</button>
+                <button v-if="alreadyZZIM&&userNickname !='익명'" @click="removeZzim">찜 해제</button>
                 <hr>
             </div>
             <div class="course-Info2">
@@ -56,18 +57,29 @@ import { ref, onMounted, watch, onBeforeUpdate} from 'vue'
 import { useRoute } from 'vue-router';
 import { useCourseStore } from '../../stores/course';
 import { useReviewStore } from '../../stores/review';
+import { useZzimStore } from '../../stores/zzim'
 const courseStore = useCourseStore();
 const reviewStore = useReviewStore();
+const zzimStore = useZzimStore();
 const Route = useRoute();
 const course = ref({});
 const reviewList = ref([]);
 const userNickname = ref('익명');
+const alreadyZZIM = ref(false);
 onMounted(async() => {
     try {
-
+        alreadyZZIM.value = false;
         course.value = await courseStore.getCourse(Route.params.courseid);
         reviewList.value = await reviewStore.getReviewList(Route.params.courseid);
         userNickname.value = localStorage.getItem("loginUser") ? JSON.parse(localStorage.getItem("loginUser")).nickname : '익명';
+        await zzimStore.getZzimList();
+
+        for(const co of zzimStore.zzimList) {
+            if(co.courseid === course.value.courseid) {
+                alreadyZZIM.value = true;
+                break;
+            }
+        }
 
     } catch (error){
         console.log(error);
@@ -78,7 +90,19 @@ onMounted(async() => {
         course.value = await courseStore.getCourse(Route.params.courseid);
     });
 
+    watch( () => [zzimStore.zzimList],  ([zzimList]) => {
+        alreadyZZIM.value = false;
+        for(const co of zzimList) {
+            if(co.courseid === course.value.courseid) {
+                alreadyZZIM.value = true;
+                break;
+            }
+        }
+    });
+    
+
 });
+
 const removeReview = async function(reviewid) {
     try {
         await reviewStore.deleteReview(reviewid);
@@ -90,9 +114,16 @@ const removeReview = async function(reviewid) {
         }
     } catch (error){
         console.log(error);
-    }
-    
+    }  
 } 
+
+const addZzim = async function() {
+    await zzimStore.insertZzim(Route.params.courseid);
+}
+
+const removeZzim = async function() {
+    await zzimStore.deleteZzim(Route.params.courseid);
+}
 </script>
 
 <style scoped>

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tajo.dto.Course;
 import com.tajo.dto.CourseReview;
+import com.tajo.dto.Favorite;
 import com.tajo.service.CourseService;
 
 import io.swagger.annotations.Api;
@@ -98,24 +100,23 @@ public class CourseRestController {
 	}
 	
 	// 7. 코스 찜하기
-	@PostMapping("/Course/{id}/like")
+	@PostMapping("/Course/like")
 	@ApiOperation(value = "코스 찜하기")
-	public ResponseEntity<Void> favorite(String userid, @PathVariable int id) {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("userid", userid);
-		map.put("courseid", id);
-		CourseService.favoriteCourse(map);
+	public ResponseEntity<Void> favorite(@RequestBody Favorite favorite) {
+		
+
+		CourseService.favoriteCourse(favorite);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	// 8. 코스 찜 해제하기
-	@DeleteMapping("/Course/{id}/unlike")
+	@DeleteMapping("/Course/unlike")
 	@ApiOperation(value = "코스 찜해제")
-	public ResponseEntity<Void> unFavorite(String userid, @PathVariable int id) {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("userid", userid);
-		map.put("courseid", id);
-		CourseService.unFavoriteCourse(map);
+	public ResponseEntity<?> unFavorite(@RequestBody Favorite favorite) {
+		
+		System.out.println("courseid :" + favorite.getCourseid());
+		System.out.println("userid :" + favorite.getUserid());
+		CourseService.unFavoriteCourse(favorite);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	// 9. 찜한 코스 목록 불러오기

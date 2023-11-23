@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.tajo.dto.Course;
 import com.tajo.dto.CourseReview;
+import com.tajo.dto.Favorite;
 
 public interface CourseService {
 
@@ -22,9 +23,9 @@ public interface CourseService {
 
 	CourseReview detailCourseReview(int reviewid);
 
-	int favoriteCourse(HashMap<String, Object> map);
+	int favoriteCourse(Favorite favorite);
 
-	void unFavoriteCourse(HashMap<String, Object> map);
+	void unFavoriteCourse(Favorite favorite);
 
 	List<Course> getFavorite(String userid);
 

@@ -57,7 +57,7 @@
   
   <script setup>
   import { ref } from "vue";
-  import TogetherDetailmore from "@/views/TogetherDetailmore.vue";
+  import TogetherDetailmore from "@/components/같이타조/TogetherDetailmore.vue";
   
   const items = [
     { id: 1, content: "즐겁게 달릴분", course: "유성온천코스", leader: "쮸롱이", members: "1 / 4", date: "2023-01-01" },

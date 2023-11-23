@@ -6,6 +6,16 @@ export const useCourseStore = defineStore('course', () => {
     const courseList = ref([]);
     const course = ref({});
 
+    //전체 코스 불러오는 메서드
+    const getAllCourse = async function () {
+      try {
+        const response = await axios.get(`http://localhost:8080/api-course/Course`);
+        return response.data; // 추가: 메서드가 완료되면 결과값 반환
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     // 코스 상세를 위한 메서드 
     const getCourse = async function (id) {
       try {
@@ -30,5 +40,5 @@ export const useCourseStore = defineStore('course', () => {
       courseList.value = [];
     }
 
-    return { courseList, getCourse, clearCourseList, course, getMarkerCourse }
+    return { courseList, getCourse, clearCourseList, course, getMarkerCourse, getAllCourse, }
 })

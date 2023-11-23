@@ -96,8 +96,8 @@ DROP TABLE IF EXISTS `tajodb`.`courseReview` ;
 CREATE TABLE IF NOT EXISTS `tajodb`.`courseReview` (
   `courseid` INT NOT NULL,
   `reviewid` INT NOT NULL AUTO_INCREMENT,
-  `content` VARCHAR(100) NULL,
-  `writer` VARCHAR(100) NULL,
+  `content` VARCHAR(45) NULL,
+  `writer` VARCHAR(45) NULL,
   `star` INT NULL,
   INDEX `fk_courseReview_course1_idx` (`courseid` ASC) VISIBLE,
   PRIMARY KEY (`reviewid`),
@@ -117,19 +117,8 @@ DROP TABLE IF EXISTS `tajodb`.`favorite` ;
 CREATE TABLE IF NOT EXISTS `tajodb`.`favorite` (
   `userid` VARCHAR(45) NOT NULL,
   `courseid` INT NOT NULL,
-  PRIMARY KEY (`userid`, `courseid`),
-  INDEX `fk_user_has_groupBoard_groupBoard1_idx` (`courseid` ASC) VISIBLE,
-  INDEX `fk_user_has_groupBoard_user_idx` (`userid` ASC) VISIBLE,
-  CONSTRAINT `fk_user_has_groupBoard_user`
-    FOREIGN KEY (`userid`)
-    REFERENCES `tajodb`.`user` (`userid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_groupBoard_groupBoard1`
-    FOREIGN KEY (`courseid`)
-    REFERENCES `tajodb`.`course` (`courseid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`userid`, `courseid`)
+  )
 ENGINE = InnoDB;
 
 
