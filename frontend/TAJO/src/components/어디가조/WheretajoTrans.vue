@@ -1,17 +1,24 @@
 <template>
     <div>
-        <div class="화면바꾸기">
-            <RouterLink class="router-link" to="/Wherego/info">
-                <button>지도보기</button>
-            </RouterLink>
-            <RouterLink class="router-link" :to="{ name: 'Wheregozzim' }">
-                <button>찜한코스</button>
-            </RouterLink>
-        </div>
+      <div class="화면바꾸기">
+        <RouterLink class="router-link" to="/Wherego/info">
+          <button>지도보기</button>
+        </RouterLink>
+        <button @click="togglezzim">찜한코스</button>
+      </div>
     </div>
-</template>
+  </template>
+  
+  <script setup>
+  import { ref, inject } from 'vue';
+  import { RouterLink } from 'vue-router';
+  
+  const zzimgo = inject('zzimgo');
+  const togglezzim = () => {
+    zzimgo.value = !zzimgo.value;
+  };
 
-<script setup>
+
 
 </script>
 

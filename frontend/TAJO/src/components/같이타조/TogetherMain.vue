@@ -1,106 +1,32 @@
 <template>
     <div class="Togemain">
-        <!-- 모든코스가 일단 뜨는곳입니다.
-        디브들은 다 라우터링크로 보낼건데 어디로보내냐 ?
-                 <RouterLink to="/Togetherdetail">
-                    <img class="goregist" src="@/assets/ostrich6.png">
-                </RouterLink> -->
-
         <div class="course">
             <span class="coursetext">코스별 모집 게시판</span>
-            <div class="course-list" >
-                <div class="coursebox" v-for="course in coList" :key="course.courseid"  >
-                    <img :src="`src/assets/${course.img}`">
-                    <div class="box-bottom">
-                        <span>{{ course.name }}</span>
-                        <RouterLink :to="`/Together/${course.courseid}/Detail`">
-                            <button>파티목록</button>
-                        </RouterLink>
-                    </div>
+            <div class="course-list">
+                <div class="coursebox" v-for="course in coList" :key="course.courseid">
+                    <RouterLink class="중앙" :to="`/Together/${course.courseid}/Detail`">
+                        <img :src="`src/assets/${course.img}`">
+                        <div class="box-bottom">
+                            <span class="stroked-text">{{ course.name }}</span>
+                        </div>
+                    </RouterLink>
                 </div>
-                <!-- <div class="coursebox">
-                    <img src="@/assets/ostrich2.png">
-                    <div class="box-bottom">
-                        <span>코스이름</span>
-                        <RouterLink to="/Togetherdetail">
-                            <button>파티목록</button>
-                        </RouterLink>
-                    </div>
-                </div>
-                <div class="coursebox">
-                    <img src="@/assets/ostrich3.png">
-                    <div class="box-bottom">
-                        <span>코스이름</span>
-                        <RouterLink to="/Togetherdetail">
-                            <button>파티목록</button>
-                        </RouterLink>
-                    </div>
-                </div>
-                <div class="coursebox">
-                    <img src="@/assets/ostrich4.png">
-                    <div class="box-bottom">
-                        <span>코스이름</span>
-                        <RouterLink to="/Togetherdetail">
-                            <button>파티목록</button>
-                        </RouterLink>
-                    </div>
-                </div>
-                <div class="coursebox">
-                    <img src="@/assets/ostrich5.png">
-                    <div class="box-bottom">
-                        <span>코스이름</span>
-                        <RouterLink to="/Togetherdetail">
-                            <button>파티목록</button>
-                        </RouterLink>
-                    </div>
-                </div>
-                <div class="coursebox">
-                    <img src="@/assets/ostrich6.png">
-                    <div class="box-bottom">
-                        <span>코스이름</span>
-                        <RouterLink to="/Togetherdetail">
-                            <button>파티목록</button>
-                        </RouterLink>
-                    </div>
-                </div>
-                <div class="coursebox">
-                    <img src="@/assets/ostrich7.png">
-                    <div class="box-bottom">
-                        <span>코스이름</span>
-                        <RouterLink to="/Togetherdetail">
-                            <button>파티목록</button>
-                        </RouterLink>
-                    </div>
-                </div>
-                <div class="coursebox">
-                    <img src="@/assets/ostrich8.png">
-                    <div class="box-bottom">
-                        <span>코스이름</span>
-                        <RouterLink to="/Togetherdetail">
-                            <button>파티목록</button>
-                        </RouterLink>
-                    </div>
-                </div> -->
             </div>
         </div>
-
-
-
-
     </div>
 </template>
 
 <script setup>
 import { useCourseStore } from '../../stores/course';
-import {ref, onMounted} from 'vue'
+import { ref, onMounted } from 'vue'
 const courseStore = useCourseStore();
 const coList = ref([]);
 
-onMounted(async() => {
+onMounted(async () => {
     try {
-        
+
         coList.value = await courseStore.getAllCourse();
-    } catch (error){
+    } catch (error) {
         console.log(error);
     }
 
@@ -115,11 +41,25 @@ onMounted(async() => {
 </script>
 
 <style  scoped>
+.stroked-text {
+    -webkit-text-stroke: 0.9px #a1f44f;
+    /* Safari 및 Chrome 브라우저에서 사용 가능 */
+    color: #179404;
+    /* 텍스트 색상 지정 */
+    font-size: 20px;
+    font-family: 'cookierun';
+}
 .coursetext {
     margin-bottom: 30px;
-    font-size: 25px;
+    font-size: 30px;
+    color: #137304;
 }
-
+.중앙{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .Togemain {
     margin-top: 35px;
     width: 100%;
@@ -128,27 +68,48 @@ onMounted(async() => {
     justify-content: center;
 }
 
+a {
+    text-decoration: none;
+}
 .box-bottom {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+button {
+    margin-top: 20px;
 }
 
 .coursebox {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 20px;
+    margin-right: 12px;
+    margin-left: 12px;
+    border-radius: 13px;
+    border: 2px solid rgb(207, 207, 207);
+    transition: transform 0.3s ease-in-out;
 }
 
+.coursebox:hover {
+    transform: scale(1.1);
+    border: 2px solid rgb(98, 98, 98);
+    background-color: rgb(255, 246, 213)
+}
 .course {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    width: 1000px;
-    border: solid 2px #626161;
-    padding: 50px 100px 70px 100px;
+    width: 1500px;
+    /* border: solid 1px #626161; */
+    /* padding: 50px 100px 70px 100px; */
 }
 
 .course-list {
@@ -160,5 +121,6 @@ onMounted(async() => {
 
 img {
     width: 210px;
-    height: 160px;
+    height: 300px;
+    border: 2px solid black;
 }</style>

@@ -15,8 +15,10 @@
     "pinia-plugin-persistedstate": "^3.2.0",
     "vbase": "^0.0.38",
     "vue": "^3.3.4",
+    "vue-datetime-picker": "^0.2.1",
     "vue-geolocation-api": "^0.1.21",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue3-datepicker": "^0.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
