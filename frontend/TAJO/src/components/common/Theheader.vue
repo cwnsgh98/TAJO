@@ -8,13 +8,14 @@
               <img class="tajo" :src="getLogoPath('누끼딴로고.png')" />
             </RouterLink>
           </div>
-          <div class="fifty-second" >
+          <div class="fifty-second">
             <div class="header-fifty2 " v-if="getUser"> 
-            <span class="이름 stroked-text" >{{ nickname }} </span>
+            <span class="이름 stroked-text">{{ nickname }} </span>
             <span class="반갑소"> 님 반갑습니다!</span>
           </div>
-            <a href="#" class="router-link" v-if="getUser" @click="logout">
-              <img class="logout" :src="getLogoPath('logout.png')" />
+            <a href="#" class="router-link hi" v-if="getUser" @click="logout">
+              <!-- <img class="logout" :src="getLogoPath('logout.png')" /> -->
+              <span class="로그아웃 stroked-text">로그아웃</span>
             </a>
 
             <RouterLink class="router-link" v-else :to="{ name: 'login' }">
@@ -92,15 +93,24 @@ const getLogoPath = (imageName) => {
 .반갑소{
   color: black;
 }
+a{
+  text-decoration: none;
+}
+.hi{
+  text-align: center;
+}
 .stroked-text {
-    -webkit-text-stroke: 1.3px #ff7a7a;
+    -webkit-text-stroke: 0.5px #ffa8a8;
     /* Safari 및 Chrome 브라우저에서 사용 가능 */
-    color: rgb(255, 223, 223);
+    color: #F96C85;
     /* 텍스트 색상 지정 */
-    font-size: 22px;
+    font-size: 24px;
     font-family: 'cookierun';
 }
 .router-link:hover img {
+  transform: scale(1.1);
+}
+.router-link:hover {
   transform: scale(1.1);
 }
 

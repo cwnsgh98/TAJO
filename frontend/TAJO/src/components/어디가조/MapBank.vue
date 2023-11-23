@@ -65,6 +65,7 @@ onMounted(async () => {
       kakao.maps.load(initMap);
     };
   }
+  
 });
 
 const initMap = () => {
@@ -92,7 +93,7 @@ const initMap = () => {
   map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
   
   kakao.maps.event.addListener(map, 'idle', function () {
-    printMarkerNames();
+    setTimeout(()=> printMarkerNames(), 150)
     searchNearbyPlaces();
     clearMarkerInfo();
   });

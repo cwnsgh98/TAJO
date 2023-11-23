@@ -59,7 +59,7 @@ const goToSlide = (index) => {
 };
 
 onMounted(() => {
-  const intervalId = setInterval(nextSlide, 1500);
+  const intervalId = setInterval(nextSlide, 2500);
 
   onBeforeUnmount(() => {
     clearInterval(intervalId);
