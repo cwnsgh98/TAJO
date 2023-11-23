@@ -16,18 +16,17 @@
                             <thead>
                                 <tr>
                                     <th>번호</th>
-                                    <th>내용</th>
-                                    <th>코스</th>
-                                    <th>리더</th>
-                                    <th>인원</th>
+                                    <th>이름</th>
+                                    <th>등급</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="item in items" :key="item.id">
-                                    <td>{{ item.id }}</td>
-                                    <td>{{ item.nicname }}</td>
-                                    <td>{{ item.level }}</td>
-                                    <td>{{ item.tajolevel }}</td>
+                                <tr v-for="(user, index) in userList " :key="user.userid">
+                                    <td>{{ index }}</td>
+                                    <td>{{ user.nickname }}</td>
+                                    <td>{{ user.grade }}</td>
+                              
                                 </tr>
                             </tbody>
                         </table>
@@ -39,12 +38,20 @@
 </template>
 
 <script setup>
-const items = [
-    { id: 1, nicname: '닉네임1', level: '중수', tajolevel:'에메랄드' },
-    { id: 2, nicname: '닉네임2', level: '고수', tajolevel:'다이아' },
-    { id: 3, nicname: '닉네임3', level: '초보', tajolevel:'마스터' },
-    { id: 4, nicname: '닉네임4', level: '초보', tajolevel:'실버' },
-];
+import {ref, onMounted} from 'vue'
+import {useGroupStore} from '@/stores/group'
+import axios from 'axios'
+const groupStore = useGroupStore();
+const userList = ref([])
+onMounted(async ()=>{
+    userList.value = groupStore.memberList;
+    for(const user in userList.value) {
+        const gradeResponse = await axios.get(`http://localhost:8080/api-user/grade`, {
+        params: { userid: user.userid },
+      });
+        user.grade = gradeResponse.data;
+    }
+})
 </script>
 
 <style scoped>

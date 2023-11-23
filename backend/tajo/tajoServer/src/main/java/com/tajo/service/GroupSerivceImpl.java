@@ -1,6 +1,5 @@
 package com.tajo.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.tajo.dao.GroupDao;
 import com.tajo.dto.Group;
+import com.tajo.dto.GroupInfo;
 import com.tajo.dto.User;
 
 @Service
@@ -17,8 +17,8 @@ public class GroupSerivceImpl implements GroupService {
 	GroupDao groupDao;
 	
 	@Override
-	public List<Group> getGroupList() {
-		return groupDao.selectAll();
+	public List<Group> getGroupList(int courseid) {
+		return groupDao.selectAll(courseid);
 	}
 
 	@Override
@@ -42,19 +42,26 @@ public class GroupSerivceImpl implements GroupService {
 	}
 
 	@Override
-	public void joinGroup(HashMap hashmap) {
-		groupDao.insertUserGroup(hashmap);
+	public void joinGroup(GroupInfo groupInfo) {
+		groupDao.plusPeople(groupInfo);
+		groupDao.insertUserGroup(groupInfo);
 	}
 
 	@Override
-	public void exitGroup(HashMap hashmap) {
-		groupDao.deleteUserGroup(hashmap);
+	public void exitGroup(GroupInfo groupInfo) {
+		groupDao.minusPeople(groupInfo);
+		groupDao.deleteUserGroup(groupInfo);
 	}
 
 	@Override
-	public List<User> getAttendants(int id) {
-		groupDao.getAttendants(id);
+	public List<User> getAttendants(int groupid) {
+		groupDao.getAttendants(groupid);
 		return null;
+	}
+
+	@Override
+	public int makeGroup(Group group) {
+		return groupDao.insertGroup(group);
 	}
 	
 }

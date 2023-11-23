@@ -57,14 +57,16 @@ DROP TABLE IF EXISTS `tajodb`.`groupBoard` ;
 
 CREATE TABLE IF NOT EXISTS `tajodb`.`groupBoard` (
   `groupid` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) NULL,
+  `writer` VARCHAR(45) NULL,
   `content` VARCHAR(45) NULL,
-  `date` DATETIME NULL,
-  `course_courseid` INT NOT NULL,
+  `date` VARCHAR(45) NULL,
+  `limit` int default 10,
+  `people` int default 1,
+  `courseid` INT NOT NULL,
   PRIMARY KEY (`groupid`),
-  INDEX `fk_groupBoard_course1_idx` (`course_courseid` ASC) VISIBLE,
+  INDEX `fk_groupBoard_course1_idx` (`courseid` ASC) VISIBLE,
   CONSTRAINT `fk_groupBoard_course1`
-    FOREIGN KEY (`course_courseid`)
+    FOREIGN KEY (`courseid`)
     REFERENCES `tajodb`.`course` (`courseid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

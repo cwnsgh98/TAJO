@@ -2,9 +2,37 @@ package com.tajo.dto;
 
 public class Group {
 	int groupid;
-	String title;
+	int courseid;
+	int limit;
+	int person;
+	String writer;
 	String content;
 	String date;
+	
+	public int getCourseid() {
+		return courseid;
+	}
+
+	public void setCourseid(int courseid) {
+		this.courseid = courseid;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
 
 	public int getGroupid() {
 		return groupid;
@@ -12,14 +40,6 @@ public class Group {
 
 	public void setGroupid(int groupid) {
 		this.groupid = groupid;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getContent() {

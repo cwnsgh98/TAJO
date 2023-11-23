@@ -8,7 +8,7 @@
       <div class="box-left">
         <div class="courseinfo">
           <img src="@/assets/ostrich5.png" />
-          <span>유성온천코스 게시판</span>
+          <span>{{courseName}} 게시판</span>
         </div>
         <div class="tablebox">
           <table>
@@ -20,19 +20,22 @@
                 <th>파티장</th>
                 <th>인원</th>
                 <th>일시</th>
-                <th>go?</th>
+                <th>모집</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in items" :key="item.id">
-                <td>{{ item.id }}</td>
-                <td>{{ item.content }}</td>
-                <td>{{ item.course }}</td>
-                <td>{{ item.leader }}</td>
-                <td>{{ item.members }}</td>
-                <td>{{ item.date }}</td>
-                <td>
-                  <button @click="toggleDetail(item.id)">파티 입장</button>
+              <tr v-for="group in groupList" :key="group.groupid">
+                <td>{{ group.groupid }}</td>
+                <td>{{ group.content }}</td>
+                <td>{{ courseName }}</td>
+                <td>{{ group.writer }}</td>
+                <td>{{ group.people }} / {{ group.limit }}</td>
+                <td>{{ group.date }}</td>
+                <td v-if="group.people!=group.limit"> <!--여기서 그룹에 참여한 인원 수와 limit을 비교하여 마감/입장 나누고 싶다..-->
+                  <button @click="toggleDetail(group.groupid)">파티 입장</button>
+                </td>
+                <td v-else>
+                  모집 마감
                 </td>
               </tr>
             </tbody>
@@ -40,13 +43,6 @@
         </div>
         <div class="파티모집"></div>
       </div>
-
-      <!-- <div class="box-right">
-        <div class="지원">
-          <span>지원한코스리트스</span>
-          <div class="지원한코스들"></div>
-        </div>
-      </div> -->
 
       <div class="box-right" v-show='showDetail'>
         <TogetherDetailmore @close-toggle="closeToggle"/>
@@ -56,24 +52,41 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import TogetherDetailmore from "@/components/같이타조/TogetherDetailmore.vue";
-const items = [
-  { id: 1, content: "즐겁게 달릴분", course: "유성온천코스", leader: "쮸롱이", members: "1 / 4", date: "2023-01-01" },
-  { id: 2, content: "건강해집시다", course: "유성온천코스", leader: "조담현", members: "1 / 4", date: "2023-02-01" },
-  { id: 3, content: "싸피등원같이하실분", course: "유성온천코스", leader: "여진구", members: "1 / 4", date: "2023-03-01" },
-  { id: 4, content: "출근하기싫다", course: "유성온천코스", leader: "정민우", members: "1 / 4", date: "2023-04-01" },
-];
+import { useGroupStore } from "../../stores/group";
+import {useCourseStore} from '@/stores/course';
+import { useRoute } from "vue-router";
+const groupStore = useGroupStore();
+const courseStore = useCourseStore();
+const groupList = ref([]);
+const courseName = ref('');
+const route = useRoute();
 const closeToggle = function() {
   showDetail.value = false;
 }
 const showDetail = ref(false);
-const selectedItemId = ref(null);
 
-const toggleDetail = (itemId) => {
-  selectedItemId.value = itemId;
+const toggleDetail = async (groupid) => {
+  await groupStore.getMemberList(groupid); 
   showDetail.value = !showDetail.value;
 };
+
+onMounted(async() => {
+    try {
+        groupList.value = await groupStore.getGroupList(route.params.courseid);
+        courseName.value = await courseStore.getCourse(route.params.courseid).name
+    } catch (error){
+        console.log(error);
+    }
+
+    // watch( () => [courseStore.courseList], async  ([newList]) => {
+    //     coList.value = newList;
+    //     console.log(courseStore.courseList)
+    //     // course.value = await courseStore.getCourse(Route.params.courseid);
+    // });
+
+});
 </script>
 
 <style scoped>

@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.tajo.dto.Group;
+import com.tajo.dto.GroupInfo;
 
 public interface GroupDao {
 
-	List<Group> selectAll();
+	List<Group> selectAll(int courseid);
 
 	Group selectOne(int groupid);
 
-	Object insertGroup(Group group);
+	int insertGroup(Group group);
 
 	void deleteGroup(int groupid);
 
@@ -21,8 +22,12 @@ public interface GroupDao {
 
 	void getAttendants(int id);
 
-	void insertUserGroup(HashMap hashmap);
+	void insertUserGroup(GroupInfo groupInfo);
 
-	void deleteUserGroup(HashMap hashmap);
+	void deleteUserGroup(GroupInfo groupInfo);
+
+	void plusPeople(GroupInfo groupInfo);
+
+	void minusPeople(GroupInfo groupInfo);
 
 }

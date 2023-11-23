@@ -243,15 +243,18 @@ html {
 .game-container {
   position: absolute;
   top: 50%;
-  left:45%;
+  left: 45%;
   transform: translate(-50%, -50%);
-  transform:scale(1.7);
+  transform: scale(1.7);
   overflow: hidden; /* 스크롤 없애기 */
+  
 }
+
 
 canvas {
   width: 150%; /* 부모 요소에 꽉 차도록 설정 */
   height: 150%;
+  
 }
 
 .modal {

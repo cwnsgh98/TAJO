@@ -18,15 +18,13 @@
 		WHERE id = #{id};
 	</select>
 
-	<!-- 게시글 등록 -->
-	<insert id="insertGroup" parameterType="Group"
-		useGeneratedKeys="true">
-		INSERT INTO groupBoard (title, content, courseid,
-		date)
-		VALUES (#{title},#{content},#{courseid}, #{date})
+	<!-- 그룹 등록 -->
+	<insert id="insertGroup" parameterType="Group">
+		INSERT INTO groupBoard (courseid, content, writer, limit, date)
+		VALUES (#{courseid},#{content},#{writer}, #{limit}, #{date})
 	</insert>
 
-	<!-- 게시글 삭제 -->
+	<!-- 그룹 삭제 -->
 	<delete id="deleteGroup" parameterType="int">
 		DELETE FROM groupBoard
 		WHERE groupid = #{groupid}
@@ -41,16 +39,16 @@
 	</update>
 	
 	<!-- 그룹 멤버 등록 -->
-	<insert id="insertUserGroup" parameterType="hashmap"
-		useGeneratedKeys="true">
+	<insert id="insertUserGroup" parameterType="GroupInfo"
+		>
 		INSERT INTO group (groupid, userid)
-		VALUES (#{map.groupid}, #{map.userid})
+		VALUES (#{groupid}, #{userid})
 	</insert>
 
 	<!-- 그룹 멤버 삭제 -->
-	<delete id="deleteUserGroup" parameterType="hashmap">
+	<delete id="deleteUserGroup" parameterType="GroupInfo">
 		DELETE FROM group
-		WHERE groupid = #{map.groupid} AND userid = #{map.userid}
+		WHERE groupid = #{groupid} AND userid LIKE #{userid}
 	</delete>
 	
 	<!-- 그룹 멤버 출력 -->
@@ -60,5 +58,17 @@
         INNER JOIN group
         WHERE groupid = #{groupid}
     </select>
+    
+    <update id="plusPeople" parameterType="GroupInfo">
+    	UPDATE groupBoard
+    	SET people = people + 1;
+    	WHERE groupid=#{groupid}
+    </update>
+    
+    <update id="minusPeople" parameterType="GroupInfo">
+    	UPDATE groupBoard
+    	SET people = people - 1;
+    	WHERE groupid=#{groupid} 
+    </update>
 	
 </mapper>

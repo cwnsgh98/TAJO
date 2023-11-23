@@ -41,7 +41,7 @@
             <div class="review" v-for="review in reviewList" :key="review.reviewid">
               
                 <div class="userbox">
-                    <img class="user-avatar" src="/src/assets/ostrich1.png" alt="User Avatar" />
+                    <img class="user-avatar" :src="review.img" alt="User Avatar" />
                     <div class="user">
                         <div class="user-info">
                             <span class="user-name">{{ review.writer }}</span>
@@ -77,6 +77,14 @@ const course = ref({});
 const reviewList = ref([]);
 const userNickname = ref('익명');
 const alreadyZZIM = ref(false);
+const randomInt = ref(0);
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
 onMounted(async() => {
     try {
         alreadyZZIM.value = false;
@@ -90,6 +98,12 @@ onMounted(async() => {
                 alreadyZZIM.value = true;
                 break;
             }
+        }
+
+        for(const review of reviewList.value) {
+            randomInt.value = await getRandomInt(1, 8);
+            review.img = `/src/assets/ostrich${randomInt.value}.png`
+            console.log(review.img)
         }
 
     } catch (error){

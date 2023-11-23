@@ -115,6 +115,13 @@ group.js 생성
 
 
 
-
+spring 수정
+controller
+group.js
+db create문 수정
+togetherdetailcourse 수정
+together detail more 수정
+together party 수정
+game 수정
 
 
