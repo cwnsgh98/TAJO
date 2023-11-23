@@ -1,11 +1,11 @@
 <template>
   <div>
-    <button class="고치기버튼" @click="search('안장')">안장</button>
-    <button class="고치기버튼" @click="search('핸들')">핸들</button>
-    <button class="고치기버튼" @click="search('체인')">체인</button>
-    <button class="고치기버튼" @click="search('브레이크')">브레이크</button>
-    <button class="고치기버튼" @click="search('바퀴')">바퀴</button>
-    <button class="고치기버튼" @click="search('타조')">타조</button>
+    <button class="고치기버튼 stroked-text" @click="search('안장')">안장</button>
+    <button class="고치기버튼 stroked-text" @click="search('핸들')">핸들</button>
+    <button class="고치기버튼 stroked-text" @click="search('체인')">체인</button>
+    <button class="고치기버튼 stroked-text" @click="search('브레이크')">브레이크</button>
+    <button class="고치기버튼 stroked-text" @click="search('바퀴')">바퀴</button>
+    <button class="고치기버튼 stroked-text" @click="search('타조')">타조</button>
   </div>
 </template>
 
@@ -31,17 +31,25 @@ onMounted(() => {
 </script>
   
   <style scoped>
+  .stroked-text {
+    -webkit-text-stroke: 0.8px #000000;
+    /* Safari 및 Chrome 브라우저에서 사용 가능 */
+    color: #dfdeff;
+    /* 텍스트 색상 지정 */
+    font-size: 14px;
+    font-family: 'cookierun';
+}
   .고치기버튼{
-    border: solid 1px #000000;
+    border: solid 2px #000000;
     border-radius: 50px;
-    padding: 5px 12px;
+    padding: 5px 13px;
     margin-right: 6px;
     cursor: pointer;
-    background-color: #f9d6d6;
-    color: #000000;
+    background-color: #1228b3;
+    color: #ffffff;
     transition: background-color 0.3s;
     margin-top: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-family: 'cookierun';
   }
   </style>

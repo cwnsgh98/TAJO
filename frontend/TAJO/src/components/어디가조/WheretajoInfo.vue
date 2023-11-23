@@ -63,6 +63,7 @@ const prevPage = () => {
 };
 
 onMounted(async() => {
+    console.log(courseStore.courseList)
     try {
         coList.value = courseStore.courseList;
     } catch (error){

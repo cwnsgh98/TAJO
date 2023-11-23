@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4 class="검색결과">검색 결과</h4>
+        <h4 class="검색결과 stroked-text">검색 결과</h4>
         <div class="pagination-container">
             <div v-for="video in displayedVideos" :key="video.id.videoId" @click="clickVideo(video)">
                 <!-- 영상 아이템의 내용 -->
@@ -62,6 +62,15 @@ const decodeEntities = (text) => {
   
 <style scoped>
 /* 스타일링 내용 */
+
+.stroked-text {
+    -webkit-text-stroke: 0.3px #c7dcff;
+    /* Safari 및 Chrome 브라우저에서 사용 가능 */
+    color: #141e5c;
+    /* 텍스트 색상 지정 */
+    font-size: 19px;
+    font-family: 'cookierun';
+}
 .오른쪽{
     margin-left: 12px;
 }
@@ -96,7 +105,7 @@ const decodeEntities = (text) => {
 
 .텍스트 {
     padding: 10px;
-    border: 1px solid rgb(255, 255, 255);
+    /* border: 1px solid rgb(255, 255, 255); */
     min-width: 210px;
     max-width: 210px;
     min-height: 70px;
@@ -116,7 +125,7 @@ const decodeEntities = (text) => {
 .썸네일2 {
     border-radius: 20px;
     padding: 2px;
-    border: 2px solid rgb(23, 232, 255);
+    border: 2px solid rgb(11, 12, 69);
 }
 
 img {
@@ -128,7 +137,8 @@ img {
 
 .pagination-container {
     padding: 12px;
-    border: 4px solid #a0a0a0;
+    border: 3px solid #525252;
+    background-color: rgb(199, 216, 231);
 }
 
 /* 그 외 스타일링 내용 추가 */</style>
