@@ -90,13 +90,17 @@ whereinfodetail 수정
 wheregoZZIM 수정
 TogetherMain.vue 수정
 index.js 수정
-
 together detail과
 together detailmore  같이타조로 이동
 together detail 수정
 course.js 수정
 
 
-
-
-
+-- 11. 23 20:28 --
+togethermain 수정
+togetherTajoView 수정
+togetherParty 수정
+togetherDetailmore수정
+togetherDetailCourse수정
+group.js 생성
+스프링 수정

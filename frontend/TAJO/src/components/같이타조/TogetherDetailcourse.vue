@@ -17,7 +17,7 @@
                   <th>번호</th>
                   <th>내용</th>
                   <th>코스</th>
-                  <th>리더</th>
+                  <th>파티장</th>
                   <th>인원</th>
                   <th>일시</th>
                   <th>go?</th>
@@ -49,7 +49,7 @@
         </div> -->
   
         <div class="box-right" v-show='showDetail'>
-          <TogetherDetailmore />
+          <TogetherDetailmore @close-toggle="closeToggle"/>
         </div>
       </div>
     </div>
@@ -58,21 +58,21 @@
   <script setup>
   import { ref } from "vue";
   import TogetherDetailmore from "@/components/같이타조/TogetherDetailmore.vue";
-  
   const items = [
     { id: 1, content: "즐겁게 달릴분", course: "유성온천코스", leader: "쮸롱이", members: "1 / 4", date: "2023-01-01" },
     { id: 2, content: "건강해집시다", course: "유성온천코스", leader: "조담현", members: "1 / 4", date: "2023-02-01" },
     { id: 3, content: "싸피등원같이하실분", course: "유성온천코스", leader: "여진구", members: "1 / 4", date: "2023-03-01" },
     { id: 4, content: "출근하기싫다", course: "유성온천코스", leader: "정민우", members: "1 / 4", date: "2023-04-01" },
   ];
-  
+  const closeToggle = function() {
+    showDetail.value = false;
+  }
   const showDetail = ref(false);
   const selectedItemId = ref(null);
   
   const toggleDetail = (itemId) => {
     selectedItemId.value = itemId;
     showDetail.value = !showDetail.value;
-    console.log('됨?')
   };
   </script>
 

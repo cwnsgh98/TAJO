@@ -10,7 +10,7 @@
             <span class="coursetext">코스별 모집 게시판</span>
             <div class="course-list" >
                 <div class="coursebox" v-for="course in coList" :key="course.courseid"  >
-                    <img :src=course.img>
+                    <img :src="`src/assets/${course.img}`">
                     <div class="box-bottom">
                         <span>{{ course.name }}</span>
                         <RouterLink :to="`/Together/${course.courseid}/Detail`">

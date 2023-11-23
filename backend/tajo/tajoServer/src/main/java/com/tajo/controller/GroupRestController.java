@@ -33,58 +33,15 @@ public class GroupRestController {
 		private GroupService GroupService;
 
 
-		//1. 그룹 목록
-		@GetMapping("/Group")
+		//1. 코스 번호에 해당하는 그룹 목록
+		/*@GetMapping("/Group")
 		@ApiOperation(value="그룹 조회", notes="전체 그룹 리스트를 가져온다.")
-		public ResponseEntity<?> list(){
-			List<Group> list = GroupService.getGroupList(); //전체 조회
+		public ResponseEntity<?> list(int courseid){
+			List<Group> list = GroupService.getGroupList(courseid); //전체 조회
 			if(list == null || list.size() == 0)
 				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 			return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
-		}
-		
-		//2. 상세보기
-		@GetMapping("/Group/{id}")
-		@ApiOperation(value="그룹 상세", response = Group.class)
-		public ResponseEntity<Group> detail(@PathVariable int id){
-			Group Group = GroupService.getGroup(id);
-			//정석이라면 게시글 제목을 클릭해서 상세보기로 들어갈 거니까 여기서 매무리 해도 된다.
-			//꼬옥 주소창을 통해 접근하려고 하는 악의무리가 있기 때문에 만약 없는 값을 보냈을때... 처리를 해주어라. (해볼것)
-			return new ResponseEntity<Group>(Group, HttpStatus.OK);
-		}
-		
-		//3. 등록
-		@PostMapping("/Group")
-		@ApiOperation(value="그룹 등록")
-		public ResponseEntity<Group> write(@RequestBody Group Group){
-			GroupService.writeGroup(Group);
-			//ID는 어차피 중복이 안되서 무조건 게시글이 등록이 된다.
-			//문제 발생해서 게시글이 등록이 안될 경우도 있다더라.... 
-			//I / U / D 테이블의 행의 변환 개수를 반환해 주더라 이걸 이용해서 처리를 해볼 수도 있겠다....
-			return new ResponseEntity<Group>(Group, HttpStatus.CREATED);
-		}
-		
-		//4. 삭제
-		@DeleteMapping("/Group/{id}")
-		@ApiOperation(value="그룹 삭제")
-		public ResponseEntity<Void> delete(@PathVariable int id){
-			GroupService.removeGroup(id);
-			//반환 값을 통해서 지워졌는지 / 안지워졌는지 쳌
-			//이상한 값(id) 못하게 막던지
-			//다른사람도 요청 주소를 통해 내글을 지워버릴수 있다. (권한쳌 -> 인터셉터)
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
-		
-		
-		//5. 수정
-		@PutMapping("/Group/{id}") //JSON 형태의 데이터로 넘어왔을 떄 처리하고 싶은데?
-		@ApiOperation(value="그룹 수정")
-		public ResponseEntity<Void> update(@RequestBody Group group, @PathVariable int id){
-		    group.setGroupid(id);
-		    GroupService.modifyGroup(group);
-		    //위와같은 상황 대비
-		    return new ResponseEntity<Void>(HttpStatus.OK);
-		}
+		}*/
 		
 		@PostMapping("/Group/{id}/join") 	
 		@ApiOperation(value="그룹 참가")
@@ -96,7 +53,7 @@ public class GroupRestController {
 		    return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		
-		@PostMapping("/Group/{id}/exit") 
+		@DeleteMapping("/Group/{id}/exit") 
 		@ApiOperation(value="그룹 탈퇴")
 		public ResponseEntity<Void> exit(@PathVariable int id, String userid){
 			HashMap<String, Object> map = new HashMap<>();
@@ -107,8 +64,8 @@ public class GroupRestController {
 		    return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		
-		@PostMapping("/Group/{id}/users") 
-		@ApiOperation(value="그룹 참가 유저 조회")
+		@PostMapping("/Group/{id}/members") 
+		@ApiOperation(value="그룹 참가 멤버 조회")
 		public ResponseEntity<?> getAttendants(@PathVariable int id){
 			List<User> list = GroupService.getAttendants(id); 
 			//위와같은 상황 대비
@@ -116,4 +73,4 @@ public class GroupRestController {
 		}
 	
 
-}
+}	

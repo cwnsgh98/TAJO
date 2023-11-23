@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TogetherMain/>
+        <RouterView />
     </div>
 </template>
 

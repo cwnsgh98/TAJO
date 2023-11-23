@@ -4,7 +4,7 @@
 
             <div class="partyheader">
                 <span>파티이름</span>
-                <button>닫기창</button>
+                <button @click="$emit('closeToggle')">닫기창</button>
             </div>
             <div class="파티원목록">
                 <div class="파티원정보">

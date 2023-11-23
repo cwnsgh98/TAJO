@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TogetherParty/>
+        <TogetherParty @close-toggle="$emit('closeToggle')"/>
     </div>
 </template>
 

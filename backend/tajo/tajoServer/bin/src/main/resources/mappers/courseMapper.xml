@@ -45,19 +45,19 @@
 	</select>
 	
 	<!-- 코스 찜 등록 -->
-	<insert id="insertFavorite" parameterType="hashmap">
-		INSERT INTO group (courseid, userid)
-		VALUES (#{map.courseid}, #{map.userid})
+	<insert id="insertFavorite" parameterType="Favorite">
+		INSERT INTO favorite (courseid, userid)
+		VALUES (#{courseid}, #{userid})
 	</insert>
 
 	<!-- 코스 찜 삭제 -->
-	<delete id="deleteFavorite" parameterType="hashmap">
+	<delete id="deleteFavorite" parameterType="Favorite">
 		DELETE FROM favorite
-		WHERE courseid = #{map.courseid} AND userid LIKE #{map.userid}
+		WHERE courseid = #{courseid} AND userid LIKE #{userid}
 	</delete>
 	
 	<!-- 사용자 찜 코스 목록 -->
-	<select id="selectAllFavorite" parameterType="int" resultType="Course">
+	<select id="selectAllFavorite" parameterType="String" resultType="Course">
         SELECT *
         FROM course
         WHERE courseid in (SELECT courseid
