@@ -23,6 +23,8 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useCourseStore } from '../../stores/course';
+import {useRouter} from 'vue-router';
+const router = useRouter();
 const courseStore = useCourseStore();
 
 const fruits = [
@@ -207,6 +209,7 @@ function placesSearchCB(data, status, pagination) {
 //     infowindow.open(map, marker);
 //   });
 // }
+const emit = defineEmits(['markerClick']);
 function displayMarker(place) {
 
   const marker = new kakao.maps.Marker({
@@ -223,13 +226,13 @@ function displayMarker(place) {
     category: place.category_name,
     courseid : place.id,
   });
-
+  
   // 마커를 클릭할 때 실행되는 함수
-  kakao.maps.event.addListener(marker, 'click', function () {
-    console.log('장소 상세 정보:', place.place_name);
+  kakao.maps.event.addListener(marker, 'click', function () { 
+    console.log('장소 상세 정보:', place);
     infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
     infowindow.open(map, marker);
-    console.log(place)
+    emit('markerClick', place.id);
   });
 }
 

@@ -2,11 +2,18 @@ package com.tajo.dto;
 
 public class CourseReview {
 	int courseid;
+	int reviewid;
 	String content;
 	String writer;
 	int star;
 	
+	public int getReviewid() {
+		return reviewid;
+	}
 
+	public void setReviewid(int reviewid) {
+		this.reviewid = reviewid;
+	}
 	public String getContent() {
 		return content;
 	}

@@ -60,7 +60,7 @@ public class CourseRestController {
 	}
 
 	// 3. 코스의 리뷰 조회
-	@GetMapping("/Course/{id}/review")
+	@GetMapping("/Course/{courseid}/review")
 	@ApiOperation(value = "코스의 전체 리뷰 조회")
 	public ResponseEntity<?> reviewList(@PathVariable int courseid) {
 		List<CourseReview> list = CourseService.getCourseReviewList(courseid);
@@ -71,10 +71,9 @@ public class CourseRestController {
 	}
 
 	// 4. 코스의 리뷰 등록
-	@PostMapping("/Course/{id}/review")
+	@PostMapping("/Course/{courseid}/review")
 	@ApiOperation(value = "코스에 리뷰 등록")
-	public ResponseEntity<Integer> write(@RequestBody CourseReview review, @PathVariable int id) {
-		review.setCourseid(id);
+	public ResponseEntity<Integer> write(@RequestBody CourseReview review, @PathVariable int courseid) {
 		int result = CourseService.writeCourseReview(review);
 		// ID는 어차피 중복이 안되서 무조건 게시글이 등록이 된다.
 		// 문제 발생해서 게시글이 등록이 안될 경우도 있다더라....
@@ -83,7 +82,7 @@ public class CourseRestController {
 	}
 
 	// 5. 코스의 리뷰 삭제
-	@DeleteMapping("/Course/review/{id}")
+	@DeleteMapping("/Course/review/{reviewid}")
 	@ApiOperation(value = "코스 리뷰 삭제")
 	public ResponseEntity<Void> deleteReview(@PathVariable int reviewid) {
 		CourseService.removeCourseReview(reviewid);

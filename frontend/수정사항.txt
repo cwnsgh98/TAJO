@@ -67,12 +67,10 @@ course js, mabbnk 수정
 
 
 
-
-
-
-
-
-
+--- 11.23 ---
+wheretajoinfo starAvg 부분 수정
+WheretajoInfodetail.vue 수정
+ review.js 생성 (store)
 
 
 

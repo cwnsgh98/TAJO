@@ -9,7 +9,7 @@
                     </div>
                     <div class="왼쪽">
                         <span class="코스이름">{{ course.name }}</span>
-                        <span class="별점">별점 : {{ course.starCnt }}</span>
+                        <span class="별점">별점 : {{ course.starAvg }}</span>
                         <span class="리뷰">라이더리뷰 개수 : {{ course.reviewCnt }}</span>
                     </div>
                 </RouterLink>
@@ -25,11 +25,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch , onMounted} from 'vue';
 import { RouterLink } from 'vue-router';
 import { useCourseStore } from '../../stores/course';
 const courseStore = useCourseStore();
-
+const coList = ref([]);
 const itemsPerPage = 3;
 const currentPage = ref(1);
 
@@ -37,11 +37,11 @@ const currentPage = ref(1);
 const paginatedCourses = computed(() => {
     const startIndex = (currentPage.value - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return courseStore.courseList.slice(startIndex, endIndex);
+    return coList.value.slice(startIndex, endIndex);
 });
 
 // 전체 페이지 수 계산
-const totalPages = computed(() => Math.ceil(courseStore.courseList.length / itemsPerPage));
+const totalPages = computed(() => Math.ceil(coList.value.length / itemsPerPage));
 
 // 다음 페이지로 이동하는 함수
 const nextPage = () => {
@@ -56,6 +56,21 @@ const prevPage = () => {
         currentPage.value -= 1;
     }
 };
+
+onMounted(async() => {
+    try {
+        coList.value = courseStore.courseList;
+    } catch (error){
+        console.log(error);
+    }
+
+    watch( () => [courseStore.courseList], async  ([newList]) => {
+        coList.value = newList;
+        // course.value = await courseStore.getCourse(Route.params.courseid);
+    });
+
+});
+
 </script>
   
 

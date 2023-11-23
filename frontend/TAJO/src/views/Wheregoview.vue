@@ -5,7 +5,7 @@
         </div>
         <div class="wheremain">
             <div class="right">
-                <WheretajoMap @help="goHelp" />
+                <WheretajoMap @help="goHelp" @marker-click="markerClick"/>
             </div>
             <div class="choose">
                 <RouterView />
@@ -16,10 +16,9 @@
 
 <script setup>
 import { ref, watch,onMounted } from 'vue';
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import WheretajoTrans from '../components/어디가조/WheretajoTrans.vue';
 import WheretajoMap from '../components/어디가조/WheretajoMap.vue';
-import router from '../router';
 const isHelp = ref(false);
 const goHelp = (() => {
     isHelp.value = !(isHelp.value);
@@ -35,6 +34,11 @@ onMounted(() => {
     router.push('/Wherego/info');
 
 })
+const router = useRouter();
+const markerClick = async function(id) {
+    await router.push('/Wherego/info');
+    await router.push(`/Wherego/${id}/Detail`);
+}
 </script>
 
 <style scoped>

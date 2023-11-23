@@ -3,7 +3,7 @@
         <div class="map">
             <div class="지도배경">
                 <div class="인덱스">
-                <MapBank/>
+                <MapBank @marker-click="markerClick"/>
                 </div>
                 <button @click="toggleResult" class="help-button">
                     <img class="도와줘" src="@/assets/도와줘타조.png">
@@ -17,12 +17,14 @@
 import { ref,computed, inject} from 'vue';
 import MapBank from './MapBank.vue'
 
-const emit = defineEmits(['help']);
+const emit = defineEmits(['help', 'markerClick']);
 
 const toggleResult = () => {
     emit('help')
 };
-
+const markerClick = function(id) {
+    emit('markerClick', id);
+}
 </script>
 
 <style scoped>
