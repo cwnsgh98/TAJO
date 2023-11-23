@@ -56,6 +56,9 @@ h2{
 }
 .main{
   width: 100%;
+  /* background: url('/src/assets/backrain2.gif')  ; */
+  /* background-size: cover; */
+  /* background-position: center; */
   
 }
 .main-header{

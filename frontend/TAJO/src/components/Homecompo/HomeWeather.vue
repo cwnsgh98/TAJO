@@ -1,5 +1,5 @@
 <template>
-  <div class="weather">
+  <div class="weather" :style="{ backgroundImage: 'url(' + backsrc + ')' }">
     <div class="main">
       <div class="main-left">
         <div class="오늘의날씨">
@@ -59,6 +59,7 @@ export default {
     const loading = ref(true);
     const latitude = ref(null);
     const longitude = ref(null);
+    const backsrc=ref('src/assets/backwind2.gif');
     const weatherData = ref({
       tmp: null,
       sky: null,
@@ -139,12 +140,14 @@ export default {
             switch (item.fcstValue) {
               case '1':
                 weatherData.value.sky = '맑음';
+                backsrc.value='src/assets/backsunny2.gif';
                 break;
               case '3':
                 weatherData.value.sky = '구름많음';
                 break;
               case '4':
                 weatherData.value.sky = '흐림';
+                backsrc.value='src/assets/backsunny2.gif';
                 break;
             }
           } else if (item.category === 'PTY') {
@@ -183,10 +186,11 @@ export default {
     };
 
     onMounted(() => {
+      backsrc.value='src/assets/backwind2.gif'
       getLocation();
     });
 
-    return { loading, latitude, longitude, weatherData };
+    return { loading, latitude, longitude, weatherData, backsrc, };
   },
   methods: {
     getWeatherDescription() {
@@ -291,6 +295,12 @@ p img{
 .weather {
     width: 900px;
     height: 300px;
+    /* background: url('/src/assets/backrain2.gif'); */
+    /* background: url('/src/assets/backsunny2.gif'); */
+    /* background: url('/src/assets/backwind2.gif'); */
+    /* background-repeat: no-repeat; */
+    /* background-position: center; */
+    /* background: url('/src/assets/backsnow2.gif'); */
 }
 
 .main {

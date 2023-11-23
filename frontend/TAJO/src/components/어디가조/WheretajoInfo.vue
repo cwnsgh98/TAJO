@@ -11,7 +11,11 @@
                     </div>
                     <div class="왼쪽">
                         <span class="코스이름 stroked-text">{{ course.name }}</span>
-                        <span class="별점 ">별점 : {{ course.starAvg }}</span>
+                        <div class="별">
+                        <span class="별점">별점 : </span>
+                        <span v-for="index in 5" :key="index" class="별아이콘 stroked-text2"
+                        :class="{ '별채움': index <= course.starAvg }">&#9733;</span>
+                    </div>
                         <span class="리뷰 ">라이더리뷰 개수 : {{ course.reviewCnt }}</span>
                     </div>
                 </div>
@@ -40,11 +44,11 @@ const courseStore = useCourseStore();
 const coList = ref([]);
 const itemsPerPage = 3;
 const currentPage = ref(1);
-
 // 현재 페이지에 해당하는 데이터를 동적으로 계산
 const paginatedCourses = computed(() => {
     const startIndex = (currentPage.value - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
+    
     return courseStore.courseList.slice(startIndex, endIndex);
 });
 
@@ -72,7 +76,7 @@ onMounted(async() => {
     } catch (error){
         console.log(error);
     }
-
+   
     // watch( () => [courseStore.courseList], async  ([newList]) => {
     //     coList.value = newList;
     //     console.log(courseStore.courseList)
@@ -108,6 +112,27 @@ onMounted(async() => {
     transform: scale(1);
   }
 } */
+.별 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.별아이콘 {
+    color: #fffdec;
+    font-size: 14px;
+    /* 별 색상 지정 */
+}
+.stroked-text2 {
+    -webkit-text-stroke: 0.7px #000000;
+    /* Safari 및 Chrome 브라우저에서 사용 가능 */
+    /* 텍스트 색상 지정 */
+    font-family: 'cookierun';
+}
+.별채움 {
+    color: #ffd700;
+    /* 채워진 별의 색상 */
+    font-size: 14px;
+}
 
 .코스이미지{
     min-width: 160px;
@@ -119,7 +144,9 @@ onMounted(async() => {
 .박스정렬{
     display: flex;
 }
-
+.별점{
+margin-right: 4px;
+}
 .별점, .리뷰{
 color: #4c4c4c;
 }
