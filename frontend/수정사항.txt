@@ -77,6 +77,8 @@ wheregoview 수정
  review.js 생성 (store)
 
 
+course.js 수정하고
+mapbank 수정하면끝!
 
 
 
