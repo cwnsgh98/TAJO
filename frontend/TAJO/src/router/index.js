@@ -61,7 +61,7 @@ const router = createRouter({
       component: Wheregoview,
       children:[
         {
-          path: '',
+          path: 'info',
           name: 'WheretajoInfo',
           component: WheretajoInfo
         },
