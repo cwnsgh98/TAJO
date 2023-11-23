@@ -68,8 +68,12 @@ course js, mabbnk 수정
 
 
 --- 11.23 ---
-wheretajoinfo starAvg 부분 수정
+wheretajoinfo 부분 수정
 WheretajoInfodetail.vue 수정
+wheretajoreview 수정
+mapbank 수정
+wheretajomap 수정
+wheregoview 수정
  review.js 생성 (store)
 
 
