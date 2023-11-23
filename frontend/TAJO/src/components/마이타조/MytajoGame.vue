@@ -1,5 +1,7 @@
 <template>
   <div class="game-container">
+    <audio ref="jumpAudio" src="src/assets/jump.wav"></audio>
+    <audio ref="gameOverAudio" src="src/assets/gameover.mp3"></audio>
     <span>목숨: <i>{{ life }}</i></span>
     <span style="margin-left: 10px;">점수: <i>{{ score }}</i></span>
     <h2 v-show="gameState === 0" style="margin-left: 120px; margin-top:30px;">스페이스를 눌러 게임을 시작</h2>
@@ -16,6 +18,21 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+
+const jumpAudio = ref(null);
+const gameOverAudio = ref(null);
+
+function playJumpSound() {
+  jumpAudio.value.currentTime = 0;
+  jumpAudio.value.volume = 0.5;
+  jumpAudio.value.play();
+}
+
+function playGameOverSound() {
+  gameOverAudio.value.currentTime = 0;
+  gameOverAudio.value.volume = 0.03;
+  gameOverAudio.value.play();
+}
 
 const dinoImg = new Image();
 dinoImg.src = 'src/assets/ostrich5.png';
@@ -192,9 +209,11 @@ document.addEventListener('keydown', (e) => {
       document.querySelector('h2').style.display = 'none';
     } else if (gameState.value === 1) {
       jumpState.value = 1;
+      playJumpSound();
     }
   }
 });
+
 
 onUnmounted(() => {
   document.body.style.overflow = ''; 
@@ -203,6 +222,7 @@ onUnmounted(() => {
 const gameOver = ref(false);
 
 function showGameOverModal() {
+  playGameOverSound();
   gameOver.value = true;
 }
 

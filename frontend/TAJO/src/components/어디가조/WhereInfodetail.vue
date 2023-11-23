@@ -36,6 +36,7 @@
 
         <div class="review-container course-review">
             <div class="review" v-for="review in reviewList" :key="review.reviewid">
+              
                 <div class="userbox">
                     <img class="user-avatar" src="/src/assets/ostrich1.png" alt="User Avatar" />
                     <div class="user">
@@ -53,6 +54,7 @@
                 </div>
                 <div class="버삭">
                 <button class="삭제" v-if="userNickname === review.writer" @click="removeReview(review.reviewid)">삭제</button>
+                
             </div>
             </div>
         </div>
