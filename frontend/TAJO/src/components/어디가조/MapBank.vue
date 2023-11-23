@@ -20,7 +20,6 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useCourseStore } from '../../stores/course';
@@ -272,6 +271,27 @@ const searchNearbyPlaces = () => {
 
 
 <style scoped>
+
+button {
+  height: 40px;
+  width: 40px;
+  background: #151825;
+  border-radius: 50%;
+  border: 1px solid #1D9AF2;
+  border-top: 2px solid #fff;
+  animation: spinner1 600ms linear infinite;
+}
+
+button.loading {
+  cursor: not-allowed; /* 추가: 로딩 중일 때는 클릭 비활성화 */
+}
+
+@keyframes spinner1 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 #map {
   position: relative;
   width: 1200px;

@@ -3,7 +3,7 @@
         <div class="course-Info">
             <div class="이미지">
                 이미지를 넣을 공간이오
-                <RouterLink to="/Wherego"><button>뒤로가기</button></RouterLink>
+                <RouterLink to="/Wherego/info"><button>뒤로가기</button></RouterLink>
             </div>
             <div class="map-name">
                 <span>맵 이름입니다</span>

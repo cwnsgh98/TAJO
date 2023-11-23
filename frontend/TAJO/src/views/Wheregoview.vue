@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch,onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import WheretajoTrans from '../components/어디가조/WheretajoTrans.vue';
 import WheretajoMap from '../components/어디가조/WheretajoMap.vue';
@@ -28,9 +28,13 @@ watch(() => [isHelp.value], ([isHelp]) => {
     if (isHelp) {
         router.push('/Wherego/Help');
     } else {
-        router.push('/Wherego');
+        router.push('/Wherego/info');
     }
 });
+onMounted(() => {
+    router.push('/Wherego/info');
+
+})
 </script>
 
 <style scoped>

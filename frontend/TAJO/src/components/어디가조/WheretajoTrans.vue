@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="화면바꾸기">
-            <RouterLink class="router-link" :to="{ name: 'Wherego' }">
+            <RouterLink class="router-link" to="/Wherego/info">
                 <button>지도보기</button>
             </RouterLink>
             <RouterLink class="router-link" :to="{ name: 'Wheregozzim' }">
