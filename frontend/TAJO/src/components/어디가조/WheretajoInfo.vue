@@ -4,19 +4,21 @@
         <div class="course-list">
             <div class="listbox" v-for="course in paginatedCourses" :key="course.courseid">
                 <RouterLink :to="`/Wherego/${course.courseid}/Detail`">
+                    <div class="박스정렬">
                     <div class="오른쪽">
-                         <!--<img class="코스이미지" :src="`@/assets/${course.img}`">-->
+                         <img class="코스이미지" :src="`/src/assets/${course.img}`">
+                         {{console.log(course.img)}}
                     </div>
                     <div class="왼쪽">
-                        <span class="코스이름">{{ course.name }}</span>
-                        <span class="별점">별점 : {{ course.starAvg }}</span>
-                        <span class="리뷰">라이더리뷰 개수 : {{ course.reviewCnt }}</span>
+                        <span class="코스이름 stroked-text">{{ course.name }}</span>
+                        <span class="별점 ">별점 : {{ course.starCnt }}</span>
+                        <span class="리뷰 ">라이더리뷰 개수 : {{ course.reviewCnt }}</span>
                     </div>
+                </div>
                 </RouterLink>
             </div>
         </div>
         <div class="버튼들">
-            <!-- 페이지네이션 버튼 -->
             <button class="버튼버튼" @click="prevPage" :disabled="currentPage === 1">이전 페이지</button>
             <span class="가운데">{{ currentPage }} / {{ totalPages }}</span>
             <button class="버튼버튼" @click="nextPage" :disabled="currentPage === totalPages">다음 페이지</button>
@@ -25,9 +27,12 @@
 </template>
 
 <script setup>
-import { ref, computed, watch , onMounted} from 'vue';
+
+
+import { ref, computed ,onMounted, watch} from 'vue';
 import { RouterLink } from 'vue-router';
 import { useCourseStore } from '../../stores/course';
+
 const courseStore = useCourseStore();
 const coList = ref([]);
 const itemsPerPage = 3;
@@ -37,11 +42,11 @@ const currentPage = ref(1);
 const paginatedCourses = computed(() => {
     const startIndex = (currentPage.value - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return coList.value.slice(startIndex, endIndex);
+    return courseStore.courseList.slice(startIndex, endIndex);
 });
 
 // 전체 페이지 수 계산
-const totalPages = computed(() => Math.ceil(coList.value.length / itemsPerPage));
+const totalPages = computed(() => Math.ceil(courseStore.courseList.length / itemsPerPage));
 
 // 다음 페이지로 이동하는 함수
 const nextPage = () => {
@@ -58,25 +63,84 @@ const prevPage = () => {
 };
 
 onMounted(async() => {
+    console.log(courseStore.courseList)
     try {
         coList.value = courseStore.courseList;
     } catch (error){
         console.log(error);
     }
 
-    watch( () => [courseStore.courseList], async  ([newList]) => {
-        coList.value = newList;
-        // course.value = await courseStore.getCourse(Route.params.courseid);
-    });
+    // watch( () => [courseStore.courseList], async  ([newList]) => {
+    //     coList.value = newList;
+    //     console.log(courseStore.courseList)
+    //     // course.value = await courseStore.getCourse(Route.params.courseid);
+    // });
 
 });
-
 </script>
   
 
 <style scoped>
+/* .slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+} */
+
+.코스이미지{
+    min-width: 160px;
+    max-width: 160px;
+    min-height: 100px;
+    max-height: 100px;
+    border: 2px solid #242424;
+}
+.박스정렬{
+    display: flex;
+}
+
+.별점, .리뷰{
+color: #4c4c4c;
+}
+.stroked-text {
+    -webkit-text-stroke: 0.3px #000000;
+    /* Safari 및 Chrome 브라우저에서 사용 가능 */
+    color: white;
+    /* 텍스트 색상 지정 */
+    font-size: 17px;
+    font-family: 'cookierun';
+}
+.코스이름{
+    font-size: 25px;
+    color: #163ec3
+}
+a{
+    text-decoration: none;
+}
+.왼쪽 span{
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
 .버튼버튼 {
-    background-color: aliceblue;
+    background-color: rgb(244, 250, 255);
     font-family: 'cookierun';
     padding: 3px;
 }
@@ -92,9 +156,11 @@ onMounted(async() => {
 }
 
 .한마디 {
-    font-size: 18px;
+    -webkit-text-stroke: 1px rgb(177, 218, 255);
+    font-size: 23px;
     margin-top: 5px;
     margin-bottom: 5px;
+    color: #00268d
 }
 
 .course-list {
@@ -112,12 +178,13 @@ img {
 }
 
 .listbox {
+    background-color: aliceblue;
     display: flex;
     align-items: center;
     min-width: 200px;
     min-height: 140px;
-    border: 2px solid #000000;
-    margin-top: 17px;
+    border: 2px solid #b8b8b8;
+    margin-top: 20px;
     border-radius: 13px;
 }
 
@@ -125,6 +192,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 170px;
 }
 
 .왼쪽 {
@@ -137,6 +205,6 @@ img {
 
 .InfoMain {
     margin-top: 20px;
-    padding: 20px;
-    border: 2px solid #000000;
+    /* padding: 20px; */
+    /* border: 4px solid #000000; */
 }</style>

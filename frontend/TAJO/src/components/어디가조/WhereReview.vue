@@ -31,8 +31,9 @@ const content = ref('');
 const Route = useRoute();
 const writeReview = async () => {
     try {
+        console.log(localStorage.getItem("loginUser"));
         const courseReview = {
-            writer: localStorage.getItem("loginUser") ? localStorage.getItem("loginUser") : "익명",
+            writer: localStorage.getItem("loginUser") ? JSON.parse(localStorage.getItem("loginUser")).nickname : "익명",
             content: content.value,
             star: star.value,
             courseid: Route.params.courseid,

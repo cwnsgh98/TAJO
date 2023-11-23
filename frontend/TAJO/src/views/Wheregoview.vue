@@ -43,7 +43,10 @@ const markerClick = async function(id) {
 
 <style scoped>
 .right {
+    border-right: 4px solid #a0a0a0;
     min-width: 1200px;
+    min-height: 714px;
+    max-height: 714px;
 }
 
 .choose {
@@ -55,7 +58,11 @@ const markerClick = async function(id) {
 
 .wheremain {
     display: flex;
+    min-height: 680px;
     max-height: 680px;
+    
+    background-color: rgba(249, 251, 255, 0.635);
+    /* background:  linear-gradient(121deg, #FFFFF3 0%, #FFFFED 100%); */
 }
 
 .Where {

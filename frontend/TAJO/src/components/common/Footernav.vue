@@ -29,14 +29,14 @@
     const isCurrentPath = (path) => currentPath.startsWith(path);
   
     return route.path==='/'&& imageName.includes('logohome')
-      ? `src/assets/${imageName.replace('.png', 'change.png')}`
+      ? `/src/assets/${imageName.replace('.png', 'change.png')}`
       : isCurrentPath('/Together') && imageName.includes('logotogether')
-      ? `src/assets/${imageName.replace('.png', 'change.png')}`
+      ? `/src/assets/${imageName.replace('.png', 'change.png')}`
       : isCurrentPath('/Wherego') && imageName.includes('logowhere')
-      ? `src/assets/${imageName.replace('.png', 'change.png')}`
+      ? `/src/assets/${imageName.replace('.png', 'change.png')}`
       : isCurrentPath('/Mytajo') && imageName.includes('logomytajo')
-      ? `src/assets/${imageName.replace('.png', 'change.png')}`
-      : `src/assets/${imageName}`;
+      ? `/src/assets/${imageName.replace('.png', 'change.png')}`
+      : `/src/assets/${imageName}`;
   };
   </script>
 

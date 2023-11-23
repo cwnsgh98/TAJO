@@ -9,7 +9,10 @@
             </RouterLink>
           </div>
           <div class="fifty-second">
-            <span class="이름" v-if="getUser">{{ nickname }} <span class="반갑소"> 님 반갑습니다!</span></span>
+            <div class="header-fifty2 "> 
+            <span class="이름 stroked-text" v-if="getUser">{{ nickname }} </span>
+            <span class="반갑소"> 님 반갑습니다!</span>
+          </div>
             <a href="#" class="router-link" v-if="getUser" @click="logout">
               <img class="logout" :src="getLogoPath('logout.png')" />
             </a>
@@ -67,29 +70,44 @@ const getLogoPath = (imageName) => {
     const isCurrentPath = (path) => currentPath === path;
 
     return isCurrentPath('home') && imageName.includes('누끼딴로고')
-        ? `src/assets/${imageName}`
+        ? `/src/assets/${imageName}`
         : isCurrentPath('login') && imageName.includes('login')
-            ? `src/assets/${imageName.replace('.png', 'change.png')}`
+            ? `/src/assets/${imageName.replace('.png', 'change.png')}`
             : isCurrentPath('regist') && imageName.includes('regist')
-                ? `src/assets/${imageName.replace('.png', 'change.png')}`
-                : `src/assets/${imageName}`;
+                ? `/src/assets/${imageName.replace('.png', 'change.png')}`
+                : `/src/assets/${imageName}`;
 };
 </script>
  
 <style scoped>
 .router-link {
+  margin-top: 3px;
   transition: transform 0.3s ease-in-out;
 }
 .이름{
-  margin-right: 50px;
+  margin-right: 10px;
   font-size: 18px;
   color: #FC9797;
 }
 .반갑소{
   color: black;
 }
+.stroked-text {
+    -webkit-text-stroke: 1.3px #ff7a7a;
+    /* Safari 및 Chrome 브라우저에서 사용 가능 */
+    color: rgb(255, 223, 223);
+    /* 텍스트 색상 지정 */
+    font-size: 22px;
+    font-family: 'cookierun';
+}
 .router-link:hover img {
   transform: scale(1.1);
+}
+
+.header-fifty2{
+  display: flex;
+  align-items: center;
+  margin-right: 50px;
 }
 
 .header,

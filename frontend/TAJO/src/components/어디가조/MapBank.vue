@@ -110,7 +110,7 @@ function printMarkerNames() {
   console.log('markerInfo 배열의 크기:', markerInfo.value.length);
   courseStore.clearCourseList();
   markerInfo.value.forEach(async marker => {
-    await courseStore.getCourse(marker.courseid);
+    await courseStore.getMarkerCourse(marker.courseid);
 
   });
   console.log(courseStore.courseList)
