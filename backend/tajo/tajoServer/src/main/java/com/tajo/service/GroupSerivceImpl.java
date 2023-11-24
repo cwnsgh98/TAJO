@@ -49,6 +49,7 @@ public class GroupSerivceImpl implements GroupService {
 
 	@Override
 	public void exitGroup(GroupInfo groupInfo) {
+		
 		groupDao.minusPeople(groupInfo);
 		groupDao.deleteUserGroup(groupInfo);
 	}

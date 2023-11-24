@@ -45,13 +45,13 @@
 	<!-- 그룹 멤버 등록 -->
 	<insert id="insertUserGroup" parameterType="GroupInfo">
 		INSERT
-		INTO group (groupid, userid)
+		INTO `group`(groupid, userid)
 		VALUES (#{groupid}, #{userid})
 	</insert>
 
 	<!-- 그룹 멤버 삭제 -->
 	<delete id="deleteUserGroup" parameterType="GroupInfo">
-		DELETE FROM group
+		DELETE FROM `group`
 		WHERE groupid = #{groupid} AND userid LIKE #{userid}
 	</delete>
 

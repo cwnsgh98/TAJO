@@ -41,7 +41,7 @@ export const useGroupStore = defineStore('group', () => {
       
       await axios.delete(`http://localhost:8080/api-group/Group/exit`, {
         data : {
-          grounpid : gronpid,
+          groupid : groupid,
           userid : uid,
         }
       });
