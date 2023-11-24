@@ -55,8 +55,8 @@ public class GroupSerivceImpl implements GroupService {
 
 	@Override
 	public List<User> getAttendants(int groupid) {
-		groupDao.getAttendants(groupid);
-		return null;
+		
+		return groupDao.getAttendants(groupid);
 	}
 
 	@Override

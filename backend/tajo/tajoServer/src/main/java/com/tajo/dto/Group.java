@@ -4,7 +4,7 @@ public class Group {
 	int groupid;
 	int courseid;
 	int limit;
-	int person;
+	int people;
 	String writer;
 	String content;
 	String date;
@@ -48,6 +48,14 @@ public class Group {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getPeople() {
+		return people;
+	}
+
+	public void setPeople(int people) {
+		this.people = people;
 	}
 
 	public String getDate() {

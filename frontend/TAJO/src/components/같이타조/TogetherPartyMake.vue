@@ -3,7 +3,7 @@
     <div class="main">
       <span class="파티만들기">파티만들기</span>
       <div class="파티">
-        <span class="파티명">파티명 : </span>
+        <span class="파티명">파티제목 : </span>
         <input class="내용담는곳" type="text" v-model="content" />
       </div>
       <div class="인원정하기">
@@ -32,17 +32,23 @@
 
 <script setup>
 import Datepicker from 'vue3-datepicker';
+import { useGroupStore } from '../../stores/group';
+import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 
+const route = useRoute();
+const router = useRouter();
+const groupStore = useGroupStore();
 const content = ref('');
 const participantsRange = Array.from({ length: 10 }, (_, i) => i + 1);
 const TimeRange = Array.from({ length: 24 }, (_, i) => i + 1);
 const selectedParticipants = ref(1);
 const selectedSetTime = ref('');
 const selectedDate = ref(null);
-const handleCreate = () => {
+const date = ref('');
+const handleCreate = async () => {
   // 선택한 날짜가 있는지 확인
-  if (selectedDate.value) {
+  if (selectedDate.value&&selectedSetTime.value&&selectedParticipants.value&&content.value) {
     // Date 객체를 사용하여 원하는 형식으로 문자열로 변환
     const dateString = selectedDate.value.toLocaleDateString('ko-KR', {
       year: 'numeric',
@@ -50,10 +56,20 @@ const handleCreate = () => {
       day: 'numeric',
     });
 
-    console.log(dateString + ' ' + selectedSetTime.value + '시');
+    date.value= (dateString + ' ' + selectedSetTime.value + '시');
+    const group = {
+      courseid: route.params.courseid,
+      content : content.value,
+      writer : localStorage.getItem(localStorage) ? localStorage.getItem(localStorage).nickname : '익명' ,
+      limit : selectedParticipants.value,
+      date : date.value,
+    }
+
+    await groupStore.makeGroup(group);
+    router.go(`/Toteger/${route.params.courseid}/Detail`)
     // console.log(selectedFinishTime.value)
   } else {
-    console.log('날짜를 선택하세요.');
+    aalert('모든 항목을 입력하세요.');
   }
 };
 </script>

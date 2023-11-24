@@ -93,9 +93,11 @@ const initMap = () => {
   map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
   
   kakao.maps.event.addListener(map, 'idle', function () {
+    
     setTimeout(()=> printMarkerNames(), 150)
     searchNearbyPlaces();
     clearMarkerInfo();
+    
   });
 
   // map.addOverlayMapTypeId(kakao.maps.MapTypeId.TERRAIN); 
@@ -107,8 +109,10 @@ const initMap = () => {
 
 };
 function printMarkerNames() {
+
   console.log('현재 지도에 표시된 마커들의 이름:');
   console.log('markerInfo 배열의 크기:', markerInfo.value.length);
+  
   courseStore.clearCourseList();
   markerInfo.value.forEach(async marker => {
     await courseStore.getMarkerCourse(marker.courseid);

@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="recobox">
-            <div class="추천">타조에 관한 영상시청</div>
+            <div class="추천">타조에서 이런 기능을 만나보세요!</div>
             <div class="reco-list">
-                <div class="코스"> <img src="@/assets/hot.png"> <span>스님을 사랑하는 타조</span> </div>
-                <div class="코스"> <img src="@/assets/best.png"> <span>대전 도로를 달리는 두마리의 타조</span> </div>
-                <div class="코스"> <img src="@/assets/heart.png"> <span>사막에서 자전거 타는 사람들과 함께뛰는 타조</span> </div>
+                <div class="코스" > <img src="@/assets/hot.png"> <span>열심히 달린 기록 조회하기 </span> </div>
+                <div class="코스" > <img src="@/assets/best.png"> <span>내 주변 코스 후기보기 </span> </div>
+                <div class="코스" > <img src="@/assets/heart.png"> <span>마음에 드는 코스는 함께하기 </span> </div>
             </div>
             <!-- <div class="추천">추천 라이딩코스를 만나보세요!</div>
             <div class="reco-list">
@@ -18,6 +18,45 @@
 </template>
 
 <script setup>
+import {ref, onMounted} from 'vue'
+import { useRouter } from 'vue-router';
+import { useCourseStore } from '../../stores/course';
+import { useZzimStore } from '../../stores/zzim';
+const router = useRouter();
+const courseStore = useCourseStore();
+const zzimStore = useZzimStore();
+const mostViewed = async function() {
+    courseStore.getAllCourse();
+    
+    await router.push('/Wherego/info');
+    await new Promise((resolve) => nextTick(resolve));
+    courseStore.courseList.sort((a,b)=>{
+        if(a.viewCnt > b.viewCnt) return -1;
+        if(a.viewCnt < b.viewCnt) return 1;
+        return 0;
+    })
+}
+
+const mostStared = async function() {
+    courseStore.getAllCourse();
+    courseStore.courseList.sort((a,b)=>{
+        if(a.starAvg > b.starAvg) return -1;
+        if(a.starAvg < b.starAvg) return 1;
+        return 0;
+    })
+    
+
+    router.push('/Wherego/info');
+
+}
+
+const mostLiked = async function() {
+    zzimStore.getZzimList();
+    await router.push('/Wherego');
+
+}
+
+
 
 </script>
 

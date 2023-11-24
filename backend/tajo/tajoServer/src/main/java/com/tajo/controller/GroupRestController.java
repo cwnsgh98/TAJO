@@ -35,7 +35,9 @@ public class GroupRestController {
 		@GetMapping("/Group/{courseid}")
 		@ApiOperation(value="그룹 조회", notes="전체 그룹 리스트를 가져온다.")
 		public ResponseEntity<?> list(@PathVariable int courseid){
+			
 			List<Group> list = GroupService.getGroupList(courseid); //전체 조회
+			
 			if(list == null || list.size() == 0)
 				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 			return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
@@ -55,6 +57,8 @@ public class GroupRestController {
 		@ApiOperation(value="그룹 참가")
 		public ResponseEntity<Void> join(@RequestBody GroupInfo groupInfo){
 			GroupService.joinGroup(groupInfo);
+			System.out.println(groupInfo.getGroupid());
+			System.out.println(groupInfo.getUserid());
 		    return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 		
@@ -70,6 +74,7 @@ public class GroupRestController {
 		@ApiOperation(value="그룹 참가 멤버 조회")
 		public ResponseEntity<?> getAttendants(@PathVariable int groupid){
 			List<User> list = GroupService.getAttendants(groupid); 
+			
 			//위와같은 상황 대비
 		    return new ResponseEntity<List<User>>(list, HttpStatus.OK);
 		}

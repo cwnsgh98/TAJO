@@ -1,5 +1,6 @@
 <template>
     <div>
+    
         <TogetherDetailcourse/>
     </div>
 </template>

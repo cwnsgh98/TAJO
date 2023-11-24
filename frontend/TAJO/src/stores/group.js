@@ -10,6 +10,7 @@ export const useGroupStore = defineStore('group', () => {
       const courseid = Number.parseInt(cid);
       const response = await axios.get(`http://localhost:8080/api-group/Group/${courseid}`);
       groupList.value = response.data;
+      return groupList.value;
     };
 
     
@@ -17,11 +18,14 @@ export const useGroupStore = defineStore('group', () => {
     const getMemberList = async function (groupid) {
       
       const response = await axios.get(`http://localhost:8080/api-group/Group/${groupid}/members`);
+      console.log(response.data)
       memberList.value = response.data; 
     };
 
     // 그룹에 멤버 등록하기
     const insertMember = async function(groupid) {
+      console.log(groupid)
+
       const uid = JSON.parse(localStorage.getItem("loginUser")).userid;
       const groupInfo = {
         groupid : groupid,

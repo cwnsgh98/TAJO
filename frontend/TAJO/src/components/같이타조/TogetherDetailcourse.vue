@@ -8,7 +8,8 @@
           <RouterLink to="/Together">
             <button class="뒤로">&lt;</button>
           </RouterLink>
-          <img src="@/assets/ostrich5.png" />
+          
+          <img :src="'/src/assets/'+courseImg">
           <button class="파티만들기" @click="showMakeToggle">파티만들기</button>
         </div>
         <div class="tablebox">
@@ -16,7 +17,7 @@
             <thead>
               <tr>
                 <th>번호</th>
-                <th>내용</th>
+                <th>제목</th>
                 <th>코스</th>
                 <th>파티장</th>
                 <th>인원</th>
@@ -25,6 +26,7 @@
               </tr>
             </thead>
             <tbody>
+            
               <tr v-for="group in groupList" :key="group.groupid">
                 <td>{{ group.groupid }}</td>
                 <td>{{ group.content }}</td>
@@ -36,7 +38,7 @@
                   <button @click="toggleDetail(group.groupid)">파티 입장</button>
                 </td>
                 <td v-else>
-                  모집 마감
+                  <button class="파티만들기">모집 마감</button>
                 </td>
               </tr>
             </tbody>
@@ -44,7 +46,7 @@
         </div>
       </div>
       <div class="box-right" v-show='showDetail'>
-        <TogetherDetailmore v-show='showDetail' @close-toggle="closeToggle" />
+        <TogetherDetailmore :groupid="selectedGroupId" v-show='showDetail' @close-toggle="closeToggle" />
       </div>
       <div class="box-right" v-show='showMake'>
         <TogetherPartyMake v-show='showMake' @close-toggle2="closeToggle2" />
@@ -66,6 +68,7 @@ const groupStore = useGroupStore();
 const courseStore = useCourseStore();
 const groupList = ref([]);
 const courseName = ref('');
+const courseImg = ref('');
 const route = useRoute();
 
 const closeToggle = function () {
@@ -84,24 +87,28 @@ const showMakeToggle = function () {
 }
 const showDetail = ref(false);
 const showMake = ref(false);
-const selectedItemId = ref(null);
-
-const toggleDetail = (itemId) => {
-  selectedItemId.value = itemId;
+const selectedGroupId = ref(null);
+const course = ref(null);
+const toggleDetail = async (groupid) => {
+  selectedGroupId.value = groupid;
+  await groupStore.getMemberList(groupid);
+  console.log(groupStore.memberList);
   showDetail.value = !showDetail.value;
-  if (showMake.value) {
-    showMake.value = !showMake.value
-  }
+
 };
 
 onMounted(async() => {
     try {
         groupList.value = await groupStore.getGroupList(route.params.courseid);
-        courseName.value = await courseStore.getCourse(route.params.courseid).name
+        course.value = (await courseStore.getCourse(route.params.courseid));
+        courseName.value = course.value.name;
+        courseImg.value = course.value.img;
+        
     } catch (error){
         console.log(error);
     }
-
+    
+  
     // watch( () => [courseStore.courseList], async  ([newList]) => {
     //     coList.value = newList;
     //     console.log(courseStore.courseList)

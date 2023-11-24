@@ -1,10 +1,10 @@
 package com.tajo.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.tajo.dto.Group;
 import com.tajo.dto.GroupInfo;
+import com.tajo.dto.User;
 
 public interface GroupDao {
 
@@ -20,7 +20,7 @@ public interface GroupDao {
 
 
 
-	void getAttendants(int id);
+	List<User> getAttendants(int groupid);
 
 	void insertUserGroup(GroupInfo groupInfo);
 
