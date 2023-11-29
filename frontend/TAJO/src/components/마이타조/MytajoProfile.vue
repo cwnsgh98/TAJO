@@ -6,7 +6,6 @@
             </div>
             <div class="프로필">
                 <span class="gradepyo">{{nickname}}</span> 
-                <a class="check">프로필편집</a>
             </div>
             </div>
             <div v-if="!user">

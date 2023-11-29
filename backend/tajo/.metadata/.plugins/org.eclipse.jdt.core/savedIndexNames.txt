@@ -1,3 +1,0 @@
-INDEX VERSION 1.131+C:\tajo\.metadata\.plugins\org.eclipse.jdt.core
-1360026220.index
-2102378262.index

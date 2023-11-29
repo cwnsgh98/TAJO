@@ -1,7 +1,0 @@
-package com.tajo.controller;
-
-
-@Controller
-public class CourseController {
-
-}

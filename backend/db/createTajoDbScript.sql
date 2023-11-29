@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `tajodb`.`groupBoard` (
   `content` VARCHAR(45) NULL,
   `date` VARCHAR(45) NULL,
   `limit` int default 10,
-  `people` int default 0,
+  `people` int default 1,
   `course` varchar(45),
   `courseid` INT NOT NULL,
   PRIMARY KEY (`groupid`),

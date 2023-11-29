@@ -4,7 +4,7 @@
         <div class="head">
           <button class="뒤로" @click="$emit('closeToggle')">&lt;</button>
           <div class="partyheader">
-            <span class="파티이름">파티 {{ groupid }}</span>
+            <span class="파티이름"> {{ selectedName }}</span>
           </div>
         </div>
         <div class="파티원목록">
@@ -19,7 +19,7 @@
               </thead>
               <tbody>
                 <tr v-for="(user, index) in userList " :key="user.userid">
-                  <td style="width: 10%;">{{ index }}</td>
+                  <td style="width: 10%;">{{ index +1 }}</td>
                   <td style="width: 30%;">{{ user.nickname }}</td>
                   <td style="width: 30%;"><img :src="user.srcImg"></td>
                 </tr>
@@ -50,6 +50,7 @@ import ostrich7Image from '@/assets/ostrich7.png';
 import ostrich8Image from '@/assets/ostrich8.png';
 const props = defineProps({
   groupid:Number,
+  selectedName:String,
 })
 const groupStore = useGroupStore();
 const userList = ref([])

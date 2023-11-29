@@ -60,12 +60,17 @@ const handleCreate = async () => {
     const group = {
       courseid: route.params.courseid,
       content : content.value,
-      writer : localStorage.getItem(localStorage) ? localStorage.getItem(localStorage).nickname : '익명' ,
+      writer : localStorage.getItem('loginUser') ? JSON.parse(localStorage.getItem('loginUser')).nickname : '익명' ,
       limit : selectedParticipants.value,
       date : date.value,
     }
 
     await groupStore.makeGroup(group);
+    //지금 전체 그룹 리스트 받아온다음에 거기서 그룹아이다가 가장높은놈이 방금 만든놈이니까 걔를 전체리스트에서 정렬해서 찾아서
+    // 걔랑 지금 로그인한 아이디로 그룹에 넣는다.
+    const getGroupList = await groupStore.getGroupList(route.params.courseid);
+    const gid = getGroupList[0].groupid;
+    groupStore.insertMember(gid);
     router.go(`/Toteger/${route.params.courseid}/Detail`)
     // console.log(selectedFinishTime.value)
   } else {

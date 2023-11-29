@@ -5,7 +5,7 @@
       <div class="box-left">
         <span class="게시판이름">{{courseName}} 게시판</span>
         <div class="courseinfo">
-          <RouterLink to="/Together">
+          <RouterLink class="여기에두자" to="/Together">
             <button class="뒤로">&lt;</button>
           </RouterLink>
           
@@ -16,7 +16,6 @@
           <table>
             <thead>
               <tr>
-                <th>번호</th>
                 <th>제목</th>
                 <th>코스</th>
                 <th>파티장</th>
@@ -28,14 +27,13 @@
             <tbody>
             
               <tr v-for="group in groupList" :key="group.groupid">
-                <td>{{ group.groupid }}</td>
                 <td>{{ group.content }}</td>
                 <td>{{ courseName }}</td>
                 <td>{{ group.writer }}</td>
-                <td>{{ group.people }} / {{ group.limit }}</td>
+                <td>{{ group.people}} / {{ group.limit }}</td>
                 <td>{{ group.date }}</td>
                 <td v-if="group.people!=group.limit"> <!--여기서 그룹에 참여한 인원 수와 limit을 비교하여 마감/입장 나누고 싶다..-->
-                  <button @click="toggleDetail(group.groupid)">파티 입장</button>
+                  <button @click="toggleDetail(group.groupid, group.content)">파티 입장</button>
                 </td>
                 <td v-else>
                   <button class="파티만들기">모집 마감</button>
@@ -46,7 +44,7 @@
         </div>
       </div>
       <div class="box-right" v-show='showDetail'>
-        <TogetherDetailmore :groupid="selectedGroupId" v-show='showDetail' @close-toggle="closeToggle" />
+        <TogetherDetailmore :groupid="selectedGroupId" :name="selectedName" v-show='showDetail' @close-toggle="closeToggle" />
       </div>
       <div class="box-right" v-show='showMake'>
         <TogetherPartyMake v-show='showMake' @close-toggle2="closeToggle2" />
@@ -70,7 +68,7 @@ const groupList = ref([]);
 const courseName = ref('');
 const courseImg = ref('');
 const route = useRoute();
-
+const selectedName = ref('');
 const closeToggle = function () {
   showDetail.value = false;
 
@@ -89,7 +87,9 @@ const showDetail = ref(false);
 const showMake = ref(false);
 const selectedGroupId = ref(null);
 const course = ref(null);
-const toggleDetail = async (groupid) => {
+
+const toggleDetail = async (groupid, content) => {
+  selectedName.value = content;
   selectedGroupId.value = groupid;
   await groupStore.getMemberList(groupid);
   console.log(groupStore.memberList);
@@ -127,10 +127,19 @@ onMounted(async() => {
   background-color: white;
   /* 배경색을 흰색 또는 다른 적절한 색상으로 설정하세요 */
 }
+.여기에두자{
+  padding-right: 50px;
+
+}
 .뒤로 {
     background-color: rgb(218, 238, 255);
     padding-top: 3px;
     padding-bottom: 3px;
+}
+img{
+  min-width: 400px;
+  min-height: 240px;
+  border: 4px solid black;
 }
 .courseinfo {
   display: flex;

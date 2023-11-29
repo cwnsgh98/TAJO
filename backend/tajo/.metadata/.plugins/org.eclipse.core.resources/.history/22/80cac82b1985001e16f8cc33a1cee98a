@@ -1,8 +1,0 @@
-package com.tajo.dto;
-
-public class Group {
-	String title;
-	String content;
-	String location;
-	
-}
