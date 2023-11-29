@@ -117,11 +117,7 @@ together party 수정
 game 수정
 
 
-
-
-
-
-
+--11.24 최종-
 HomeReco 수정
 togeteherdetailcourse 수정
 group.js수정
