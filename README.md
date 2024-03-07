@@ -1,3 +1,8 @@
-# TAJO
-web project for samsung software academy for youth
-프로젝트 정보를 수정중입니다.
+# 프로젝트 소개
+
+# 목차
+
+# 기술 스택
+# 기능 소개
+# 산출물
+# 제작기간 및 참여인원
