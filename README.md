@@ -56,10 +56,10 @@
 - 파티를 만들고싶다면 만들기를 선택해서 제목, 인원, 날짜,시작시간을 선택후 만들기를 누르면 만들어집니다.
 
 # 산출물
-[요구사항 정의서]() 
-[유즈케이스 다이어그램]() 
-[ERD]()
-[클래스 다이어그램]() 
+- [요구사항 정의서](https://github.com/soberdam/TAJO/blob/main/docs/TAJO_%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%20%EB%AA%85%EC%84%B8%EC%84%9C.docx) 
+- [유즈케이스 다이어그램](https://github.com/soberdam/TAJO/blob/main/docs/TAJO_%EC%9C%A0%EC%A6%88%EC%BC%80%EC%9D%B4%EC%8A%A4%20%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8.png) 
+- [ERD](https://github.com/soberdam/TAJO/blob/main/docs/TAJO_ERD.PNG)
+- [클래스 다이어그램](https://github.com/soberdam/TAJO/blob/main/docs/TAJO_%ED%81%B4%EB%9E%98%EC%8A%A4%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8.png) 
 
 # 제작기간 및 참여인원
 ### 개발 기간
